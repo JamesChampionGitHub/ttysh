@@ -538,7 +538,7 @@ echo "
 
 HELP: j and k to go down and up. q to return to menu.
 
-Key: "()" denote shortcut keys, e.g. "(b)" means pressing the "b" key in the selector will load the (b)irthdays selection.
+Key: () denote shortcut keys, e.g. (b) means pressing the b key in the selector will load the (b)irthdays selection.
 
 
 		Pinned/
