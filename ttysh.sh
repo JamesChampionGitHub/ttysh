@@ -65,9 +65,11 @@ function wizardttysh(){
 
 sudo pacman -Syu --noconfirm
 
+# install go as dependency for yay
 # install yay package manager
 # need to research
 
+sudo pacman -S --noconfirm go
 sudo pacman -S --needed --noconfirm git base-devel
 git clone https://aur.archlinux.org/yay.git
 cd yay
@@ -107,14 +109,14 @@ sudo pacman -S --noconfirm mpv
 sudo pacman -S --noconfirm fzf
 sudo pacman -S --noconfirm screen
 
-echo "
+echo -e "
 #!/bin/sh
 
 x=0
 
 while [ $x = 0 ]; do
 
-echo -e "\nPress 'c' to start your search. Press 'q' to exit\n"
+echo "\nPress 'c' to start your search. Press 'q' to exit\n"
 	read answer
 	case $answer in
 
