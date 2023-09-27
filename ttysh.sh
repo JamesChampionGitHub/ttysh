@@ -171,14 +171,14 @@ mkdir /home/$USER/info
 echo -e "
 BIRTHDAYS
 
-" > /home/$USER/info/birthdays
+" > /home/$USER/info/birthdays.txt
 
 echo -e "
 split
 
 focus up
 
-screen -t vim /usr/bin/vim /home/\$USER/birthdays
+screen -t vim /usr/bin/vim /home/\$USER/info/birthdays.txt
 
 focus down
 
@@ -193,7 +193,7 @@ focus up
 # make notes file and the sceenrc_notes_split
 
 echo -e "
-NOTES
+\nNOTES
 
 " > /home/$USER/info/notes.txt
 
@@ -201,7 +201,7 @@ echo -e "split
 
 focus up
 
-screen -t vim /usr/bin/vim /home/\$USER/info/notes
+screen -t vim /usr/bin/vim /home/\$USER/info/notes.txt
 
 focus down
 
