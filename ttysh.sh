@@ -1159,10 +1159,12 @@ echo -e "\n	awaiting...\n"
 		x=0
 		;;
 		yt)
+		cd /home/$USER/Videos/
 		yt
 		x=0
 		;;
 		mus)
+		cd /home/$USER/Music/
 		ytmusic
 		x=0
 		;;
