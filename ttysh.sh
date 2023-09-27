@@ -4,6 +4,7 @@
 # 	  For all level of user. 
 #
 # TO DO:
+#
 # add weather shortcut 
 # work on user enviroment for sudo/root user, e.g. cat out notes. suggest if statement
 # change text size
@@ -128,9 +129,9 @@ echo \"Press 'c' to start your search. Press 'q' to exit\"
 	esac
 done
 
-" > /home/$USER/mpv_fzf_screen.sh
+" > /home/$USER/.mpv_fzf_screen.sh
 
-chmod +x /home/$USER/mpv_fzf_screen.sh
+chmod +x /home/$USER/.mpv_fzf_screen.sh
 
 echo -e "
 split
@@ -141,7 +142,7 @@ chdir /home/\$USER/Downloads
 
 screen -t bash /bin/bash
 
-screen -t ./mpv_fzf_screen.sh /home/\$USER/mpv_fzf_screen.sh
+screen -t ./mpv_fzf_screen.sh /home/\$USER/.mpv_fzf_screen.sh
 
 focus down
 
@@ -167,7 +168,10 @@ sudo pacman -S --noconfirm vim
 
 mkdir /home/$USER/info
 
-touch /home/$USER/info/birthdays
+echo -e "
+BIRTHDAYS
+
+" > /home/$USER/info/birthdays
 
 echo -e "
 split
@@ -188,7 +192,10 @@ focus up
 
 # make notes file and the sceenrc_notes_split
 
-touch /home/$USER/info/notes.txt
+echo -e "
+NOTES
+
+" > /home/$USER/info/notes.txt
 
 echo -e "split
 
@@ -241,7 +248,7 @@ do
 	x=0
 	;;
 	yt)
-	/home/\$USER/./yt.sh
+	/home/\$USER/./.yt.sh
 	x=1
 	;;
 	q)
@@ -251,9 +258,9 @@ do
 
 done
 
-" > /home/$USER/yt.sh
+" > /home/$USER/.yt.sh
 
-chmod +x /home/$USER/yt.sh
+chmod +x /home/$USER/.yt.sh
 
 echo -e "split
 
@@ -267,7 +274,7 @@ chdir /home/\$USER/Videos/
 
 screen -t bash /bin/bash
 
-screen -t ./yt.sh /home/\$USER/yt.sh
+screen -t ./yt.sh /home/\$USER/.yt.sh
 
 focus up
 
@@ -391,9 +398,9 @@ echo -e "#!/bin/bash
 
 mpv \"\$(find /home/\$USER/Videos | fzf)\"
 
-" > /home/$USER/mpv_fzf_screen_videos.sh
+" > /home/$USER/.mpv_fzf_screen_videos.sh
 
-chmod +x /home/$USER/mpv_fzf_screen_videos.sh
+chmod +x /home/$USER/.mpv_fzf_screen_videos.sh
 
 echo -e "
 split
@@ -408,7 +415,7 @@ chdir /home/\$USER/Videos
 
 screen -t bash /bin/bash
 
-screen -t ./mpv_fzf_screen_videos.sh /home/\$USER/mpv_fzf_screen_videos.sh
+screen -t ./mpv_fzf_screen_videos.sh /home/\$USER/.mpv_fzf_screen_videos.sh
 
 focus up
 
