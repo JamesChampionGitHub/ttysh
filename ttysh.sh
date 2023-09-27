@@ -40,7 +40,7 @@ tuuid=$(echo $tdrive)
 tdevname=$(ls /dev/disk/by-uuid/ -l | grep $tuuid | awk '{print$11}' | tr -d /.)
 tencryptedname="timeshiftbackup"
 tunmounting=$(lsblk | grep $tencryptedname | awk '{print $7}')
-echo -e "\nAwaiting $tuuid\n"
+#echo -e "\nAwaiting $tuuid\n"
 
 
 #
@@ -109,19 +109,18 @@ sudo pacman -S --noconfirm mpv
 sudo pacman -S --noconfirm fzf
 sudo pacman -S --noconfirm screen
 
-echo -e "
-#!/bin/sh
+echo -e "#!/bin/sh
 
 x=0
 
-while [ $x = 0 ]; do
+while [ \$x = 0 ]; do
 
-echo "\nPress 'c' to start your search. Press 'q' to exit\n"
+echo \"Press 'c' to start your search. Press 'q' to exit\"
 	read answer
-	case $answer in
+	case \$answer in
 
 	c)
-	mpv "$(find /home/$USER/Downloads | fzf)"
+	mpv \"\$(find /home/\$USER/Downloads | fzf)\"
 	x=0
 	;;
 	q)
@@ -134,21 +133,20 @@ done
 
 chmod +x /home/$USER/mpv_fzf_screen.sh
 
-echo "
-
+echo -e "
 split
 
 focus up
 
-chdir /home/$USER/Downloads
+chdir /home/\$USER/Downloads
 
 screen -t bash /bin/bash
 
-screen -t ./mpv_fzf_screen.sh /home/$USER/mpv_fzf_screen.sh
+screen -t ./mpv_fzf_screen.sh /home/\$USER/mpv_fzf_screen.sh
 
 focus down
 
-screen -t lynx /usr/bin/lynx /home/$USER/Downloads
+screen -t lynx /usr/bin/lynx /home/\$USER/Downloads
 
 " > /home/$USER/.screenrc.lynx
 
@@ -172,17 +170,16 @@ mkdir /home/$USER/info
 
 touch /home/$USER/info/birthdays
 
-echo "
-
+echo -e "
 split
 
 focus up
 
-screen -t vim /usr/bin/vim /home/$USER/birthdays
+screen -t vim /usr/bin/vim /home/\$USER/birthdays
 
 focus down
 
-chdir /home/$USER/
+chdir /home/\$USER/
 
 screen -t bash /bin/bash
 
@@ -194,17 +191,15 @@ focus up
 
 touch /home/$USER/info/notes.txt
 
-echo "
-
-split
+echo -e "split
 
 focus up
 
-screen -t vim /usr/bin/vim /home/$USER/info/notes
+screen -t vim /usr/bin/vim /home/\$USER/info/notes
 
 focus down
 
-chdir /home/$USER/
+chdir /home/\$USER/
 
 screen -t bash /bin/bash
 
@@ -216,39 +211,38 @@ focus up
 
 sudo pacman -S --noconfirm newsboat
 
-echo "
-#!/bin/bash
+echo -e "#!/bin/sh
 
 # A script for yt-dlp with search arguments.
 
 x=0
 
-url=$(xclip -o)
+url=\$(xclip -o)
 
-while [  $x = 0 ]
+while [ \$x = 0 ]
 do
 
-	echo "y to enter video creator and video discription. x to download url from xclip. m to download music url from xclip. q to quit. yt to run again."
+	echo \"y to enter video creator and video discription. x to download url from xclip. m to download music url from xclip. q to quit. yt to run again.\"
 
 	read answer
-	case "$answer" in
+	case \"\$answer\" in
 	
 	y)
-	echo "Enter the creator and discription."
+	echo \"Enter the creator and discription.\"
 	read video
-	yt-dlp -f 'bv*[height=480]+ba' "ytsearch1:$video"
+	yt-dlp -f 'bv*[height=480]+ba' \"ytsearch1:\$video\"
 	x=0
 	;;
 	x)
-	yt-dlp -f 'bv*[height=480]+ba' "$url"
+	yt-dlp -f 'bv*[height=480]+ba' \"\$url\"
 	x=0
 	;;
 	m)
-	yt-dlp -f 'ba' -x --audio-format mp3 $url
+	yt-dlp -f 'ba' -x --audio-format mp3 \$url
 	x=0
 	;;
 	yt)
-	/home/$USER/./yt.sh
+	/home/\$USER/./yt.sh
 	x=1
 	;;
 	q)
@@ -262,9 +256,7 @@ done
 
 chmod +x /home/$USER/yt.sh
 
-echo "
-
-split
+echo -e "split
 
 focus up
 
@@ -272,11 +264,11 @@ screen -t newsboat /usr/bin/newsboat
 
 focus down
 
-chdir /home/$USER/Videos/
+chdir /home/\$USER/Videos/
 
 screen -t bash /bin/bash
 
-screen -t ./yt.sh /home/$USER/yt.sh
+screen -t ./yt.sh /home/\$USER/yt.sh
 
 focus up
 
@@ -286,19 +278,17 @@ focus up
 
 sudo pacman -S --noconfirm mutt
 
-echo "
+echo -e "set folder = \"imaps://\"
+set smtp_url = \"smtp://\"
 
-set folder = "imaps://"
-set smtp_url = "smtp://"
+set from = \"\"
+set realname = \"\"
+set editor = \"vim\"
 
-set from = ""
-set realname = ""
-set editor = "vim"
-
-set spoolfile = "+INBOX"
-set record = "+Sent"
-set trash = "+Trash"
-set postponed = "+Drafts"
+set spoolfile = \"+INBOX\"
+set record = \"+Sent\"
+set trash = \"+Trash\"
+set postponed = \"+Drafts\"
 
 mailboxes =INBOX =Sent =Trash =Drafts =Junk
 
@@ -306,17 +296,15 @@ mailboxes =INBOX =Sent =Trash =Drafts =Junk
 
 # make mutt config screen split
 
-echo "
-
-split
+echo -e "split
 
 focus up
 
-screen -t vim /usr/bin/vim /home/$USER/.config/mutt/muttrc
+screen -t vim /usr/bin/vim /home/\$USER/.config/mutt/muttrc
 
 focus down
 
-chdir /home/$USER/.config/mutt/
+chdir /home/\$USER/.config/mutt/
 
 screen -t bash /bin/bash
 
@@ -326,17 +314,15 @@ focus up
 
 # make screen config for listing saved articles
 
-echo "
-
-split
+echo -e "split
 
 focus up
 
-screen -t vim /usr/bin/vim /home/$USER/Downloads
+screen -t vim /usr/bin/vim /home/\$USER/Downloads
 
 focus down
 
-chdir /home/$USER/Downloads
+chdir /home/\$USER/Downloads
 
 screen -t bash /bin/bash
 
@@ -351,14 +337,11 @@ sudo pacman -S --noconfirm xorg-xinit
 sudo pacman -S --noconfirm i3-wm
 sudo pacman -S --noconfirm xterm
 
-echo "
-
-exec i3
+echo -e "exec i3
 
 " > /home/$USER/.xinitrc
 
 echo "
-
 #URxvt*background: black
 #URxvt*foreground: white
 #URxvt*font: xft:monospace:size=12
@@ -387,7 +370,6 @@ XTerm*font6: -*-terminus-medium-*-*-*-32-*-*-*-*-*-iso10646-1
 " > /home/$USER/.Xdefaults
 
 echo "
-
 XTerm.vt100.foreground: white
 XTerm.vt100.background: black
 XTerm.vt100.color0: rgb:28/28/28
@@ -406,30 +388,28 @@ XTerm*font6: -*-terminus-medium-*-*-*-32-*-*-*-*-*-iso10646-1
 
 # make screen list videos config
 
-echo "
-#!/bin/bash
+echo -e "#!/bin/bash
 
-mpv "$(find /home/$USER/Videos | fzf)"
+mpv \"\$(find /home/\$USER/Videos | fzf)\"
 
 " > /home/$USER/mpv_fzf_screen_videos.sh
 
 chmod +x /home/$USER/mpv_fzf_screen_videos.sh
 
-echo "
-
+echo -e "
 split
 
 focus up
 
-screen -t vim /usr/bin/vim /home/$USER/Videos
+screen -t vim /usr/bin/vim /home/\$USER/Videos
 
 focus down
 
-chdir /home/$USER/Videos
+chdir /home/\$USER/Videos
 
 screen -t bash /bin/bash
 
-screen -t ./mpv_fzf_screen_videos.sh /home/$USER/mpv_fzf_screen_videos.sh
+screen -t ./mpv_fzf_screen_videos.sh /home/\$USER/mpv_fzf_screen_videos.sh
 
 focus up
 
@@ -462,8 +442,7 @@ sudo pacman -S --noconfirm htop
 
 # make four way screen split
 
-echo "
-
+echo -e "
 split
 
 split -v
@@ -500,8 +479,7 @@ focus left
 
 # make horizontal screen split
 
-echo "
-
+echo -e "
 split
 
 focus up
@@ -518,7 +496,7 @@ focus up
 
 # make virtical screen split
 
-echo "
+echo -e "
 
 split -v
 
@@ -536,7 +514,7 @@ focus left
 
 # make ttysh help/selection
 
-echo "
+echo -e "
 
 HELP: j and k to go down and up. q to return to menu.
 
@@ -624,7 +602,7 @@ Key: () denote shortcut keys, e.g. (b) means pressing the b key in the selector 
 
 			*NOTE: RUN THE ABOVE ON REMOVABLE MEDIA BEFORE MAKING YOUR BACKUPS.
 
-	 		stop! first run as sudo su!: (ba)ckup /home/$SUDO_USER/ to removable drive/
+	 		stop! first run as sudo su!: (ba)ckup /home/\$SUDO_USER/ to removable drive/
 
 			stop! first run sudo su!: (ti)meshift backup to removable drive/
 
