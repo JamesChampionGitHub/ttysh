@@ -4,7 +4,6 @@
 # 	  For all level of user. 
 #
 # TO DO:
-# have help as an editable file, so that pinned can be ammended by the user
 # add weather shortcut 
 # work on user enviroment for sudo/root user, e.g. cat out notes. suggest if statement
 # change text size
@@ -1407,7 +1406,7 @@ echo -e "\n  TTYSH\n"
 
 while [ $x = 0 ]; do
 
-	echo -e "\n  (c)ontinue, (s)lection, (h)elp, (config) wizard, or (q)uit?\n" 
+	echo -e "\n  (c)ontinue, (s)lection, (h)elp, edit (hel)p, (config) wizard, or (q)uit?\n" 
 		
 	read intro
 
