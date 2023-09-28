@@ -1,0 +1,29 @@
+Issues:
+
+Done: yay install asking to Y/n. --noconfirm not working. 
+	Fix: --noconfirm added to makepkg. Needs testing.
+Done: mutt configuration file missing when issuing mu.
+	Fix: hopefully, mkdir -p directory for mutt and touch muttrc. Needs testing.
+
+Done: notes and birthdays files are missing.
+	Fix: hopefully, correct paths now. Needs testing.
+
+Done: Not automating Y on installtion of go.
+	Fix: hopefully, installing go before yay to avoid the issue. Needs testing.
+
+Done: Random opening of fzf before Browsh, something weird with opening.
+	Fix: hopefully, needed to exit out special characters with the \ echo commands. Needs testing.
+
+Done: move TTYSH to /usr/lib/bin thing, and chmod/chown it to root. 
+	Fix: as above. Requires more testing.
+
+ToDo: Random ttysh.sh generation?
+	Possible fix: see above.
+
+Done: hasn't made muttrc?
+	Fix: hopefully, see regarding issue with fzf, exiting out of "". Needs testing.
+
+
+Completed:
+
+Done: yt-dlp needs to save the videos and music in the Videos directory. Tested.
