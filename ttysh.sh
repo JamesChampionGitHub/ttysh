@@ -73,7 +73,7 @@ sudo pacman -S --noconfirm go
 sudo pacman -S --needed --noconfirm git base-devel
 git clone https://aur.archlinux.org/yay.git
 cd yay
-makepkg -si
+makepkg -si --noconfirm
 
 # install some misc. AUR packages
 
