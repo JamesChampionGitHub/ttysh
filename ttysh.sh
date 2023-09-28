@@ -284,6 +284,8 @@ focus up
 
 sudo pacman -S --noconfirm mutt
 
+mkdir -p /home/$USER/.config/mutt/ && touch /home/$USER/.config/mutt/muttrc
+
 echo -e "set folder = \"imaps://\"
 set smtp_url = \"smtp://\"
 
