@@ -656,6 +656,8 @@ Key: () denote shortcut keys, e.g. (b) means pressing the b key in the selector 
 
 " > /home/$USER/.ttysh.selection
 
+sudo mv ttysh.sh /usr/local/bin/ttysh; sudo chown root:root /usr/local/bin/ttysh
+
 echo -e "\n	TTYSH Wizard has finished. Please exit out of TTYSH and reboot to complete.\n"
 
 }
