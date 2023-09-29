@@ -2,15 +2,6 @@
 
 # TTYSH : A daily driver and "desktop/non-desktop" experience for the tty.
 # 	  For all level of user. 
-#
-# TO DO:
-#
-# add weather shortcut 
-# work on user enviroment for sudo/root user, e.g. cat out notes. suggest if statement
-# change text size
-# use /dev/null for errors
-# replace echo with printf
-# Mouse support for browsh with gpm
 
 
 #
@@ -658,6 +649,7 @@ Key: () denote shortcut keys, e.g. (b) means pressing the b key in the selector 
 
 " > /home/$USER/.ttysh.selection
 
+sudo mv splash_ttysh.png /home/$USER/.splash_ttysh.png
 sudo mv ttysh.sh /usr/local/bin/ttysh; sudo chown root:root /usr/local/bin/ttysh
 
 echo -e "\n	TTYSH Wizard has finished. Please exit out of TTYSH and reboot to complete.\n"
@@ -1002,6 +994,7 @@ while [ $tuuid = $tdrive ]; do
 
 	echo -e "\nDo you want to delete a backup? press d to continue\n
 		\nq to exit\n"
+
 	read answer
 
 	case "$answer" in 
@@ -1385,7 +1378,7 @@ echo -e "\n	awaiting...\n"
 		x=0
 		;;
 		tty)
-		/home/$USER/./ttysh.sh
+		ttysh
 		x=1
 		;;
 		res)
@@ -1415,11 +1408,40 @@ done
 
 clear
 
+#clear replaces /dev/null and variations as they crash mpv
+#[[ ]] needs work, and is forcing an enter key press to continue after mpv and clear
+#[[ -f /usr/local/bin/ttyhs ]] && [[ -f /home/$USER/.splash_ttysh.png ]]; mpv /home/$USER/.splash_ttysh.png; clear; || echo "If you are using this for the first time, configuration is required. Do you want to continue? y/n"
+#	read answer
+#	case "$answer" in
+#		y)
+#		echo "true"; exit
+#		;;
+#		n)
+#		echo "false"; exit
+#		;;
+#	esac
+
+if [ -f /usr/local/bin/ttysh ]; then
+	mpv /home/$USER/.splash_ttysh.png; clear
+else
+	echo -e "\First time using TTYSH, or you do not yet have TTYSH setup and configured? Press y to begin setup, or press n to exit.\n"
+	read answer
+
+	case "$answer" in
+		y)
+		wizardttysh
+		;;
+		n)
+		echo "exiting"; exit 
+		;;
+		esac
+fi
+
 echo -e "\n  TTYSH\n"
 
 while [ $x = 0 ]; do
 
-	echo -e "\n  (c)ontinue, (s)lection, (h)elp, edit (hel)p, (config) wizard, or (q)uit?\n" 
+	echo -e "\n  (c)ontinue, (s)election, (h)elp, edit (hel)p, (config) wizard, or (q)uit?\n" 
 		
 	read intro
 

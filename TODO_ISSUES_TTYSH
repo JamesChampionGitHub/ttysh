@@ -1,4 +1,15 @@
-Issues:
+TO DO:
+
+add weather shortcut. 
+if xorg for lock screen and fzf video etc...
+work on user enviroment for sudo/root user, e.g. cat out notes. suggest if statement
+change text size
+use /dev/null for errors
+replace echo with printf
+Mouse support for browsh with gpm
+
+
+ISSUES:
 
 Done: yay install asking to Y/n. --noconfirm not working. 
 	Fix: --noconfirm added to makepkg. Needs testing.
@@ -24,6 +35,10 @@ Done: hasn't made muttrc?
 	Fix: hopefully, see regarding issue with fzf, exiting out of "". Needs testing.
 
 
-Completed:
+COMPLETED:
 
 Done: yt-dlp needs to save the videos and music in the Videos directory. Tested.
+
+Done: splash screen: added, but requires if statement located in the /usr/local/ for mpv and config
+NOTE: future usage of [[]] to be done.
+
