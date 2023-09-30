@@ -633,6 +633,9 @@ Key: () denote shortcut keys, e.g. (b) means pressing the b key in the selector 
 
 			(lo)ck console/
 
+			*NOTE: if you are in xorg/i3, press Ctrl + Alt + and an F key to return to the TTY
+			      before you lock the console.
+
 			(res)tart/
 
 			(sh)utdown/

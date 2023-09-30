@@ -1,5 +1,6 @@
 TO DO:
 
+splash screen: devour window in xorg
 add weather shortcut. 
 if xorg for lock screen and fzf video etc...
 work on user enviroment for sudo/root user, e.g. cat out notes. suggest if statement
@@ -13,6 +14,7 @@ ISSUES:
 
 Done: yay install asking to Y/n. --noconfirm not working. 
 	Fix: --noconfirm added to makepkg. Needs testing.
+
 Done: mutt configuration file missing when issuing mu.
 	Fix: hopefully, mkdir -p directory for mutt and touch muttrc. Needs testing.
 
