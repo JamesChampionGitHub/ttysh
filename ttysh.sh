@@ -526,11 +526,9 @@ focus left
 
 # make ttysh help/selection
 
-echo -e "
+echo -e "\nHELP: j and k to go down and up. q to go to menu.
 
-HELP: j and k to go down and up. q to return to menu.
-
-Key: () denote shortcut keys, e.g. (b) means pressing the b key in the selector will load the (b)irthdays selection.
+\nKey: \(\) denote shortcut keys, e.g. \(b\) means pressing the b key to get to the selector will load the \(b\)irthdays selection.
 
 
 		Pinned/
@@ -538,138 +536,140 @@ Key: () denote shortcut keys, e.g. (b) means pressing the b key in the selector 
 
 		Internet/
 
-			(ly)nx with image viewer for saved/
+			\(ly\)nx with image viewer/
 
-			(bro)wsh web browser/
+			\(bro\)wsh web browser/
 
-			(brow)sh configuration in xorg/
+			\(brow\)sh configuration xorg/
 
-			(lib)rewolf in xorg/ 
+			\(lib\)rewolf xorg/ 
 
-			(p)ing jameschampion.xyz/
+			\(p\)ing jameschampion.xyz/
 
 		Email/
 
-			(e)mail/
+			\(e\)mail/
 
-			(mu)tt email configuation/
+			\(mu\)tt email configuation/
 
 		Search/
 
-			(fi)le manager/
+			\(fi\)le manager/
 
-			search & play video in (t)ty/or (se)earch & play in gui/
+			search & play video with \(t\)ty/or \(se\)earch & play with gui/
 
-			(fz)f search files to open in Vim/
+			\(fz\)f search files to open with Vim/
 
-			search files to open in (pdf)/
+			search files to open with \(pdf\)/
 
-			(a)rticles/
+			\(a\)rticles/
 
 		Music/
 
-			(cm)us/
+			\(cm\)us/
 
-			cmus-control: (ne)xt/ (pr)evious/ pa(u)se/ (f)orward/ (st)atus/
+			cmus-control: \(ne\)xt/ \(pr\)evious/ pa\(u\)se/ \(f\)orward/ \(st\)atus/
 
-			(al)samixer/
+			\(al\)samixer/
 
-			(mus)ic search on yt-dlp/
+			\(mus\)ic search on yt-dlp/
 
 		Video/
 
-			play your (vid)eos/
+			play your \(vid\)eos/
 
-			(l)ist videos/
+			\(l\)ist videos/
 
-			video search on (yt)-dlp/
+			video search on \(yt\)-dlp/
 
 		Record/
 
-			(sc)reenshot(1,2,3,4,5,6) TTY/
+			\(sc\)reenshot\(1,2,3,4,5,6\) TTY/
 
-			(re)cord your TTY/s/
+			\(re\)cord your TTY/s/
 
 		Wordprocessing/
 
-			(wr)iter/
+			\(wr\)iter/
 
 		Calc/Spreadsheet/
 
-			(sp)readsheet/
+			\(sp\)readsheet/
 
-			(ca)lculator/
+			\(ca\)lculator/
 
 		Accessories/
 
-			(b)irthdays/split/ 
+			\(b\)irthdays/split/ 
 
-			(n)otes/todos/split/ 
+			\(n\)otes/todos/split/ 
 
-			(d)ate & calender/
+			\(d\)ate & calender/
 
 		Backup/
 
-			stop! first run as sudo su!: (di)sk formatting and setting up removable media/
+			first run as sudo su!: \(di\)sk formatting and setting up removable media/
 
 			*NOTE: RUN THE ABOVE ON REMOVABLE MEDIA BEFORE MAKING YOUR BACKUPS.
 
-	 		stop! first run as sudo su!: (ba)ckup /home/\$SUDO_USER/ to removable drive/
+	 		first run as sudo su!: \(ba\)ckup /home/\$SUDO_USER/ to removable drive/
 
-			stop! first run sudo su!: (ti)meshift backup to removable drive/
+			first run sudo su!: \(ti\)meshift backup to removable drive/
 
-			stop! first run sudo su!: (de)lete timeshift backups from removable drive/
+			first run sudo su!: \(de\)lete timeshift backups from removable drive/
 
 		New TTY/
 				
-			(ch)ange(1,2,3,4,5,6) TTY/
+			\(ch\)ange\(1,2,3,4,5,6\) TTY/
 
-			*NOTE: cannot use this selection in screen split. Use alt+number or alt+arrow key instead
+			*NOTE: cannot use this selection with screen split. Use alt+number or alt+arrow key instead
 
 		Screen splits/
 
-			(scr)een four panel split/
+			\(scr\)een four panel split/
 
-			(scre)en horizontal split/
+			\(scre\)en horizontal split/
 
-			(scree)n vertical split/
+			\(scree\)n vertical split/
 
 		Close Xorg/
 
-			close (x)org and return to TTY/
+			close \(x\)org and go to TTY/
 
 		System/Utilities
 
-			(ht)op/
+			\(up\)date the system/
 
-			(c)lock/
+			\(ht\)op/
 
-			(lo)ck console/
+			\(c\)lock/
 
-			*NOTE: if you are in xorg/i3, press Ctrl + Alt + and an F key to return to the TTY
+			\(lo\)ck console/
+
+			*NOTE: when you are using xorg/i3, press Ctrl + Alt + and an F key to go to the TTY
 			      before you lock the console.
 
-			(res)tart/
+			\(res\)tart/
 
-			(sh)utdown/
+			\(sh\)utdown/
 
 		Rerun/Help/Quit/
 
-			rerun (tty)sh/
+			rerun \(tty\)sh/
 
-			(h)elp/
+			\(h\)elp/
 
-			edit (hel)p to add and remove your pinned selections
+			edit \(hel\)p to add and remove your pinned selections
 
-			(q)uit/
+			\(q\)uit/
 
 " > /home/$USER/.ttysh.selection
 
 sudo mv splash_ttysh.png /home/$USER/.splash_ttysh.png
-sudo mv ttysh.sh /usr/local/bin/ttysh; sudo chown root:root /usr/local/bin/ttysh
+sudo mv ttysh.sh /usr/local/bin/ttysh 
+chown root:root /usr/local/bin/ttysh
 
 echo -e "\n	TTYSH Wizard has finished. Please exit out of TTYSH and reboot to complete.\n"
-
 }
 
 #
@@ -1397,6 +1397,14 @@ echo -e "\n	awaiting...\n"
 		ttysh
 		x=1
 		;;
+		up)
+		echo
+		sudo pacman -Syu
+		echo
+		yay -Syu
+		echo -e "\n You should now exit TTYSH and reboot your system to complete any new updates.\n"
+		x=0
+		;;	
 		res)
 		sudo reboot
 		x=1
