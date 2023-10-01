@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # TTYSH : A daily driver and "desktop/non-desktop" experience for the tty.
 # 	  For all level of user. 
@@ -113,7 +113,7 @@ sudo pacman -S --noconfirm mpv
 sudo pacman -S --noconfirm fzf
 sudo pacman -S --noconfirm screen
 
-echo -e "#!/bin/sh
+echo -e "#!/bin/bash
 
 x=0
 
@@ -221,7 +221,7 @@ focus up
 
 sudo pacman -S --noconfirm newsboat
 
-echo -e "#!/bin/sh
+echo -e "#!/bin/bash
 
 # A script for yt-dlp with search arguments.
 
