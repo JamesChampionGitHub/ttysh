@@ -11,6 +11,10 @@
 # variable for while loop
 x=0
 
+# splash screen variable for tty/pts
+
+splash=$(tty | tr -d '0123456789')
+
 # ps aux kill xorg
 xorg=$(ps aux | grep -i xorg | awk '{print }' | sed -n '1p')
 
@@ -37,6 +41,15 @@ tunmounting=$(lsblk | grep $tencryptedname | awk '{print $7}')
 #
 # FUNCTIONS
 # 
+
+# function for tty or pts splash screen
+function splashscreen(){
+if [ $splash = /dev/pts/ ]; then
+	devour mpv --really-quiet /home/$USER/.splash_ttysh.png; clear
+else	
+	mpv --really-quiet /home/$USER/.splash_ttysh.png; clear
+fi
+}
 
 # function for shortcuts selection 
 function ttyshhelp(){
@@ -1426,7 +1439,8 @@ clear
 
 # --no-terminal breaks in the TTY, --really-quiet is used as best alternative
 if [ -f /usr/local/bin/ttysh ]; then
-	mpv --really-quiet /home/$USER/.splash_ttysh.png; clear
+	splashscreen
+	#mpv --really-quiet /home/$USER/.splash_ttysh.png; clear
 else
 	echo -e "\First time using TTYSH, or you do not yet have TTYSH setup and configured? Press y to begin setup, or press n to exit.\n"
 	read answer
