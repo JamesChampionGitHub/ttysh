@@ -1424,8 +1424,9 @@ clear
 #		;;
 #	esac
 
+# --no-terminal breaks in the TTY, --really-quiet is used as best alternative
 if [ -f /usr/local/bin/ttysh ]; then
-	mpv /home/$USER/.splash_ttysh.png; clear
+	mpv --really-quiet /home/$USER/.splash_ttysh.png; clear
 else
 	echo -e "\First time using TTYSH, or you do not yet have TTYSH setup and configured? Press y to begin setup, or press n to exit.\n"
 	read answer
