@@ -574,7 +574,7 @@ Key: () denote shortcut keys, e.g. (b) means pressing the b key in the selector 
 
 			(al)samixer/
 
-			(mus)ic search on yt-dlp
+			(mus)ic search on yt-dlp/
 
 		Video/
 
@@ -610,7 +610,7 @@ Key: () denote shortcut keys, e.g. (b) means pressing the b key in the selector 
 
 		Backup/
 
-			stop! first run as sudo su!: (di)sk formatting and setting up removable media
+			stop! first run as sudo su!: (di)sk formatting and setting up removable media/
 
 			*NOTE: RUN THE ABOVE ON REMOVABLE MEDIA BEFORE MAKING YOUR BACKUPS.
 
@@ -1231,7 +1231,7 @@ echo -e "\n	awaiting...\n"
 		x=0
 		;;
 		d)
-		cal; echo "q to return to planner"; date | less
+		cal; date; echo -e "\nq to return to planner\n" | less
 		x=0
 		;;
 		c)
