@@ -666,8 +666,8 @@ echo -e "\nHELP: j and k to go down and up. q to go to menu.
 " > /home/$USER/.ttysh.selection
 
 sudo mv splash_ttysh.png /home/$USER/.splash_ttysh.png
-sudo mv ttysh.sh /usr/local/bin/ttysh 
-chown root:root /usr/local/bin/ttysh
+#sudo mv ttysh.sh /usr/local/bin/ttysh 
+#chown root:root /usr/local/bin/ttysh
 
 echo -e "\n	TTYSH Wizard has finished. Please exit out of TTYSH and reboot to complete.\n"
 }
