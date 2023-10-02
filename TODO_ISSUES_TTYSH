@@ -1,12 +1,11 @@
 TO DO:
 
-splash screen: devour window in xorg
+add network manager
+replace echo with printf
 add weather shortcut. 
-if xorg for lock screen and fzf video etc...
 work on user enviroment for sudo/root user, e.g. cat out notes. suggest if statement
 change text size
 use /dev/null for errors
-replace echo with printf
 Mouse support for browsh with gpm
 
 
@@ -43,4 +42,9 @@ Done: yt-dlp needs to save the videos and music in the Videos directory. Tested.
 
 Done: splash screen: added, but requires if statement located in the /usr/local/ for mpv and config
 NOTE: future usage of [[]] to be done.
+
+Done: splash screen: devour window in xorg
+
+No: if xorg for lock screen and fzf video etc...
+NOTE: not adding, as impractical. Should drop to TTY to lock.
 
