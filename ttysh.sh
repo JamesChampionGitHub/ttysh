@@ -817,6 +817,15 @@ while [ $x = 0 ]; do
 done
 }
 
+# function for devour vid in xorg
+function devourvid(){
+if [ $splash = /dev/pts/ ]; then
+	devour mpv /home/$USER/Videos/*
+else	
+	mpv /home/$USER/Videos/*
+fi
+}
+
 # function for formating and setting up disks for rsync and timeshift
 function diskformat(){
 
@@ -1258,7 +1267,7 @@ echo -e "\n	awaiting...\n"
 		x=0
 		;;
 		vid)
-		mpv /home/$USER/Videos/*
+		devourvid
 		x=0
 		;;
 		fi)
