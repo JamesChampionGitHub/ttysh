@@ -2,7 +2,6 @@ TO DO:
 
 add network manager
 replace echo with printf
-add weather shortcut. 
 work on user enviroment for sudo/root user, e.g. cat out notes. suggest if statement
 change text size
 use /dev/null for errors
@@ -48,3 +47,5 @@ Done: splash screen: devour window in xorg
 No: if xorg for lock screen and fzf video etc...
 NOTE: not adding, as impractical. Should drop to TTY to lock.
 
+Done: add weather shortcut 
+NOTE: weather can be searched. Glitches terminal at the bottom of i3/xterm/

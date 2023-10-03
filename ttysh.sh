@@ -84,6 +84,10 @@ makepkg -si --noconfirm
 yay -S --noconfirm devour
 yay -S --noconfirm xdo-git
 
+# install curl
+
+sudo pacman -S --noconfirm curl
+
 # install python
 
 sudo pacman -S --noconfirm python
@@ -564,6 +568,8 @@ echo -e "\nHELP: j and k to go down and up. q to go to menu.
 
 			\(a\)rticles/
 
+			\(w\)eather/
+
 		Music/
 
 			\(cm\)us/
@@ -815,6 +821,14 @@ while [ $x = 0 ]; do
 	;;
 	esac
 done
+}
+
+# function for searching weather in wttr.in
+
+function weather(){
+echo -e "\nEnter your city or town to see the weather forecast.\n"
+read answer
+curl wttr.in/$answer
 }
 
 # function for devour vid in xorg
@@ -1284,6 +1298,10 @@ echo -e "\n	awaiting...\n"
 		;;
 		fz)
 		fzfvim	
+		x=0
+		;;
+		w)
+		weather
 		x=0
 		;;
 		pdf)
