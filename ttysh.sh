@@ -117,46 +117,12 @@ sudo pacman -S --noconfirm mpv
 sudo pacman -S --noconfirm fzf
 sudo pacman -S --noconfirm screen
 
-echo -e "#!/bin/bash
-
-x=0
-
-while [ \$x = 0 ]; do
-
-echo \"Press 'c' to start your search. Press 'q' to exit\"
-	read answer
-	case \$answer in
-
-	c)
-	mpv \"\$(find /home/\$USER/Downloads | fzf)\"
-	x=0
-	;;
-	q)
-	x=1
-	;;
-	esac
-done
-
-" > /home/$USER/.mpv_fzf_screen.sh
+#try %b with \ to try and escape characters
+printf "%b\n\n%b\n\n%b\n\n%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n%b" '#!/bin/bash' 'x=0' 'while [ $x = 0 ]; do' 'printf "\\n%b\\n" "Press c to start your search. Press q to exit"' 'read answer' 'case $answer in' 'c)' 'mpv "$(find /home/\$USER/Downloads | fzf)"' 'x=0' ';;' 'q)' 'x=1' ';;' 'esac' 'done' > /home/$USER/.mpv_fzf_screen.sh
 
 chmod +x /home/$USER/.mpv_fzf_screen.sh
 
-echo -e "
-split
-
-focus up
-
-chdir /home/\$USER/Downloads
-
-screen -t bash /bin/bash
-
-screen -t ./mpv_fzf_screen.sh /home/\$USER/.mpv_fzf_screen.sh
-
-focus down
-
-screen -t lynx /usr/bin/lynx /home/\$USER/Downloads
-
-" > /home/$USER/.screenrc.lynx
+printf "%b\n\n%b\n\n%b\n\n%b\n\n%b\n\n%b\n\n%b" 'split' 'focus up' 'chdir /home/$USER/Downloads' 'screen -t bash /bin/bash' 'screen -t ./mpv_fzf_screen.sh /home/$USER/.mpv_fzf_screen.sh' 'focus down' 'screen -t lynx /usr/bin/lynx /home/$USER/Downloads' > /home/$USER/.screenrc.lynx
 
 # install browsh web browser
 
@@ -176,117 +142,25 @@ sudo pacman -S --noconfirm vim
 
 mkdir /home/$USER/info
 
-echo -e "
-BIRTHDAYS
+printf "\n%s\n" "BIRTHDAYS" > /home/$USER/info/birthdays.txt
 
-" > /home/$USER/info/birthdays.txt
-
-echo -e "
-split
-
-focus up
-
-screen -t vim /usr/bin/vim /home/\$USER/info/birthdays.txt
-
-focus down
-
-chdir /home/\$USER/
-
-screen -t bash /bin/bash
-
-focus up
-
-" > /home/$USER/.screenrc.birthdays_split
+printf "%b\n\n%b\n\n%b\n\n%b\n\n%b\n\n%b\n\n%b" 'split' 'focus up' 'screen -t vim /usr/bin/vim /home/$USER/info/birthdays.txt' 'focus down' 'chdir /home/$USER/' 'screen -t bash /bin/bash' 'focus up' > /home/$USER/.screenrc.birthdays_split
 
 # make notes file and the sceenrc_notes_split
 
-echo -e "
-\nNOTES
+printf "\n%s\n" "NOTES" > /home/$USER/info/notes.txt
 
-" > /home/$USER/info/notes.txt
-
-echo -e "split
-
-focus up
-
-screen -t vim /usr/bin/vim /home/\$USER/info/notes.txt
-
-focus down
-
-chdir /home/\$USER/
-
-screen -t bash /bin/bash
-
-focus up
-
-" > /home/$USER/.screenrc.notes_split
+printf "%b\n\n%b\n\n%b\n\n%b\n\n%b\n\n%b\n\n%b" 'split' 'focus up' 'screen -t vim /usr/bin/vim /home/$USER/info/notes.txt' 'focus down' 'chdir /home/$USER/' 'screen -t bash /bin/bash' 'focus up' > /home/$USER/.screenrc.notes_split
 
 # install newsboat and make the .screenrc.rss and the yt.sh script
 
 sudo pacman -S --noconfirm newsboat
 
-echo -e "#!/bin/bash
-
-# A script for yt-dlp with search arguments.
-
-x=0
-
-url=\$(xclip -o)
-
-while [ \$x = 0 ]
-do
-
-	echo \"y to enter video creator and video discription. x to download url from xclip. m to download music url from xclip. q to quit. yt to run again.\"
-
-	read answer
-	case \"\$answer\" in
-	
-	y)
-	echo \"Enter the creator and discription.\"
-	read video
-	yt-dlp -f 'bv*[height=480]+ba' \"ytsearch1:\$video\"
-	x=0
-	;;
-	x)
-	yt-dlp -f 'bv*[height=480]+ba' \"\$url\"
-	x=0
-	;;
-	m)
-	yt-dlp -f 'ba' -x --audio-format mp3 \$url
-	x=0
-	;;
-	yt)
-	/home/\$USER/./.yt.sh
-	x=1
-	;;
-	q)
-	x=1
-	;;
-	esac
-
-done
-
-" > /home/$USER/.yt.sh
+printf "%b\n\n%b\n\n%b\n\n%b\n\n%b\n\n\t%b\n\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\n%b" '#!/bin/bash' '# A script for yt-dlp with search arguments.' 'x=0' 'url=$(xclip -o)' 'while [ $x = 0 ]; do' 'echo "y to enter video creator and video discription. x to download url from xclip. m to download music url from xclip. q to quit. yt to run again."' 'read answer' 'case "$answer" in' 'y)' 'echo "Enter the creator and discription."' 'read video' "yt-dlp -f 'bv*[height=480]+ba' \"ytsearch1:\$video\"" 'x=0' ';;' 'x)' "yt-dlp -f 'bv*[height=480]+ba' \"\$url\"" 'x=0' ';;' 'm)' "yt-dlp -f 'ba' -x --audio-format mp3 \$url" 'x=0' ';;' 'yt)' '/home/$USER/./.yt.sh' 'x=1' ';;' 'q)' 'x=1' ';;' 'esac' 'done' > /home/$USER/.yt.sh
 
 chmod +x /home/$USER/.yt.sh
 
-echo -e "split
-
-focus up
-
-screen -t newsboat /usr/bin/newsboat
-
-focus down
-
-chdir /home/\$USER/Videos/
-
-screen -t bash /bin/bash
-
-screen -t ./yt.sh /home/\$USER/.yt.sh
-
-focus up
-
-" > /home/$USER/.screenrc.rss
+printf "%b\n\n%b\n\n%b\n\n%b\n\n%b\n\n%b\n\n%b\n\n%b\n\n" 'split' 'focus up' 'screen -t newsboat /usr/bin/newsboat' 'focus down' 'chdir /home/$USER/Videos/' 'screen -t bash /bin/bash' 'screen -t ./yt.sh /home/\$USER/.yt.sh' 'focus up' > /home/$USER/.screenrc.rss
 
 # install mutt email and make muttrc for configuration
 
@@ -294,57 +168,15 @@ sudo pacman -S --noconfirm mutt
 
 mkdir -p /home/$USER/.config/mutt/ && touch /home/$USER/.config/mutt/muttrc
 
-echo -e "set folder = \"imaps://\"
-set smtp_url = \"smtp://\"
-
-set from = \"\"
-set realname = \"\"
-set editor = \"vim\"
-
-set spoolfile = \"+INBOX\"
-set record = \"+Sent\"
-set trash = \"+Trash\"
-set postponed = \"+Drafts\"
-
-mailboxes =INBOX =Sent =Trash =Drafts =Junk
-
-" > /home/$USER/.config/mutt/muttrc
+printf "%b\n%b\n\n%b\n%b\n%b\n\n%b\n%b\n%b\n%b\n\n%b" 'set folder = "imaps://"' 'set smtp_url = "smtp://"' 'set from = ""' 'set realname = ""' 'set editor = "vim"' 'set spoolfile = "+INBOX"' 'set record = "+Sent"' 'set trash = "+Trash"' 'set postponed = "+Drafts"' 'mailboxes =INBOX =Sent =Trash =Drafts =Junk' > /home/$USER/.config/mutt/muttrc
 
 # make mutt config screen split
 
-echo -e "split
-
-focus up
-
-screen -t vim /usr/bin/vim /home/\$USER/.config/mutt/muttrc
-
-focus down
-
-chdir /home/\$USER/.config/mutt/
-
-screen -t bash /bin/bash
-
-focus up
-
-" > /home/$USER/.screenrc.mutt_conf
+printf "%b\n\n%b\n\n%b\n\n%b\n\n%b\n\n%b\n\n%b" 'split' 'focus up' 'screen -t vim /usr/bin/vim /home/$USER/.config/mutt/muttrc' 'focus down' 'chdir /home/$USER/.config/mutt/' 'screen -t bash /bin/bash' 'focus up' > /home/$USER/.screenrc.mutt_conf
 
 # make screen config for listing saved articles
 
-echo -e "split
-
-focus up
-
-screen -t vim /usr/bin/vim /home/\$USER/Downloads
-
-focus down
-
-chdir /home/\$USER/Downloads
-
-screen -t bash /bin/bash
-
-focus up
-
-" > /home/$USER/.screenrc.articles
+printf "%b\n\n%b\n\n%b\n\n%b\n\n%b\n\n%b\n\n%b" 'split' 'focus up' 'screen -t vim /usr/bin/vim /home/\$USER/Downloads' 'focus down' 'chdir /home/\$USER/Downloads' 'screen -t bash /bin/bash' 'focus up' > /home/$USER/.screenrc.articles
 
 # install xorg-server, i3, etc... and make the various configuration files
 
@@ -353,83 +185,19 @@ sudo pacman -S --noconfirm xorg-xinit
 sudo pacman -S --noconfirm i3-wm
 sudo pacman -S --noconfirm xterm
 
-echo -e "exec i3
+printf "%s" "exec i3" > /home/$USER/.xinitrc
 
-" > /home/$USER/.xinitrc
+printf "%b\n%b\n%b\n%b\n\n\n%b\n%b\n\n%b\n%b\n%b\n%b\n%b\n%b\n%b\n%b\n%b\n%b\n%b\n%b\n%b\n%b\n%b" '#URxvt*background: black' '#URxvt*foreground: white' '#URxvt*font: xft:monospace:size=12' '#URxvt*scrollBar: false' 'XTerm.vt100.foreground: white' 'XTerm.vt100.background: black' 'xterm*faceName: Monospace' 'xterm*faceSize: 12' 'XTerm*font: -*-terminus-medium-*-*-*-18-*-*-*-*-*-iso10646-1' '# unreadable' 'XTerm*font1: -*-terminus-medium-*-*-*-12-*-*-*-*-*-iso10646-1' '# tiny' 'XTerm*font2: -*-terminus-medium-*-*-*-14-*-*-*-*-*-iso10646-1' '# small' 'XTerm*font3: -*-terminus-medium-*-*-*-16-*-*-*-*-*-iso10646-1' '# medium' 'XTerm*font4: -*-terminus-medium-*-*-*-22-*-*-*-*-*-iso10646-1' '# large' 'XTerm*font5: -*-terminus-medium-*-*-*-24-*-*-*-*-*-iso10646-1' '# huge' 'XTerm*font6: -*-terminus-medium-*-*-*-32-*-*-*-*-*-iso10646-1' > /home/$USER/.Xdefaults
 
-echo "
-#URxvt*background: black
-#URxvt*foreground: white
-#URxvt*font: xft:monospace:size=12
-#URxvt*scrollBar: false
-
-
-XTerm.vt100.foreground: white
-XTerm.vt100.background: black
-
-xterm*faceName: Monospace
-xterm*faceSize: 12
-XTerm*font: -*-terminus-medium-*-*-*-18-*-*-*-*-*-iso10646-1
-# unreadable
-XTerm*font1: -*-terminus-medium-*-*-*-12-*-*-*-*-*-iso10646-1
-# tiny
-XTerm*font2: -*-terminus-medium-*-*-*-14-*-*-*-*-*-iso10646-1
-# small
-XTerm*font3: -*-terminus-medium-*-*-*-16-*-*-*-*-*-iso10646-1
-# medium
-XTerm*font4: -*-terminus-medium-*-*-*-22-*-*-*-*-*-iso10646-1
-# large
-XTerm*font5: -*-terminus-medium-*-*-*-24-*-*-*-*-*-iso10646-1
-# huge
-XTerm*font6: -*-terminus-medium-*-*-*-32-*-*-*-*-*-iso10646-1
-
-" > /home/$USER/.Xdefaults
-
-echo "
-XTerm.vt100.foreground: white
-XTerm.vt100.background: black
-XTerm.vt100.color0: rgb:28/28/28
-! ...
-XTerm.vt100.color15: rgb:e4/e4/e4XTerm.vt100.reverseVideo: true# default
-
-XTerm*font: -*-terminus-medium-*-*-*-18-*-*-*-*-*-iso10646-1
-XTerm*font1: -*-terminus-medium-*-*-*-12-*-*-*-*-*-iso10646-1
-XTerm*font2: -*-terminus-medium-*-*-*-14-*-*-*-*-*-iso10646-1
-XTerm*font3: -*-terminus-medium-*-*-*-16-*-*-*-*-*-iso10646-1
-XTerm*font4: -*-terminus-medium-*-*-*-22-*-*-*-*-*-iso10646-1
-XTerm*font5: -*-terminus-medium-*-*-*-24-*-*-*-*-*-iso10646-1
-XTerm*font6: -*-terminus-medium-*-*-*-32-*-*-*-*-*-iso10646-1
-
-" > /home/$USER/.Xresources
+printf "%b\n%b\n%b\n%b\n%b\n\n%b\n%b\n%b\n%b\n%b\n%b\n%b" 'XTerm.vt100.foreground: white' 'XTerm.vt100.background: black' 'XTerm.vt100.color0: rgb:28/28/28' '! ...' 'XTerm.vt100.color15: rgb:e4/e4/e4XTerm.vt100.reverseVideo: true# default' 'XTerm*font: -*-terminus-medium-*-*-*-18-*-*-*-*-*-iso10646-1' 'XTerm*font1: -*-terminus-medium-*-*-*-12-*-*-*-*-*-iso10646-1' 'XTerm*font2: -*-terminus-medium-*-*-*-14-*-*-*-*-*-iso10646-1' 'XTerm*font3: -*-terminus-medium-*-*-*-16-*-*-*-*-*-iso10646-1' 'XTerm*font4: -*-terminus-medium-*-*-*-22-*-*-*-*-*-iso10646-1' 'XTerm*font5: -*-terminus-medium-*-*-*-24-*-*-*-*-*-iso10646-1' 'XTerm*font6: -*-terminus-medium-*-*-*-32-*-*-*-*-*-iso10646-1' > /home/$USER/.Xresources
 
 # make screen list videos config
 
-echo -e "#!/bin/bash
-
-mpv \"\$(find /home/\$USER/Videos | fzf)\"
-
-" > /home/$USER/.mpv_fzf_screen_videos.sh
+printf "%b\n\n%b" '#!/bin/bash' 'mpv "$(find /home/$USER/Videos | fzf)"' > /home/$USER/.mpv_fzf_screen_videos.sh
 
 chmod +x /home/$USER/.mpv_fzf_screen_videos.sh
 
-echo -e "
-split
-
-focus up
-
-screen -t vim /usr/bin/vim /home/\$USER/Videos
-
-focus down
-
-chdir /home/\$USER/Videos
-
-screen -t bash /bin/bash
-
-screen -t ./mpv_fzf_screen_videos.sh /home/\$USER/.mpv_fzf_screen_videos.sh
-
-focus up
-
-" > /home/$USER/.screenrc.videos
+printf "%b\n\n%b\n\n%b\n\n%b\n\n%b\n\n%b\n\n%b\n\n%b" 'split' 'focus up' 'screen -t vim /usr/bin/vim /home/$USER/Videos' 'focus down' 'chdir /home/\$USER/Videos' 'screen -t bash /bin/bash' 'screen -t ./mpv_fzf_screen_videos.sh /home/\$USER/.mpv_fzf_screen_videos.sh' 'focus up' > /home/$USER/.screenrc.videos
 
 # install fbpdf and mupdf
 
@@ -458,224 +226,25 @@ sudo pacman -S --noconfirm htop
 
 # make four way screen split
 
-echo -e "
-split
-
-split -v
-
-focus down
-
-split -v
-
-focus up
-
-focus left
-
-screen -t bash /bin/bash
-
-focus right
-
-screen -t bash /bin/bash
-
-focus left
-
-focus down
-
-screen -t bash /bin/bash
-
-focus right
-
-screen -t bash /bin/bash
-
-focus up
-
-focus left
-
-" > /home/$USER/.screenrc.four_split
+printf "%b\n\n%b\n\n%b\n\n%b\n\n%b\n\n%b\n\n%b\n\n%b\n\n%b\n\n%b\n\n%b\n\n%b\n\n%b\n\n%b\n\n%b\n\n%b" 'split' 'split -v' 'focus down' 'split -v' 'focus up' 'focus left' 'screen -t bash /bin/bash' 'focus right' 'screen -t bash /bin/bash' 'focus left' 'focus down' 'screen -t bash /bin/bash' 'focus right' 'screen -t bash /bin/bash' 'focus up' 'focus left' > /home/$USER/.screenrc.four_split
 
 # make horizontal screen split
 
-echo -e "
-split
-
-focus up
-
-screen -t bash /bin/bash
-
-focus down
-
-screen -t bash /bin/bash
-
-focus up
-
-" > /home/$USER/.screenrc.hsplit
+printf "%b\n\n%b\n\n%b\n\n%b\n\n%b\n\n%b" 'split' 'focus up' 'screen -t bash /bin/bash' 'focus down' 'screen -t bash /bin/bash' 'focus up' > /home/$USER/.screenrc.hsplit
 
 # make virtical screen split
 
-echo -e "
-
-split -v
-
-focus left
-
-screen -t bash /bin/bash
-
-focus right
-
-screen -t bash /bin/bash
-
-focus left
-
-" > /home/$USER/.screenrc.vsplit
+printf "%b\n\n%b\n\n%b\n\n%b\n\n%b\n\n%b" 'split -v' 'focus left' 'screen -t bash /bin/bash' 'focus right' 'screen -t bash /bin/bash' 'focus left' > /home/$USER/.screenrc.vsplit
 
 # make ttysh help/selection
 
-echo -e "\nHELP: j and k to go down and up. q to go to menu.
-
-\nKey: \(\) denote shortcut keys, e.g. \(b\) means pressing the b key to get to the selector will load the \(b\)irthdays selection.
-
-
-		Pinned/
-
-
-		Internet/
-
-			\(ly\)nx with image viewer/
-
-			\(bro\)wsh web browser/
-
-			\(brow\)sh configuration xorg/
-
-			\(lib\)rewolf xorg/ 
-
-			\(p\)ing jameschampion.xyz/
-
-		Email/
-
-			\(e\)mail/
-
-			\(mu\)tt email configuation/
-
-		Search/
-
-			\(fi\)le manager/
-
-			search & play video with \(t\)ty/or \(se\)earch & play with gui/
-
-			\(fz\)f search files to open with Vim/
-
-			search files to open with \(pdf\)/
-
-			\(a\)rticles/
-
-			\(w\)eather/
-
-		Music/
-
-			\(cm\)us/
-
-			cmus-control: \(ne\)xt/ \(pr\)evious/ pa\(u\)se/ \(f\)orward/ \(st\)atus/
-
-			\(al\)samixer/
-
-			\(mus\)ic search on yt-dlp/
-
-		Video/
-
-			play your \(vid\)eos/
-
-			\(l\)ist videos/
-
-			video search on \(yt\)-dlp/
-
-		Record/
-
-			\(sc\)reenshot\(1,2,3,4,5,6\) TTY/
-
-			\(re\)cord your TTY/s/
-
-		Wordprocessing/
-
-			\(wr\)iter/
-
-		Calc/Spreadsheet/
-
-			\(sp\)readsheet/
-
-			\(ca\)lculator/
-
-		Accessories/
-
-			\(b\)irthdays/split/ 
-
-			\(n\)otes/todos/split/ 
-
-			\(d\)ate & calender/
-
-		Backup/
-
-			first run as sudo su!: \(di\)sk formatting and setting up removable media/
-
-			*NOTE: RUN THE ABOVE ON REMOVABLE MEDIA BEFORE MAKING YOUR BACKUPS.
-
-	 		first run as sudo su!: \(ba\)ckup /home/\$SUDO_USER/ to removable drive/
-
-			first run sudo su!: \(ti\)meshift backup to removable drive/
-
-			first run sudo su!: \(de\)lete timeshift backups from removable drive/
-
-		New TTY/
-				
-			\(ch\)ange\(1,2,3,4,5,6\) TTY/
-
-			*NOTE: cannot use this selection with screen split. Use alt+number or alt+arrow key instead
-
-		Screen splits/
-
-			\(scr\)een four panel split/
-
-			\(scre\)en horizontal split/
-
-			\(scree\)n vertical split/
-
-		Close Xorg/
-
-			close \(x\)org and go to TTY/
-
-		System/Utilities
-
-			\(up\)date the system/
-
-			\(ht\)op/
-
-			\(c\)lock/
-
-			\(lo\)ck console/
-
-			*NOTE: when you are using xorg/i3, press Ctrl + Alt + and an F key to go to the TTY
-			      before you lock the console.
-
-			\(res\)tart/
-
-			\(sh\)utdown/
-
-		Rerun/Help/Quit/
-
-			rerun \(tty\)sh/
-
-			\(h\)elp/
-
-			edit \(hel\)p to add and remove your pinned selections
-
-			\(q\)uit/
-
-" > /home/$USER/.ttysh.selection
+printf "\n%b\n\n%b\n\n\t\t%b\n\n%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t%b\n\n\t\t\t%b\n\n\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t%b\n\n\t\t\t%b\n\n\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n" 'HELP: j and k to go down and up. q to go to menu.' 'Key: () denote shortcut keys, e.g. (b) means pressing the b key to get to the selector will load the (b)irthdays selection.' 'Pinned/' 'Internet/' '(ly)nx with image viewer/' '(bro)wsh web browser/' '(brow)sh configuration xorg/' '(lib)rewolf xorg/' '(p)ing jameschampion.xyz/' 'Email/' '(e)mail/' '(mu)tt email configuation/' 'Search/' '(fi)le manager/' 'search & play video with (t)ty/or (se)earch & play with gui/' '(fz)f search files to open with Vim/' 'search files to open with (pdf)/' '(a)rticles/' '(w)eather/' 'Music/' '(cm)us/' 'cmus-control: (ne)xt/ (pr)evious/ pa(u)se/ (f)orward/ (st)atus/' '(al)samixer/' '(mus)ic search on yt-dlp/' 'Video/' 'play your (vid)eos/' '(l)ist videos/' 'video search on (yt)-dlp/' 'Record/' '(sc)reenshot(1,2,3,4,5,6) TTY/' '(re)cord your TTY/s/' 'Wordprocessing/' '(wr)iter/' 'Calc/Spreadsheet/' '(sp)readsheet/' '(ca)lculator/' 'Accessories/' '(b)irthdays/split/' '(n)otes/todos/split/' '(d)ate & calender/' 'Backup/' 'first run as sudo su!: (di)sk formatting and setting up removable media/' '*NOTE: RUN THE ABOVE ON REMOVABLE MEDIA BEFORE MAKING YOUR BACKUPS.' 'first run as sudo su!: (ba)ckup /home/$SUDO_USER/ to removable drive/' 'first run sudo su!: (ti)meshift backup to removable drive/' 'first run sudo su!: (de)lete timeshift backups from removable drive/' 'New TTY/' '(ch)ange(1,2,3,4,5,6) TTY/' '*NOTE: cannot use this selection with screen split. Use alt+number or alt+arrow key instead' 'Screen splits/' '(scr)een four panel split/' '(scre)en horizontal split/' '(scree)n vertical split/' 'Close Xorg/' 'close (x)org and go to TTY/' 'System/Utilities' '(up)date the system/' '(ht)op/' '(c)lock/' '(lo)ck console/' '*NOTE: when you are using xorg/i3, press Ctrl + Alt + and an F key to go to the TTY' 'before you lock the console.' '(res)tart/' '(sh)utdown/' 'Rerun/Help/Quit/' 'rerun (tty)sh/' '(h)elp/' 'edit (hel)p to add and remove your pinned selections' '(q)uit/' > /home/$USER/.ttysh.selection
 
 sudo mv splash_ttysh.png /home/$USER/.splash_ttysh.png
 #sudo mv ttysh.sh /usr/local/bin/ttysh 
 #chown root:root /usr/local/bin/ttysh
 
-echo -e "\n	TTYSH Wizard has finished. Please exit out of TTYSH and reboot to complete.\n"
+printf "\n%s\n" "TTYSH Wizard has finished. Please exit out of TTYSH and reboot to complete."
 }
 
 #
@@ -686,7 +255,7 @@ echo -e "\n	TTYSH Wizard has finished. Please exit out of TTYSH and reboot to co
 function fzfxorgvid(){
 while [ $x = 0 ]; do
 
-	echo -e "\nPress 's' to start Press 'q' to quit.\n"
+	printf "\n%s\n" "Press s to start Press q to quit."
 	read answer
 	case $answer in
 	s)
@@ -704,7 +273,7 @@ done
 function fzfttyvid(){
 while [ $x = 0 ]; do
 
-	echo -e "\nPress 's' to start. Press 'q' to quit.\n"
+	printf "\n%s\n" "Press s to start. Press q to quit."
 	read answer
 	case $answer in
 	s)
@@ -722,7 +291,7 @@ done
 function fzfvim(){
 while [ $x = 0 ]; do
 
-	echo -e "\nPress 's' to start. Press 'q' to quit.\n"
+	printf "\n%s\n" "Press 's' to start. Press 'q' to quit."
 	read answer
 	case $answer in
 	s)
@@ -740,7 +309,7 @@ done
 function fzfpdf(){
 while [ $x = 0 ]; do
 
-	echo -e "\nPress 's' to start. Press 'q' to quit.\n"
+	printf "\n%s\n" "Press s to start. Press q to quit."
 	read answer
 	case $answer in
 	s)
@@ -759,18 +328,16 @@ function yt(){
 
 while [  $x = 0 ]; do
 
-	echo -e "	\ny to enter video creator and video discription. x to download url from xclip.\n
- 			\nyt to run again.\n
-			\nq to quit\n"
+	printf "\n%s\n" "y to enter video creator and video discription. x to download url from xclip. yt to run again. q to quit"
 
 	read answer
-	echo
+	printf "\n%s\n" ""
 	case "$answer" in
 	
 	y)
-	echo -e "	\nEnter the creator and discription.\n"
+	printf "\n%s\n" "Enter the creator and discription."
 	read video
-	echo
+	printf "\n%s\n"	""
 	yt-dlp -f 'bv*[height=480]+ba' "ytsearch1:$video"
 	x=0
 	;;
@@ -794,16 +361,14 @@ function ytmusic(){
 
 while [ $x = 0 ]; do
 
-	echo -e "	\nsm to enter creator and title. m to download music url from xclip.\n
-			\nytm to run again.\n
-			\nq to quit.\n"
+	printf "\n%s\n"	"sm to enter creator and title. m to download music url from xclip. ytm to run again. q to quit."
 
 	read answer
-	echo
+	printf "\n%s\n" ""
 	case "$answer" in
 
 	sm)
-	echo -e "	\nEnter music creator and title.\n"
+	printf "\n%s\n" "Enter music creator and title."
 	read music
 	yt-dlp -f 'ba' -x --audio-format mp3 "ytsearch1:$music"
 	x=0
@@ -826,7 +391,7 @@ done
 # function for searching weather in wttr.in
 
 function weather(){
-echo -e "\nEnter your city or town to see the weather forecast.\n"
+printf "\n%s\n" "\nEnter your city or town to see the weather forecast.\n"
 read answer
 curl wttr.in/$answer
 }
@@ -849,7 +414,7 @@ function diskformat(){
 
 #functions
 
-echo -e "\nStop! Have you run sudo su? y/n\n"
+printf "\n%s\n" "Stop! Have you run sudo su? y/n"
 	read answer
 	case $answer in
 		y)
@@ -861,18 +426,17 @@ echo -e "\nStop! Have you run sudo su? y/n\n"
 		;;
 	esac
 
-echo -e "\nThis is your current device storage. Do not insert your disk you wish to format yet...\n"
+printf "\n%s\n" "This is your current device storage. Do not insert your disk you wish to format yet..."
 
 lsblk
 
-echo -e "\nPlease insert the device that you want to format...\n
-	 \nThis programme will resume in 10 second...\n"
+printf "\n%s\n%s\n" "Please insert the device that you want to format..." "This programme will resume in 10 second..."
 
 sleep 10
 
 lsblk
 
-echo -e "\nPlease look for your inserted device above. Is it correct? y/n \n"
+printf "\n%s\n" "Please look for your inserted device above. Is it correct? y/n"
 	read answer
 	case $answer in
 		y)
@@ -884,32 +448,31 @@ echo -e "\nPlease look for your inserted device above. Is it correct? y/n \n"
 		;;
 	esac
 
-echo -e "\nPlease enter the name of your disk. e.g. 'sdb'. Do not enter any number, as these will be partitions, and we will be formatting the whole disk.
-	\nBe careful not to format the wrong drive!\n"
+printf "\n%s\n%s\n" "\nPlease enter the name of your disk. e.g. sdb. Do not enter any number, as these will be partitions, and we will be formatting the whole disk." "Be careful not to format the wrong drive!"
 	read answer
 
 fdisk /dev/$answer
 
-echo -e "\nWe need to now create your encrypted partition...\n"
+printf "\n%s\n" "We need to now create your encrypted partition..."
 
 lsblk
 
-echo -e "\nWhat is the new partition name of your drive? e.g. 'sdb1' ?\n"
+printf "\n%s\n" "What is the new partition name of your drive? e.g. sdb1 ?"
 	read setuuid
 
 cryptsetup luksFormat /dev/$setuuid
 
-echo -e "\nWe need to now open the new encrypted drive.\n"
+printf "\n%s\n" "We need to now open the new encrypted drive."
 
 cryptsetup open /dev/$setuuid drive
 
-echo -e "\nWe need to now add a file system. This will be ext4 filesystem.\n"
+printf "\n%s\n" "We need to now add a file system. This will be ext4 filesystem."
 
 mkfs.ext4 /dev/mapper/drive
 
 lsblk
 
-echo -e "\nThe encrypted drive will now be closed...\n"
+printf "\n%s\n" "The encrypted drive will now be closed..."
 
 sync
 cryptestup close drive
@@ -918,20 +481,19 @@ lsblk
 ls -l /dev/disk/by-uuid/
 ls -l /dev/disk/by-uuid/ | grep $setuuid | awk '{print $9}' | tr -d /.
 
-echo -e "\nYou need to now add the UUID number of the disk you have setup for either file backups or system backups\n
-	\nSee above, is this correct? y/n"
+printf "\n%s\n%s\n" "You need to now add the UUID number of the disk you have setup for either file backups or system backups." "See above, is this correct? y/n"
 	read answer
 	case $answer in
 		y)
 		x=1
 		;;
 		n)
-		echo "Exiting script. Run again, or consult the developer for further instruction or support\n"
+		printf "\n%s\n" "Exiting script. Run again, or consult the developer for further instruction or support"
 		x=1
 		;;
 	esac
 
-echo -e "\nChoose what this disk will be used for. Press t for timeshift system backups or press f for file system backups\n"
+printf "\n%s\n" "Choose what this disk will be used for. Press t for timeshift system backups or press f for file system backups"
 	read answer
 	
 	case $answer in
@@ -945,26 +507,22 @@ echo -e "\nChoose what this disk will be used for. Press t for timeshift system 
 		;;	
 	esac
 
-echo -e "\nThis drive is now ready to be used either file backup, or system backup, depending on your previous selection.\n
-	\nIMPORTANT NOTE: IF YOU ARE USING A NEWLY SETUP DISK FOR SYSTEM BACKUPS FOR THE FIRST TIME -
-	\nYOU MUST RUN 'timeshift-gtk' IN A TERMINAL IN XORG AND RUN THE SETUP WIZARD, SELECTING THIS DISK TO AVOID ERRORS.\n
-	\nTHEN PRESS THE 'create' BUTTON.\n
-	\nComplete. Closing."
+printf "\n%s\n%s\n%s\n%s\n%s\n" "This drive is now ready to be used either file backup, or system backup, depending on your previous selection." "IMPORTANT NOTE: IF YOU ARE USING A NEWLY SETUP DISK FOR SYSTEM BACKUPS FOR THE FIRST TIME - " "YOU MUST RUN timeshift-gtk IN A TERMINAL IN XORG AND RUN THE SETUP WIZARD, SELECTING THIS DISK TO AVOID ERRORS." "THEN PRESS THE create BUTTON." "Complete. Closing."
 }
 
 # function for timeshift backups
 # function for starting the timeshift process
 function starttimeshift(){
 
-	echo
+	printf "\n%s\n" ""
 	lsblk
 	#sed -n 32p $SUDO_USER/timebackup.sh
-	echo -e "\nStop! Have you run sudo su? Is /dev/$tdevname location correct? y/n\n"
+	printf "\n%s\n" "Stop! Have you run sudo su? Is /dev/$tdevname location correct? y/n"
 	read answer
 
 	case "$answer" in
 		y)
-		echo -e "\nContinuing...\n"
+		printf "\n%s\n" "Continuing..."
 		cryptsetup open /dev/$tdevname $tencryptedname
 		timeshift --create --snapshot-device /dev/mapper/$tencryptedname
 		;;
@@ -977,28 +535,28 @@ function starttimeshift(){
 # function for closing the drive after timeshift
 function closetimeshift(){
 		
-	echo
+	printf "\n%s\n" ""
 	lsblk
-	echo -e "\nDoes the /dev/mapper/$tencryptedname need unmounting? check MOUNTPOINT. press y for umount or n to exit\n"
+	printf "\n%s\n" "Does the /dev/mapper/$tencryptedname need unmounting? check MOUNTPOINT. press y for umount or n to exit"
 	read answer
 
 	case "$answer" in
 		y)
-		echo -e "\nComplete. Closing...\n"
+		printf "\n%s\n" "Complete. Closing..."
 		umount $tunmounting
 		sync
 		cryptsetup close $tencryptedname
 		exit
 		lsblk
-		echo -e "\nYour storage should be correct. Finished.\n"
+		printf "\n%s\n" "Your storage should be correct. Finished."
 		$tuuid=1
 		;;
 		n)
-		echo -e "\nComplete. Closing...\n"
+		printf "\n%s\n" "Complete. Closing..."
 		sync
 		cryptsetup close $tencryptedname
 		lsblk
-		echo -e "\nYour storage should be correct. Finished.\n"
+		printf "\n%s\n" "Your storage should be correct. Finished."
 		exit
 		$tuuid=1
 		;;
@@ -1008,14 +566,14 @@ function closetimeshift(){
 # function for checking drive is correct
 function tdrivecheck(){
 
-	echo
+	printf "\n%s\n" ""
 	lsblk
-	echo -e "\nStop! Have you run sudo su? Is /dev/$tdevname location correct? y/n\n"
+	printf "\n%s\n" "Stop! Have you run sudo su? Is /dev/$tdevname location correct? y/n"
 	read answer
 
 	case "$answer" in
 		y)
-		echo -e "\nContinuing...\n"
+		printf "\n%s\n" "Continuing..."
 		cryptsetup open /dev/$tdevname $tencryptedname
 		$tuuid=1
 		;;
@@ -1031,14 +589,13 @@ function timedelete(){
 
 while [ $tuuid = $tdrive ]; do
 
-	echo -e "\nDo you want to delete a backup? press d to continue\n
-		\nq to exit\n"
+	printf "\n%s\n" "Do you want to delete a backup? press d to continue or q to exit"
 
 	read answer
 
 	case "$answer" in 
 		d)
-		echo -e "\nEnter the full matching name of the backup.\n"	
+		printf "\n%s\n" "Enter the full matching name of the backup."	
 		read delete
 		timeshift --delete --snapshot $delete
 		x=0
@@ -1048,7 +605,7 @@ while [ $tuuid = $tdrive ]; do
 			sync
 			cryptsetup close $tencryptedname
 			lsblk
-			echo -e "\nYour storage should be correct. Finished.\n"
+			printf "\n%s\n" "Your storage should be correct. Finished."
 			exit;
 		else
 			closetimeshift	
@@ -1063,9 +620,9 @@ done
 function maintdelete(){
 
 if [ $tuuid = $tdrive ]; then
-	echo -e "\nStarting...\n";
+	printf "\n%s\n" "Starting...";
 else
-	echo -e "\nDrive is not found.\n";
+	printf "\n%s\n" "Drive is not found.";
 	exit
 fi
 
@@ -1082,9 +639,9 @@ done
 function maintimeshift(){
 
 if [ $tuuid = $tdrive ]; then
-	echo -e "\nStarting...\n"
+	printf "\n%s\n" "Starting..."
 else
-	echo -e "\nDrive is not found.\n"
+	printf "\n%s\n" "Drive is not found."
 	exit
 fi
 
@@ -1098,25 +655,25 @@ done
 
 # function for filebackup
 function filebackup(){
-echo "Awaiting $buuid"
+printf "\n%s\n" "Awaiting $buuid"
 
 if [ $buuid = $bdrive ]; then
-	echo -e "\nStarting...\n";
+	printf "\n%s\n" "Starting...";
 else
-	echo -e"\nDrive is not found.\n";
+	printf "\n%s\n" "Drive is not found.";
 	exit
 fi
 
 while [ $buuid = $bdrive ]; do
-	echo
+	printf "\n%s\n" ""
 	lsblk
 	#sed -n 31p $SUDO_USER/backup.sh
-	echo -e "\nStop! Have you run sudo su first? Have you saved your latest bookmarks? Is /dev/$bdevname correct? y/n\n" 
+	"\n%s\n" "Stop! Have you run sudo su first? Have you saved your latest bookmarks? Is /dev/$bdevname correct? y/n" 
 	read answer
 
 	case "$answer" in
 		y)
-		echo -e "\nContinuing...\n"
+		printf "\n%s\n" "Continuing..."
 		cryptsetup open /dev/$bdevname drive
 		# enter password
 		mount /dev/mapper/drive /mnt
@@ -1124,7 +681,7 @@ while [ $buuid = $bdrive ]; do
 		sync
 		umount /mnt
 		cryptsetup close drive 
-		echo -e "\nComplete. Closing...\n"
+		printf "\n%s\n" "Complete. Closing..."
 		exit
 		$buuid=1
 		;;
@@ -1139,21 +696,21 @@ done
 # date
 function planner(){
 
-echo -e "\nThe time and date is:\n"
+printf "\n%s\n" "The time and date is:"
 date
 
 # calender
-echo -e "\nThis month's calender:\n"
+printf "\n%s\n" "This month's calender:"
 cal
-echo -e "\npress q when ready...\n" | less
+printf "\n%s\n" "press q when ready..." | less
 
 # cat out notes/todo
-echo 
+printf "\n%s\n" ""
 cat /home/$USER/info/notes.txt | less
-echo 
+printf "\n%s\n" ""
 
 clear
-echo
+printf "\n%s\n" ""
 selection
 }
 
@@ -1161,7 +718,7 @@ selection
 function selection(){
 while [ $x = 0 ]; do
 
-echo -e "\n	awaiting...\n"
+printf "\t\n%s\n%s\n" "awaiting..." ""
 
 	read answer
 
@@ -1205,9 +762,7 @@ echo -e "\n	awaiting...\n"
 		x=0
 		;;
 		ly)
-			echo -e "\nStop! It is recommended to run lynx browser offline for your saved webpages. 
-			\nUse Browsh/Librewolf for web online browsing and saving webpages for later. 
-			\nAre you offline? Do you want to continue? y/n\n"
+			printf "\n%s\n%s\n%s\n" "Stop! It is recommended to run lynx browser offline for your saved webpages." "Use Browsh/Librewolf for web online browsing and saving webpages for later." "Are you offline? Do you want to continue? y/n"
 			read answer
 			case $answer in
 			y)
@@ -1221,7 +776,7 @@ echo -e "\n	awaiting...\n"
 		x=0
 		;;
 		bro)
-		echo -e "\nTips: prefix 'searx.be/search?q=' or 'wiby.me/?q=' in the URL to search.\n"
+		printf "\n%s\n" "Tips: prefix 'searx.be/search?q=' or 'wiby.me/?q=' in the URL to search."
 		#sudo gpm -m /dev/psaux -t ps2
 		# searching: searx.be/search?q=
 		# searching: wiby.me/?q=
@@ -1254,7 +809,7 @@ echo -e "\n	awaiting...\n"
 		x=0
 		;;
 		d)
-		cal; date; echo -e "\nq to return to planner\n" | less
+		cal; date; printf "\n%s\n" "q to return to planner" | less
 		x=0
 		;;
 		c)
@@ -1425,11 +980,11 @@ echo -e "\n	awaiting...\n"
 		x=1
 		;;
 		up)
-		echo
+		printf "\n" ""
 		sudo pacman -Syu
-		echo
+		printf "\n" ""
 		yay -Syu
-		echo -e "\n You should now exit TTYSH and reboot your system to complete any new updates.\n"
+		printf "\n%s\n" "You should now exit TTYSH and reboot your system to complete any new updates."
 		x=0
 		;;	
 		res)
@@ -1445,7 +1000,7 @@ echo -e "\n	awaiting...\n"
 		x=0
 		;;
 		q)
-		echo
+		printf "\n" ""
 		x=1
 		;;	
 	esac
@@ -1477,7 +1032,7 @@ if [ -f /usr/local/bin/ttysh ]; then
 	splashscreen
 	#mpv --really-quiet /home/$USER/.splash_ttysh.png; clear
 else
-	echo -e "\First time using TTYSH, or you do not yet have TTYSH setup and configured? Press y to begin setup, or press n to exit.\n"
+	printf "\n%s\n" "First time using TTYSH, or you do not yet have TTYSH setup and configured? Press y to begin setup, or press n to exit."
 	read answer
 
 	case "$answer" in
@@ -1485,16 +1040,16 @@ else
 		wizardttysh
 		;;
 		n)
-		echo "exiting"; exit 
+		printf "\n%s\n" "exiting"; exit 
 		;;
 		esac
 fi
 
-echo -e "\n  TTYSH\n"
+printf "\n\t%s\n" "TTYSH"
 
 while [ $x = 0 ]; do
 
-	echo -e "\n  (c)ontinue, (s)election, (h)elp, edit (hel)p, (config) wizard, or (q)uit?\n" 
+	printf "\n\t%s\n\n" "(c)ontinue, (s)election, (h)elp, edit (hel)p, (config) wizard, or (q)uit?"
 		
 	read intro
 
@@ -1522,11 +1077,8 @@ while [ $x = 0 ]; do
 	x=0
 	;;
 	q)
-	echo
+	printf "\n" ""
 	x=1
 	;;
 	esac
 done
-
-
-

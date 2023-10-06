@@ -1,7 +1,6 @@
 TO DO:
 
-add network manager
-replace echo with printf
+add network manager: not specificially network manager, as must already have internet installed on arch
 work on user enviroment for sudo/root user, e.g. cat out notes. suggest if statement
 change text size
 use /dev/null for errors
@@ -49,3 +48,5 @@ NOTE: not adding, as impractical. Should drop to TTY to lock.
 
 Done: add weather shortcut 
 NOTE: weather can be searched. Glitches terminal at the bottom of i3/xterm/
+
+Done: replace echo with printf
