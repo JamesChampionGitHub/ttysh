@@ -256,15 +256,17 @@ function fzfxorgvid(){
 while [ $x = 0 ]; do
 
 	printf "\n%s\n" "Press s to start Press q to quit."
+
 	read answer
+
 	case $answer in
-	s)
-	devour mpv "$(fzf)"
-	x=0
-	;;
-	q)
-	x=1
-	;;
+		s)
+		devour mpv "$(fzf)"
+		x=0
+		;;
+		q)
+		x=1
+		;;
 	esac
 done
 }
@@ -274,15 +276,17 @@ function fzfttyvid(){
 while [ $x = 0 ]; do
 
 	printf "\n%s\n" "Press s to start. Press q to quit."
+
 	read answer
+
 	case $answer in
-	s)
-	mpv "$(fzf)"
-	x=0
-	;;
-	q)
-	x=1
-	;;
+		s)
+		mpv "$(fzf)"
+		x=0
+		;;
+		q)
+		x=1
+		;;
 	esac
 done
 }
@@ -292,15 +296,17 @@ function fzfvim(){
 while [ $x = 0 ]; do
 
 	printf "\n%s\n" "Press 's' to start. Press 'q' to quit."
+
 	read answer
+
 	case $answer in
-	s)
-	vim "$(fzf)"
-	x=0
-	;;
-	q)
-	x=1
-	;;
+		s)
+		vim "$(fzf)"
+		x=0
+		;;
+		q)
+		x=1
+		;;
 	esac
 done
 }
@@ -310,15 +316,17 @@ function fzfpdf(){
 while [ $x = 0 ]; do
 
 	printf "\n%s\n" "Press s to start. Press q to quit."
+
 	read answer
+
 	case $answer in
-	s)
-	sudo fbpdf-mupdf "$(fzf)"
-	x=0
-	;;
-	q)
-	x=1		
-	;;
+		s)
+		sudo fbpdf-mupdf "$(fzf)"
+		x=0
+		;;
+		q)
+		x=1		
+		;;
 	esac
 done
 }
@@ -331,27 +339,28 @@ while [  $x = 0 ]; do
 	printf "\n%s\n" "y to enter video creator and video discription. x to download url from xclip. yt to run again. q to quit"
 
 	read answer
+
 	printf "\n%s\n" ""
+
 	case "$answer" in
-	
-	y)
-	printf "\n%s\n" "Enter the creator and discription."
-	read video
-	printf "\n%s\n"	""
-	yt-dlp -f 'bv*[height=480]+ba' "ytsearch1:$video"
-	x=0
-	;;
-	x)
-	yt-dlp -f 'bv*[height=480]+ba' "$url"
-	x=0
-	;;
-	yt)
-	yt
-	x=1
-	;;
-	q)
-	x=1
-	;;
+		y)
+		printf "\n%s\n" "Enter the creator and discription."
+		read video
+		printf "\n%s\n"	""
+		yt-dlp -f 'bv*[height=480]+ba' "ytsearch1:$video"
+		x=0
+		;;
+		x)
+		yt-dlp -f 'bv*[height=480]+ba' "$url"
+		x=0
+		;;
+		yt)
+		yt
+		x=1
+		;;
+		q)
+		x=1
+		;;
 	esac
 done
 }
@@ -364,26 +373,27 @@ while [ $x = 0 ]; do
 	printf "\n%s\n"	"sm to enter creator and title. m to download music url from xclip. ytm to run again. q to quit."
 
 	read answer
-	printf "\n%s\n" ""
-	case "$answer" in
 
-	sm)
-	printf "\n%s\n" "Enter music creator and title."
-	read music
-	yt-dlp -f 'ba' -x --audio-format mp3 "ytsearch1:$music"
-	x=0
-	;;
-	m)
-	yt-dlp -f 'ba' -x --audio-format mp3 $url
-	x=0
-	;;
-	ytm)
-	ytmusic
-	x=1
-	;;
-	q)
-	x=1
-	;;
+	printf "\n%s\n" ""
+
+	case "$answer" in
+		sm)
+		printf "\n%s\n" "Enter music creator and title."
+		read music
+		yt-dlp -f 'ba' -x --audio-format mp3 "ytsearch1:$music"
+		x=0
+		;;
+		m)
+		yt-dlp -f 'ba' -x --audio-format mp3 $url
+		x=0
+		;;
+		ytm)
+		ytmusic
+		x=1
+		;;
+		q)
+		x=1
+		;;
 	esac
 done
 }
@@ -415,7 +425,9 @@ function diskformat(){
 #functions
 
 printf "\n%s\n" "Stop! Have you run sudo su? y/n"
+
 	read answer
+
 	case $answer in
 		y)
 		x=1
@@ -437,7 +449,9 @@ sleep 10
 lsblk
 
 printf "\n%s\n" "Please look for your inserted device above. Is it correct? y/n"
+
 	read answer
+
 	case $answer in
 		y)
 		x=1
@@ -483,6 +497,7 @@ ls -l /dev/disk/by-uuid/ | grep $setuuid | awk '{print $9}' | tr -d /.
 
 printf "\n%s\n%s\n" "You need to now add the UUID number of the disk you have setup for either file backups or system backups." "See above, is this correct? y/n"
 	read answer
+
 	case $answer in
 		y)
 		x=1
@@ -494,6 +509,7 @@ printf "\n%s\n%s\n" "You need to now add the UUID number of the disk you have se
 	esac
 
 printf "\n%s\n" "Choose what this disk will be used for. Press t for timeshift system backups or press f for file system backups"
+
 	read answer
 	
 	case $answer in
@@ -515,9 +531,13 @@ printf "\n%s\n%s\n%s\n%s\n%s\n" "This drive is now ready to be used either file 
 function starttimeshift(){
 
 	printf "\n%s\n" ""
+
 	lsblk
+
 	#sed -n 32p $SUDO_USER/timebackup.sh
+	
 	printf "\n%s\n" "Stop! Have you run sudo su? Is /dev/$tdevname location correct? y/n"
+
 	read answer
 
 	case "$answer" in
@@ -536,8 +556,11 @@ function starttimeshift(){
 function closetimeshift(){
 		
 	printf "\n%s\n" ""
+
 	lsblk
+
 	printf "\n%s\n" "Does the /dev/mapper/$tencryptedname need unmounting? check MOUNTPOINT. press y for umount or n to exit"
+
 	read answer
 
 	case "$answer" in
@@ -567,8 +590,11 @@ function closetimeshift(){
 function tdrivecheck(){
 
 	printf "\n%s\n" ""
+
 	lsblk
+
 	printf "\n%s\n" "Stop! Have you run sudo su? Is /dev/$tdevname location correct? y/n"
+
 	read answer
 
 	case "$answer" in
@@ -665,10 +691,15 @@ else
 fi
 
 while [ $buuid = $bdrive ]; do
+
 	printf "\n%s\n" ""
+
 	lsblk
+
 	#sed -n 31p $SUDO_USER/backup.sh
+	
 	"\n%s\n" "Stop! Have you run sudo su first? Have you saved your latest bookmarks? Is /dev/$bdevname correct? y/n" 
+
 	read answer
 
 	case "$answer" in
@@ -763,15 +794,17 @@ printf "\t\n%s\n%s\n" "awaiting..." ""
 		;;
 		ly)
 			printf "\n%s\n%s\n%s\n" "Stop! It is recommended to run lynx browser offline for your saved webpages." "Use Browsh/Librewolf for web online browsing and saving webpages for later." "Are you offline? Do you want to continue? y/n"
+
 			read answer
+
 			case $answer in
-			y)
-			screen -c /home/$USER/.screenrc.lynx
-			x=0
-			;;
-			n)
-			x=1
-			;;	
+				y)
+				screen -c /home/$USER/.screenrc.lynx
+				x=0
+				;;
+				n)
+				x=1
+				;;	
 			esac
 		x=0
 		;;
@@ -1033,6 +1066,7 @@ if [ -f /usr/local/bin/ttysh ]; then
 	#mpv --really-quiet /home/$USER/.splash_ttysh.png; clear
 else
 	printf "\n%s\n" "First time using TTYSH, or you do not yet have TTYSH setup and configured? Press y to begin setup, or press n to exit."
+
 	read answer
 
 	case "$answer" in
@@ -1042,7 +1076,7 @@ else
 		n)
 		printf "\n%s\n" "exiting"; exit 
 		;;
-		esac
+	esac
 fi
 
 printf "\n\t%s\n" "TTYSH"
@@ -1054,31 +1088,31 @@ while [ $x = 0 ]; do
 	read intro
 
 	case "$intro" in
-	c)
-	clear
-	planner
-	selection
-	x=1
-	;;	
-	s)
-	selection
-	x=1
-	;;
-	h)
-	ttyshhelp
-	x=0
-	;;
-	config)
-	wizardttysh
-	x=0
-	;;
-	hel)
-	vim /home/$USER/.ttysh.selection
-	x=0
-	;;
-	q)
-	printf "\n" ""
-	x=1
-	;;
+		c)
+		clear
+		planner
+		selection
+		x=1
+		;;	
+		s)
+		selection
+		x=1
+		;;
+		h)
+		ttyshhelp
+		x=0
+		;;
+		config)
+		wizardttysh
+		x=0
+		;;
+		hel)
+		vim /home/$USER/.ttysh.selection
+		x=0
+		;;
+		q)
+		printf "\n" ""
+		x=1
+		;;
 	esac
 done
