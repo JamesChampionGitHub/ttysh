@@ -261,7 +261,7 @@ while [ "$x" = "0" ]; do
 
 	case "$answer" in
 		s)
-		devour mpv "$(fzf)"
+		devour mpv "$(find /home/"$USER"/ | fzf)"
 		x=0
 		;;
 		q)
@@ -281,7 +281,7 @@ while [ "$x" = "0" ]; do
 
 	case "$answer" in
 		s)
-		mpv "$(fzf)"
+		mpv "$(find /home/"$USER"/ | fzf)"
 		x=0
 		;;
 		q)
@@ -301,7 +301,7 @@ while [ "$x" = "0" ]; do
 
 	case "$answer" in
 		s)
-		vim "$(fzf)"
+		vim "$(find /home/"$USER"/ | fzf)"
 		x=0
 		;;
 		q)
@@ -321,7 +321,7 @@ while [ "$x" = "0" ]; do
 
 	case "$answer" in
 		s)
-		sudo jfbview "$(fzf)"
+		sudo jfbview "$(find /home/"$USER"/ | fzf)"
 		x=0
 		;;
 		q)
