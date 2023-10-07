@@ -1063,7 +1063,7 @@ clear
 #	esac
 
 # --no-terminal breaks in the TTY, --really-quiet is used as best alternative
-if [ -f /usr/local/bin/ttysh ]; then
+if [ -f /home/"$USER"/.yt.sh ]; then
 	splashscreen
 	#mpv --really-quiet /home/"$USER"/.splash_ttysh.png; clear
 else
