@@ -1015,9 +1015,9 @@ printf "\t\n%s\n%s\n" "awaiting..." ""
 		x=1
 		;;
 		up)
-		printf "\n" ""
+		printf "\n%s" ""
 		sudo pacman -Syu
-		printf "\n" ""
+		printf "\n%s" ""
 		yay -Syu
 		printf "\n%s\n" "You should now exit TTYSH and reboot your system to complete any new updates."
 		x=0
@@ -1035,7 +1035,7 @@ printf "\t\n%s\n%s\n" "awaiting..." ""
 		x=0
 		;;
 		q)
-		printf "\n" ""
+		printf "\n%s" ""
 		x=1
 		;;	
 	esac
@@ -1113,7 +1113,7 @@ while [ "$x" = "0" ]; do
 		x=0
 		;;
 		q)
-		printf "\n" ""
+		printf "\n%s" ""
 		x=1
 		;;
 	esac
