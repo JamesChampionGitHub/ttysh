@@ -1,6 +1,5 @@
 TO DO:
 
-have fzf default from home ~
 add network manager: not specificially network manager, as must already have internet installed on arch
 work on user enviroment for sudo/root user, e.g. cat out notes. suggest if statement
 change text size
@@ -51,3 +50,7 @@ Done: add weather shortcut
 NOTE: weather can be searched. Glitches terminal at the bottom of i3/xterm/
 
 Done: replace echo with printf
+
+Done: have fzf default from home ~
+	Fix: added find to command sub
+
