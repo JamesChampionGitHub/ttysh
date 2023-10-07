@@ -199,10 +199,10 @@ chmod +x /home/"$USER"/.mpv_fzf_screen_videos.sh
 
 printf "%b\n\n%b\n\n%b\n\n%b\n\n%b\n\n%b\n\n%b\n\n%b" 'split' 'focus up' 'screen -t vim /usr/bin/vim /home/"$USER"/Videos' 'focus down' 'chdir /home/"$USER"/Videos' 'screen -t bash /bin/bash' 'screen -t ./mpv_fzf_screen_videos.sh /home/"$USER"/.mpv_fzf_screen_videos.sh' 'focus up' > /home/"$USER"/.screenrc.videos
 
-# install fbpdf and mupdf
+# install jfbview and mupdf
 
 sudo pacman -S --noconfirm mupdf
-yay -S --noconfirm fbpdf-git
+yay -S --noconfirm jfbview
 
 # install cryptsetup for diskformat function
 
@@ -321,7 +321,7 @@ while [ "$x" = "0" ]; do
 
 	case "$answer" in
 		s)
-		sudo fbpdf-mupdf "$(fzf)"
+		sudo jfbview "$(fzf)"
 		x=0
 		;;
 		q)
