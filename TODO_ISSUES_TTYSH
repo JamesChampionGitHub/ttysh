@@ -1,5 +1,6 @@
 TO DO:
 
+have fzf default from home ~
 add network manager: not specificially network manager, as must already have internet installed on arch
 work on user enviroment for sudo/root user, e.g. cat out notes. suggest if statement
 change text size
