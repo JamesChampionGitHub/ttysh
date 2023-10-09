@@ -24,17 +24,17 @@ url=$(xclip -o)
 # filebackup
 # find uuid
 bdrive=$(cat /home/"$SUDO_USER"/.uuidfiles)
-buuid=$("$bdrive")
+buuid=$(echo "$bdrive")
 bdevname=$(ls /dev/disk/by-uuid/ -l | grep "$buuid" | awk '{print $11}' | tr -d /.)
 
 # timeshift
 # find uuid
 tdrive=$(cat /home/"$SUDO_USER"/.uuidtimeshift)
-tuuid=$("$tdrive")
+tuuid=$(echo "$tdrive")
 #devname=$(lsblk | awk '{print $1}' | sed -n 8p | sed s/└─//g)
 tdevname=$(ls /dev/disk/by-uuid/ -l | grep "$tuuid" | awk '{print$11}' | tr -d /.)
 tencryptedname="timeshiftbackup"
-tunmounting=$(lsblk | grep $tencryptedname | awk '{print $7}')
+tunmounting=$(lsblk | grep "$tencryptedname" | awk '{print $7}')
 #echo -e "\nAwaiting $tuuid\n"
 
 
@@ -118,7 +118,7 @@ sudo pacman -S --noconfirm fzf
 sudo pacman -S --noconfirm screen
 
 #try %b with \ to try and escape characters
-printf "%b\n\n%b\n\n%b\n\n%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n%b" '#!/bin/bash' 'x=0' 'while [ "$x" = "0" ]; do' 'printf "\\n%b\\n" "Press c to start your search. Press q to exit"' 'read answer' 'case "$answer" in' 'c)' 'mpv "$(find /home/"$USER"/Downloads | fzf)"' 'x=0' ';;' 'q)' 'x=1' ';;' 'esac' 'done' > /home/"$USER"/.mpv_fzf_screen.sh
+printf "%b\n\n%b\n\n%b\n\n%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n%b" '#!/bin/bash' 'x=0' 'while [ "$x" = 0 ]; do' 'printf "\\n%b\\n" "Press c to start your search. Press q to exit"' 'read answer' 'case "$answer" in' 'c)' 'mpv "$(find /home/"$USER"/Downloads | fzf)"' 'x=0' ';;' 'q)' 'x=1' ';;' 'esac' 'done' > /home/"$USER"/.mpv_fzf_screen.sh
 
 chmod +x /home/"$USER"/.mpv_fzf_screen.sh
 
@@ -156,7 +156,7 @@ printf "%b\n\n%b\n\n%b\n\n%b\n\n%b\n\n%b\n\n%b" 'split' 'focus up' 'screen -t vi
 
 sudo pacman -S --noconfirm newsboat
 
-printf "%b\n\n%b\n\n%b\n\n%b\n\n%b\n\n\t%b\n\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\n%b" '#!/bin/bash' '# A script for yt-dlp with search arguments.' 'x=0' 'url=$(xclip -o)' 'while [ "$x" = "0" ]; do' 'echo "y to enter video creator and video discription. x to download url from xclip. m to download music url from xclip. q to quit. yt to run again."' 'read answer' 'case "$answer" in' 'y)' 'echo "Enter the creator and discription."' 'read video' "yt-dlp -f 'bv*[height=480]+ba' \"ytsearch1:\"\$video\"" 'x=0' ';;' 'x)' "yt-dlp -f 'bv*[height=480]+ba' \"\$url\"" 'x=0' ';;' 'm)' "yt-dlp -f 'ba' -x --audio-format mp3 \"\$url\"" 'x=0' ';;' 'yt)' '/home/"$USER"/./.yt.sh' 'x=1' ';;' 'q)' 'x=1' ';;' 'esac' 'done' > /home/"$USER"/.yt.sh
+printf "%b\n\n%b\n\n%b\n\n%b\n\n%b\n\n\t%b\n\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\n%b" '#!/bin/bash' '# A script for yt-dlp with search arguments.' 'x=0' 'url=$(xclip -o)' 'while [ "$x" = 0 ]; do' 'echo "y to enter video creator and video discription. x to download url from xclip. m to download music url from xclip. q to quit. yt to run again."' 'read answer' 'case "$answer" in' 'y)' 'echo "Enter the creator and discription."' 'read video' "yt-dlp -f 'bv*[height=480]+ba' \"ytsearch1:\"\"\$video\"\"\"" 'x=0' ';;' 'x)' "yt-dlp -f 'bv*[height=480]+ba' \"\$url\"" 'x=0' ';;' 'm)' "yt-dlp -f 'ba' -x --audio-format mp3 \"\$url\"" 'x=0' ';;' 'yt)' '/home/"$USER"/./.yt.sh' 'x=1' ';;' 'q)' 'x=1' ';;' 'esac' 'done' > /home/"$USER"/.yt.sh
 
 chmod +x /home/"$USER"/.yt.sh
 
@@ -253,7 +253,7 @@ printf "\n%s\n" "TTYSH Wizard has finished. Please exit out of TTYSH and reboot 
 
 # function for fzf video search in the xorg/GUI
 function fzfxorgvid(){
-while [ "$x" = "0" ]; do
+while [ "$x" = 0 ]; do
 
 	printf "\n%s\n" "Press s to start Press q to quit."
 
@@ -273,7 +273,7 @@ done
 
 # function for fzf video in TTY
 function fzfttyvid(){
-while [ "$x" = "0" ]; do
+while [ "$x" = 0 ]; do
 
 	printf "\n%s\n" "Press s to start. Press q to quit."
 
@@ -293,7 +293,7 @@ done
 
 # function for fzf file search for vim
 function fzfvim(){
-while [ "$x" = "0" ]; do
+while [ "$x" = 0 ]; do
 
 	printf "\n%s\n" "Press s to start. Press q to quit."
 
@@ -313,7 +313,7 @@ done
 
 # function for fzf pdf search
 function fzfpdf(){
-while [ "$x" = "0" ]; do
+while [ "$x" = 0 ]; do
 
 	printf "\n%s\n" "Press s to start. Press q to quit."
 
@@ -334,7 +334,7 @@ done
 # function for yt-dlp
 function yt(){
 
-while [ "$x" = "0" ]; do
+while [ "$x" = 0 ]; do
 
 	printf "\n%s\n" "y to enter video creator and video discription. x to download url from xclip. yt to run again. q to quit"
 
@@ -368,7 +368,7 @@ done
 # function for music in yt-dlp
 function ytmusic(){
 
-while [ "$x" = "0" ]; do
+while [ "$x" = 0 ]; do
 
 	printf "\n%s\n"	"sm to enter creator and title. m to download music url from xclip. ytm to run again. q to quit."
 
@@ -615,7 +615,7 @@ esac
 # function for deleting timehsift backups
 function timedelete(){
 
-while [ "$tuuid" = "$tdrive" ]; do
+while [ "$tuuid" = $tdrive ]; do
 
 	printf "\n%s\n" "Do you want to delete a backup? press d to continue or q to exit"
 
@@ -629,7 +629,7 @@ while [ "$tuuid" = "$tdrive" ]; do
 		x=0
 		;;
 		q)
-		if [ "$tdevname" = "$tencryptedname" ]; then 
+		if [ "$tdevname" = $tencryptedname ]; then 
 			sync
 			cryptsetup close "$tencryptedname"
 			lsblk
@@ -647,14 +647,14 @@ done
 # function for starting main timeshift backup deletions
 function maintdelete(){
 
-if [ "$tuuid" = "$tdrive" ]; then
+if [ "$tuuid" = $tdrive ]; then
 	printf "\n%s\n" "Starting...";
 else
 	printf "\n%s\n" "Drive is not found.";
 	exit
 fi
 
-while [ "$tuuid" = "$tdrive" ]; do
+while [ "$tuuid" = $tdrive ]; do
 
 tdrivecheck
 timeshift --list
@@ -666,14 +666,14 @@ done
 # function main for timeshift
 function maintimeshift(){
 
-if [ "$tuuid" = "$tdrive" ]; then
+if [ "$tuuid" = $tdrive ]; then
 	printf "\n%s\n" "Starting..."
 else
 	printf "\n%s\n" "Drive is not found."
 	exit
 fi
 
-while [ "$tuuid" = "$tdrive" ]; do
+while [ "$tuuid" = $tdrive ]; do
 	
 starttimeshift
 closetimeshift
@@ -683,16 +683,16 @@ done
 
 # function for filebackup
 function filebackup(){
-printf "\n%s\n" "Awaiting ""$buuid"""
+printf "\n%s\n" "Awaiting "$buuid""
 
-if [ "$buuid" = "$bdrive" ]; then
+if [ "$buuid" = $bdrive ]; then
 	printf "\n%s\n" "Starting...";
 else
 	printf "\n%s\n" "Drive is not found.";
 	exit
 fi
 
-while [ "$buuid" = "$bdrive" ]; do
+while [ "$buuid" = $bdrive ]; do
 
 	printf "\n%s\n" ""
 
@@ -700,7 +700,7 @@ while [ "$buuid" = "$bdrive" ]; do
 
 	#sed -n 31p $SUDO_USER/backup.sh
 	
-	printf "\n%s\n" "Stop! Have you run sudo su first? Have you saved your latest bookmarks? Is /dev/""$bdevname"" correct? y/n" 
+	printf "\n%s\n" "Stop! Have you run sudo su first? Have you saved your latest bookmarks? Is /dev/"$bdevname" correct? y/n" 
 
 	read answer
 
@@ -749,7 +749,7 @@ selection
 
 # function for selecting everything
 function selection(){
-while [ "$x" = "0" ]; do
+while [ "$x" = 0 ]; do
 
 printf "\t\n%s\n%s\n" "awaiting..." ""
 
@@ -1063,7 +1063,7 @@ clear
 #	esac
 
 # --no-terminal breaks in the TTY, --really-quiet is used as best alternative
-if [ -f /home/"$USER"/.yt.sh ]; then
+if [ -f /usr/bin/jfbview ]; then
 	splashscreen
 	#mpv --really-quiet /home/"$USER"/.splash_ttysh.png; clear
 else
@@ -1083,7 +1083,7 @@ fi
 
 printf "\n\t%s\n" "TTYSH"
 
-while [ "$x" = "0" ]; do
+while [ "$x" = 0 ]; do
 
 	printf "\n\t%s\n\n" "(c)ontinue, (s)election, (h)elp, edit (hel)p, (config) wizard, or (q)uit?"
 		
