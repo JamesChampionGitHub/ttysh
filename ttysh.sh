@@ -16,7 +16,7 @@ x=0
 splash=$(tty | tr -d '0123456789')
 
 # ps aux kill xorg
-xorg=$(ps aux | grep -i xorg | awk '{print }' | sed -n '1p')
+#xorg=$(ps aux | grep -i xorg | awk '{print }' | sed -n '1p')
 
 # url from xclip for yt-dlp
 url=$(xclip -o)
@@ -923,7 +923,7 @@ printf "\t\n%s\n%s\n" "awaiting..." ""
 		x=0
 		;;
 		x)
-		kill $xorg
+		pkill "Xorg"
 		x=1
 		;;
 		lo)
