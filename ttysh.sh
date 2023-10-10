@@ -401,7 +401,7 @@ done
 # function for searching weather in wttr.in
 
 weather () {
-printf "\n%s\n" "\nEnter your city or town to see the weather forecast.\n"
+printf "\n%s\n" "Enter your city or town to see the weather forecast."
 
 read answer
 
