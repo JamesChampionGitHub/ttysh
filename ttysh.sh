@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # TTYSH : A daily driver and "desktop/non-desktop" experience for the tty.
 # 	  For all level of user. 
@@ -43,7 +43,7 @@ tunmounting=$(lsblk | grep "$tencryptedname" | awk '{print $7}')
 # 
 
 # function for tty or pts splash screen
-function splashscreen(){
+splashscreen () {
 if [ "$splash" = /dev/pts/ ]; then
 	devour mpv --really-quiet /home/"$USER"/.splash_ttysh.png; clear
 else	
@@ -52,13 +52,13 @@ fi
 }
 
 # function for shortcuts selection 
-function ttyshhelp(){
+ttyshhelp () {
 
 cat /home/"$USER"/.ttysh.selection | less
 }
 
 # function for TTYSH configuration
-function wizardttysh(){
+wizardttysh () {
 # TO DO LIST
 # insert newsboat rss for my instruction videos
 # ttysh.selection
@@ -252,7 +252,7 @@ printf "\n%s\n" "TTYSH Wizard has finished. Please exit out of TTYSH and reboot 
 #
 
 # function for fzf video search in the xorg/GUI
-function fzfxorgvid(){
+fzfxorgvid () {
 while [ "$x" = 0 ]; do
 
 	printf "\n%s\n" "Press s to start Press q to quit."
@@ -272,7 +272,7 @@ done
 }
 
 # function for fzf video in TTY
-function fzfttyvid(){
+fzfttyvid () {
 while [ "$x" = 0 ]; do
 
 	printf "\n%s\n" "Press s to start. Press q to quit."
@@ -292,7 +292,7 @@ done
 }
 
 # function for fzf file search for vim
-function fzfvim(){
+fzfvim () {
 while [ "$x" = 0 ]; do
 
 	printf "\n%s\n" "Press s to start. Press q to quit."
@@ -312,7 +312,7 @@ done
 }
 
 # function for fzf pdf search
-function fzfpdf(){
+fzfpdf () {
 while [ "$x" = 0 ]; do
 
 	printf "\n%s\n" "Press s to start. Press q to quit."
@@ -332,7 +332,7 @@ done
 }
 
 # function for yt-dlp
-function yt(){
+yt () {
 
 while [ "$x" = 0 ]; do
 
@@ -366,7 +366,7 @@ done
 }
 
 # function for music in yt-dlp
-function ytmusic(){
+ytmusic () {
 
 while [ "$x" = 0 ]; do
 
@@ -400,7 +400,7 @@ done
 
 # function for searching weather in wttr.in
 
-function weather(){
+weather () {
 printf "\n%s\n" "\nEnter your city or town to see the weather forecast.\n"
 
 read answer
@@ -409,7 +409,7 @@ curl wttr.in/"$answer"
 }
 
 # function for devour vid in xorg
-function devourvid(){
+devourvid () {
 if [ "$splash" = /dev/pts/ ]; then
 	devour mpv /home/"$USER"/Videos/*
 else	
@@ -418,7 +418,7 @@ fi
 }
 
 # function for formating and setting up disks for rsync and timeshift
-function diskformat(){
+diskformat () {
 
 # format using fdisk
 
@@ -530,7 +530,7 @@ printf "\n%s\n%s\n%s\n%s\n%s\n" "This drive is now ready to be used either file 
 
 # function for timeshift backups
 # function for starting the timeshift process
-function starttimeshift(){
+starttimeshift () {
 
 printf "\n%s\n" ""
 
@@ -555,7 +555,7 @@ esac
 }
 
 # function for closing the drive after timeshift
-function closetimeshift(){
+closetimeshift () {
 		
 printf "\n%s\n" ""
 
@@ -589,7 +589,7 @@ esac
 }
 
 # function for checking drive is correct
-function tdrivecheck(){
+tdrivecheck () {
 
 printf "\n%s\n" ""
 
@@ -613,7 +613,7 @@ esac
 }
 
 # function for deleting timehsift backups
-function timedelete(){
+timedelete () {
 
 while [ "$tuuid" = $tdrive ]; do
 
@@ -645,7 +645,7 @@ done
 }
 
 # function for starting main timeshift backup deletions
-function maintdelete(){
+maintdelete () {
 
 if [ "$tuuid" = $tdrive ]; then
 	printf "\n%s\n" "Starting...";
@@ -664,7 +664,7 @@ done
 }
 
 # function main for timeshift
-function maintimeshift(){
+maintimeshift () {
 
 if [ "$tuuid" = $tdrive ]; then
 	printf "\n%s\n" "Starting..."
@@ -682,7 +682,7 @@ done
 }
 
 # function for filebackup
-function filebackup(){
+filebackup () {
 printf "\n%s\n" "Awaiting "$buuid""
 
 if [ "$buuid" = $bdrive ]; then
@@ -727,7 +727,7 @@ done
 }
 
 # date
-function planner(){
+planner () {
 
 printf "\n%s\n" "The time and date is:"
 date
@@ -748,7 +748,7 @@ selection
 }
 
 # function for selecting everything
-function selection(){
+selection () {
 while [ "$x" = 0 ]; do
 
 printf "\t\n%s\n%s\n" "awaiting..." ""
