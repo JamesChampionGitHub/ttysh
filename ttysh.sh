@@ -236,6 +236,8 @@ printf "%b\n\n%b\n\n%b\n\n%b\n\n%b\n\n%b" 'split' 'focus up' 'screen -t bash /bi
 
 printf "%b\n\n%b\n\n%b\n\n%b\n\n%b\n\n%b" 'split -v' 'focus left' 'screen -t bash /bin/bash' 'focus right' 'screen -t bash /bin/bash' 'focus left' > /home/"$USER"/.screenrc.vsplit
 
+printf "%b\n\n%b\n\n%b\n\n%b\n\n%b\n\n%b" 'split' 'focus up' 'screen -t vim /usr/bin/vim /usr/share/kbd/consolefonts' 'focus down' 'screen -t vim /usr/bin/vim /etc/vconsole.conf' 'focus up' > /home/"$USER"/.screenrc.vsplit
+
 # make ttysh help/selection
 
 printf "\n%b\n\n%b\n\n\t\t%b\n\n%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t%b\n\n\t\t\t%b\n\n\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t%b\n\n\t\t\t%b\n\n\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n\t\t\t%b\n\n" 'HELP: j and k to go down and up. q to go to menu.' 'Key: () denote shortcut keys, e.g. (b) means pressing the b key to get to the selector will load the (b)irthdays selection.' 'Pinned/' 'Internet/' '(ly)nx with image viewer/' '(bro)wsh web browser/' '(brow)sh configuration xorg/' '(lib)rewolf xorg/' '(p)ing jameschampion.xyz/' 'Email/' '(e)mail/' '(mu)tt email configuation/' 'Search/' '(fi)le manager/' 'search & play video with (t)ty/or (se)earch & play with gui/' '(fz)f search files to open with Vim/' 'search images and pdfs (pdf)/' '(a)rticles/' '(w)eather/' 'Music/' '(cm)us/' 'cmus-control: (ne)xt/ (pr)evious/ pa(u)se/ (f)orward/ (st)atus/' '(al)samixer/' '(mus)ic search on yt-dlp/' 'Video/' 'play your (vid)eos/' '(l)ist videos/' 'video search on (yt)-dlp/' 'Record/' '(sc)reenshot(1,2,3,4,5,6) TTY/' '(re)cord your TTY/s/' 'Wordprocessing/' '(wr)iter/' 'Calc/Spreadsheet/' '(sp)readsheet/' '(ca)lculator/' 'Accessories/' '(b)irthdays/split/' '(n)otes/todos/split/' '(d)ate & calender/' 'Backup/' 'first run as sudo su!: (di)sk formatting and setting up removable media/' '*NOTE: RUN THE ABOVE ON REMOVABLE MEDIA BEFORE MAKING YOUR BACKUPS.' 'first run as sudo su!: (ba)ckup /home/"$SUDO_USER"/ to removable drive/' 'first run sudo su!: (ti)meshift backup to removable drive/' 'first run sudo su!: (de)lete timeshift backups from removable drive/' 'New TTY/' '(ch)ange(1,2,3,4,5,6) TTY/' '*NOTE: cannot use this selection with screen split. Use alt+number or alt+arrow key instead' 'Screen splits/' '(scr)een four panel split/' '(scre)en horizontal split/' '(scree)n vertical split/' 'Close Xorg/' 'close (x)org and go to TTY/' 'System/Utilities' '(up)date the system/' '(ht)op/' '(c)lock/' '(lo)ck console/' '*NOTE: when you are using xorg/i3, press Ctrl + Alt + and an F key to go to the TTY' 'before you lock the console.' '(res)tart/' '(sh)utdown/' 'Rerun/Help/Quit/' 'rerun (tty)sh/' '(h)elp/' 'edit (hel)p to add and remove your pinned selections' '(q)uit/' > /home/"$USER"/.ttysh.selection
@@ -538,7 +540,7 @@ lsblk
 
 #sed -n 32p $SUDO_USER/timebackup.sh
 	
-printf "\n%s\n" "Stop! Have you run sudo su? Is /dev/""$tdevname"" location correct? y/n"
+printf "\n%s\n" "Stop! Have you run sudo su? Is /dev/"$tdevname" location correct? y/n"
 
 read answer
 
@@ -561,7 +563,7 @@ printf "\n%s\n" ""
 
 lsblk
 
-printf "\n%s\n" "Does the /dev/mapper/""$tencryptedname"" need unmounting? check MOUNTPOINT. press y for umount or n to exit"
+printf "\n%s\n" "Does the /dev/mapper/"$tencryptedname" need unmounting? check MOUNTPOINT. press y for umount or n to exit"
 
 read answer
 
@@ -595,7 +597,7 @@ printf "\n%s\n" ""
 
 lsblk
 
-printf "\n%s\n" "Stop! Have you run sudo su? Is /dev/""$tdevname"" location correct? y/n"
+printf "\n%s\n" "Stop! Have you run sudo su? Is /dev/"$tdevname" location correct? y/n"
 
 read answer
 
@@ -1022,6 +1024,11 @@ printf "\t\n%s\n%s\n" "awaiting..." ""
 		printf "\n%s\n" "You should now exit TTYSH and reboot your system to complete any new updates."
 		x=0
 		;;	
+		fo)
+		sudo screen -c /home/"$USER"/.screenrc.font_conf
+		printf "\n%b\n" "You should reboot your system to see any changes that you have made."
+		x=0
+		;;
 		res)
 		sudo reboot
 		x=1

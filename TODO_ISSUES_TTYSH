@@ -1,9 +1,7 @@
 TO DO:
 
-fix killx not working with x key
 add network manager: not specificially network manager, as must already have internet installed on arch
 work on user enviroment for sudo/root user, e.g. cat out notes. suggest if statement
-change text size
 use /dev/null for errors
 Mouse support for browsh with gpm
 
@@ -55,3 +53,8 @@ Done: replace echo with printf
 Done: have fzf default from home ~
 	Fix: added find to command sub
 
+Done: fix killx not working with x key
+	Fix: used pkill
+
+Done: change text size
+	Fix: uses .screenrc file with split for listing fonts and vconsole.conf file edit
