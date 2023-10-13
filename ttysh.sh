@@ -117,6 +117,8 @@ sudo pacman -S --noconfirm mpv
 sudo pacman -S --noconfirm fzf
 sudo pacman -S --noconfirm screen
 
+printf "%b" '--image-display-duration=1000' >> /home/"$USER"/.config/mpv/mpv.conf
+
 #try %b with \ to try and escape characters
 printf "%b\n\n%b\n\n%b\n\n%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n%b" '#!/bin/bash' 'x=0' 'while [ "$x" = 0 ]; do' 'printf "\\n%b\\n" "Press c to start your search. Press q to exit"' 'read answer' 'case "$answer" in' 'c)' 'mpv "$(find /home/"$USER"/Downloads | fzf)"' 'x=0' ';;' 'q)' 'x=1' ';;' 'esac' 'done' > /home/"$USER"/.mpv_fzf_screen.sh
 
@@ -1071,6 +1073,7 @@ clear
 
 # --no-terminal breaks in the TTY, --really-quiet is used as best alternative
 if [ -f /usr/bin/jfbview ]; then
+	#printf "%b" ""
 	splashscreen
 	#mpv --really-quiet /home/"$USER"/.splash_ttysh.png; clear
 else
