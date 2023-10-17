@@ -6,7 +6,7 @@
 
 Works on Arch Linux based systems with the Pacman package manager. 
 
-Download the zip and extract the files, run the following in the extracted folder:
+Download the zip and extract the files. Run the following in the extracted folder:
 
 ```
 ./ttysh.sh
