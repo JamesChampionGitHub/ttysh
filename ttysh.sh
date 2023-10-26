@@ -410,6 +410,7 @@ printf "\n%s\n" "Enter your city or town to see the weather forecast."
 read answer
 
 curl wttr.in/"$answer"
+#wget -qO- wttr.in/"$answer"
 }
 
 # function for devour vid in xorg
