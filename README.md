@@ -25,5 +25,3 @@ Follow the on-screen instruction to use as your daily driver in the TTY!
 ## What is TTYSH?
 
 For too long the TTY has been dismissed as the part of Linux where the Linux user shouldn't be because it lacks a graphical environment. TTYSH is a script that gives the TTY back to the user. Using automation and the Linux framebuffer, TTYSH turns your TTY into a full "desktop" with a graphical web browser, video playback, image viewing, just to name a few, and all of this is possible without a graphical environment.
-
-Just a test.
