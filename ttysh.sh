@@ -853,7 +853,7 @@ printf "\t\n%s\n%s\n" "awaiting..." ""
 		x=0
 		;;
 		c)
-		watch -n 1 date
+		watch -td -n 1 date
 		x=0
 		;;
 		r)
