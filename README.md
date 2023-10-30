@@ -1,7 +1,5 @@
 # TTYSH
 
-### NOTE: This project is still under development.
-
 ## Running/Installation:
 
 Works on Arch Linux based systems with the Pacman package manager. 

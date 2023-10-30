@@ -120,7 +120,7 @@ sudo pacman -S --noconfirm screen
 printf "%b" '--image-display-duration=1000' >> /home/"$USER"/.config/mpv/mpv.conf
 
 #try %b with \ to try and escape characters
-printf "%b\n\n%b\n\n%b\n\n%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n%b" '#!/bin/bash' 'x=0' 'while [ "$x" = 0 ]; do' 'printf "\\n%b\\n" "Press c to start your search. Press q to exit"' 'read answer' 'case "$answer" in' 'c)' 'mpv "$(find /home/"$USER"/Downloads | fzf)"' 'x=0' ';;' 'q)' 'x=1' ';;' 'esac' 'done' > /home/"$USER"/.mpv_fzf_screen.sh
+printf "%b\n\n%b\n\n%b\n\n%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n%b" '#!/bin/bash' 'x=0' 'while [ "$x" = 0 ]; do' 'printf "\\n%b\\n" "Press c to start your search. Press q to exit"' 'read -p "Enter your selection: " answer' 'case "$answer" in' 'c)' 'mpv "$(find /home/"$USER"/Downloads | fzf)"' 'x=0' ';;' 'q)' 'x=1' ';;' 'esac' 'done' > /home/"$USER"/.mpv_fzf_screen.sh
 
 chmod +x /home/"$USER"/.mpv_fzf_screen.sh
 
@@ -158,7 +158,7 @@ printf "%b\n\n%b\n\n%b\n\n%b\n\n%b\n\n%b\n\n%b" 'split' 'focus up' 'screen -t vi
 
 sudo pacman -S --noconfirm newsboat
 
-printf "%b\n\n%b\n\n%b\n\n%b\n\n%b\n\n\t%b\n\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\n%b" '#!/bin/bash' '# A script for yt-dlp with search arguments.' 'x=0' 'url=$(xclip -o)' 'while [ "$x" = 0 ]; do' 'echo "y to enter video creator and video discription. x to download url from xclip. m to download music url from xclip. q to quit. yt to run again."' 'read answer' 'case "$answer" in' 'y)' 'echo "Enter the creator and discription."' 'read video' "yt-dlp -f 'bv*[height=480]+ba' \"ytsearch1:\"\"\$video\"\"\"" 'x=0' ';;' 'x)' "yt-dlp -f 'bv*[height=480]+ba' \"\$url\"" 'x=0' ';;' 'm)' "yt-dlp -f 'ba' -x --audio-format mp3 \"\$url\"" 'x=0' ';;' 'yt)' '/home/"$USER"/./.yt.sh' 'x=1' ';;' 'q)' 'x=1' ';;' 'esac' 'done' > /home/"$USER"/.yt.sh
+printf "%b\n\n%b\n\n%b\n\n%b\n\n%b\n\n\t%b\n\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\n%b" '#!/bin/bash' '# A script for yt-dlp with search arguments.' 'x=0' 'url=$(xclip -o)' 'while [ "$x" = 0 ]; do' 'echo "y to enter video creator and video discription. x to download url from xclip. m to download music url from xclip. q to quit. yt to run again."' 'read -p "Enter your selection: " answer' 'case "$answer" in' 'y)' 'echo "Enter the creator and discription."' 'read video' "yt-dlp -f 'bv*[height=480]+ba' \"ytsearch1:\"\"\$video\"\"\"" 'x=0' ';;' 'x)' "yt-dlp -f 'bv*[height=480]+ba' \"\$url\"" 'x=0' ';;' 'm)' "yt-dlp -f 'ba' -x --audio-format mp3 \"\$url\"" 'x=0' ';;' 'yt)' '/home/"$USER"/./.yt.sh' 'x=1' ';;' 'q)' 'x=1' ';;' 'esac' 'done' > /home/"$USER"/.yt.sh
 
 chmod +x /home/"$USER"/.yt.sh
 
@@ -261,7 +261,7 @@ while [ "$x" = 0 ]; do
 
 	printf "\n%s\n" "Press s to start Press q to quit."
 
-	read answer
+	read -p "Enter you selection: " answer
 
 	case "$answer" in
 		s)
@@ -281,7 +281,7 @@ while [ "$x" = 0 ]; do
 
 	printf "\n%s\n" "Press s to start. Press q to quit."
 
-	read answer
+	read -p "Enter your selection: " answer
 
 	case "$answer" in
 		s)
@@ -301,7 +301,7 @@ while [ "$x" = 0 ]; do
 
 	printf "\n%s\n" "Press s to start. Press q to quit."
 
-	read answer
+	read -p "Enter your selection: " answer
 
 	case "$answer" in
 		s)
@@ -321,7 +321,7 @@ while [ "$x" = 0 ]; do
 
 	printf "\n%s\n" "Press s to start. Press q to quit."
 
-	read answer
+	read -p "Enter your selection: " answer
 
 	case "$answer" in
 		s)
@@ -342,13 +342,13 @@ while [ "$x" = 0 ]; do
 
 	printf "\n%s\n" "y to enter video creator and video discription. x to download url from xclip. yt to run again. q to quit"
 
-	read answer
+	read -p "Enter your selection: " answer
 
 	printf "\n%s\n" ""
 
 	case "$answer" in
 		y)
-		printf "\n%s\n" "Enter the creator and discription."
+		printf "\n%s\n" "Enter the creator and discription: "
 		read video
 		printf "\n%s\n"	""
 		yt-dlp -f 'bv*[height=480]+ba' "ytsearch1:""$video"""
@@ -376,13 +376,13 @@ while [ "$x" = 0 ]; do
 
 	printf "\n%s\n"	"sm to enter creator and title. m to download music url from xclip. ytm to run again. q to quit."
 
-	read answer
+	read -p "Enter your selection: " answer
 
 	printf "\n%s\n" ""
 
 	case "$answer" in
 		sm)
-		printf "\n%s\n" "Enter music creator and title."
+		printf "\n%s\n" "Enter music creator and title: "
 		read music
 		yt-dlp -f 'ba' -x --audio-format mp3 "ytsearch1:""$music"""
 		x=0
@@ -405,7 +405,7 @@ done
 # function for searching weather in wttr.in
 
 weather () {
-printf "\n%s\n" "Enter your city or town to see the weather forecast."
+printf "\n%s\n" "Enter your city or town to see the weather forecast: "
 
 read answer
 
@@ -433,7 +433,7 @@ diskformat () {
 
 printf "\n%s\n" "Stop! Have you run sudo su? y/n"
 
-	read answer
+	read -p "Enter your selection: " answer
 
 	case "$answer" in
 		y)
@@ -457,7 +457,7 @@ lsblk
 
 printf "\n%s\n" "Please look for your inserted device above. Is it correct? y/n"
 
-	read answer
+	read -p "Enter your selection: " answer
 
 	case "$answer" in
 		y)
@@ -503,7 +503,7 @@ ls -l /dev/disk/by-uuid/
 ls -l /dev/disk/by-uuid/ | grep "$setuuid" | awk '{print $9}' | tr -d /.
 
 printf "\n%s\n%s\n" "You need to now add the UUID number of the disk you have setup for either file backups or system backups." "See above, is this correct? y/n"
-	read answer
+	read -p "Enter your selection: " answer
 
 	case "$answer" in
 		y)
@@ -517,7 +517,7 @@ printf "\n%s\n%s\n" "You need to now add the UUID number of the disk you have se
 
 printf "\n%s\n" "Choose what this disk will be used for. Press t for timeshift system backups or press f for file system backups"
 
-	read answer
+	read -p "Enter your selection: " answer
 	
 	case "$answer" in
 		t)
@@ -545,7 +545,7 @@ lsblk
 	
 printf "\n%s\n" "Stop! Have you run sudo su? Is /dev/"$tdevname" location correct? y/n"
 
-read answer
+read -p "Enter your selection: "answer
 
 case "$answer" in
 	y)
@@ -568,7 +568,7 @@ lsblk
 
 printf "\n%s\n" "Does the /dev/mapper/"$tencryptedname" need unmounting? check MOUNTPOINT. press y for umount or n to exit"
 
-read answer
+read -p "Enter your selection: " answer
 
 case "$answer" in
 	y)
@@ -602,7 +602,7 @@ lsblk
 
 printf "\n%s\n" "Stop! Have you run sudo su? Is /dev/"$tdevname" location correct? y/n"
 
-read answer
+read -p "Enter your selection: " answer
 
 case "$answer" in
 	y)
@@ -624,7 +624,7 @@ while [ "$tuuid" = $tdrive ]; do
 
 	printf "\n%s\n" "Do you want to delete a backup? press d to continue or q to exit"
 
-	read answer
+	read -p "Enter your selection: " answer
 
 	case "$answer" in 
 		d)
@@ -707,7 +707,7 @@ while [ "$buuid" = $bdrive ]; do
 	
 	printf "\n%s\n" "Stop! Have you run sudo su first? Have you saved your latest bookmarks? Is /dev/"$bdevname" correct? y/n" 
 
-	read answer
+	read -p "Enter your selection: " answer
 
 	case "$answer" in
 		y)
@@ -758,7 +758,7 @@ while [ "$x" = 0 ]; do
 
 printf "\t\n%s\n%s\n" "awaiting..." ""
 
-	read answer
+	read -p "Enter your selection: " answer
 
 	case "$answer" in
 		cm)
@@ -802,7 +802,7 @@ printf "\t\n%s\n%s\n" "awaiting..." ""
 		ly)
 		printf "\n%s\n%s\n%s\n" "Stop! It is recommended to run lynx browser offline for your saved webpages." "Use Browsh/Librewolf for web online browsing and saving webpages for later." "Are you offline? Do you want to continue? y/n"
 
-		read answer
+		read -p "Enter your selection: " answer
 
 		case "$answer" in
 			y)
@@ -1080,7 +1080,7 @@ if [ -f /usr/bin/jfbview ]; then
 else
 	printf "\n%s\n" "First time using TTYSH, or you do not yet have TTYSH setup and configured? Press y to begin setup, or press n to exit."
 
-	read answer
+	read -p "Enter your selection: " answer
 
 	case "$answer" in
 		y)
@@ -1098,7 +1098,7 @@ while [ "$x" = 0 ]; do
 
 	printf "\n\t%s\n\n" "(c)ontinue, (s)election, (h)elp, edit (hel)p, (config) wizard, or (q)uit?"
 		
-	read intro
+	read -p "Enter your selection: " intro
 
 	case "$intro" in
 		c)
