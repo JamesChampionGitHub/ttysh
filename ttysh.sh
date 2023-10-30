@@ -756,9 +756,7 @@ selection
 selection () {
 while [ "$x" = 0 ]; do
 
-printf "\t\n%s\n%s\n" "awaiting..." ""
-
-	read -p "Enter your selection: " answer
+	read -p "Enter your selection: Press h if you need help..." answer
 
 	case "$answer" in
 		cm)
