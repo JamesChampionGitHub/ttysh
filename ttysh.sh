@@ -758,7 +758,7 @@ while [ "$x" = 0 ]; do
 
 printf "\n%s" ""
 
-	read -p "Enter your selection. Press h if you need help: " answer
+	read -p "Enter your selection. h and enter if you need help: " answer
 
 	case "$answer" in
 		cm)
