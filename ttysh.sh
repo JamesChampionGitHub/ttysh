@@ -756,6 +756,8 @@ selection
 selection () {
 while [ "$x" = 0 ]; do
 
+printf "\n%s" ""
+
 	read -p "Enter your selection. Press h if you need help: " answer
 
 	case "$answer" in
