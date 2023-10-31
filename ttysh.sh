@@ -49,6 +49,8 @@ if [ "$splash" = /dev/pts/ ]; then
 else	
 	mpv --really-quiet /home/"$USER"/.splash_ttysh.png; clear
 fi
+
+#[ "$splash" = /dev/pts ] && devour mpv --really-quiet /home/"$USER"/.splash_ttysh.png; clear || mpv --really-quiet /home/"$USER"/.splash_ttysh.png; clear
 }
 
 # function for shortcuts selection 
@@ -415,11 +417,13 @@ curl wttr.in/"$answer"
 
 # function for devour vid in xorg
 devourvid () {
-if [ "$splash" = /dev/pts/ ]; then
-	devour mpv /home/"$USER"/Videos/*
-else	
-	mpv /home/"$USER"/Videos/*
-fi
+#if [ "$splash" = /dev/pts/ ]; then
+#	devour mpv /home/"$USER"/Videos/*
+#else	
+#	mpv /home/"$USER"/Videos/*
+#fi
+
+[ "$splash" = /dev/pts/ ] && devour mpv /home/"$USER"/Videos/* || mpv /home/"$USER"/Videos/*
 }
 
 # function for formating and setting up disks for rsync and timeshift
