@@ -50,7 +50,7 @@ else
 	mpv --really-quiet /home/"$USER"/.splash_ttysh.png; clear
 fi
 
-#[ "$splash" = /dev/pts ] && devour mpv --really-quiet /home/"$USER"/.splash_ttysh.png; clear || mpv --really-quiet /home/"$USER"/.splash_ttysh.png; clear
+#[ "$splash" = /dev/pts/ ] && devour mpv --really-quiet /home/"$USER"/.splash_ttysh.png ; clear || mpv --really-quiet /home/"$USER"/.splash_ttysh.png ; clear
 }
 
 # function for shortcuts selection 
@@ -549,7 +549,7 @@ lsblk
 	
 printf "\n%s\n" "Stop! Have you run sudo su? Is /dev/"$tdevname" location correct? y/n"
 
-read -p "Enter your selection: "answer
+read -p "Enter your selection: " answer
 
 case "$answer" in
 	y)
