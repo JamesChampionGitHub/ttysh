@@ -347,7 +347,7 @@ while [ "$x" = 0 ]; do
 
 	case "$answer" in
 		s)
-		rm -iv $(find /home/"$USER"/ -type f | fzf --multi --prompt "Pick the file for delection. ESC to exit: ")
+		rm -iv $(find /home/"$USER"/ -type f | fzf --multi --prompt "Pick the file for deletion. ESC to exit: ")
 		x=0
 		;;
 		q)
