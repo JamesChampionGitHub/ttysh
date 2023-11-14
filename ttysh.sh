@@ -357,6 +357,30 @@ while [ "$x" = 0 ]; do
 done
 }
 
+# function for fzf directory and file search to remove white space
+fzfwhitespace () {
+while [ "$x" = 0 ]; do
+
+	printf "\n%s\n" "Press s to start. Press q to quit."
+
+	read -p "Enter your selection: " answer
+
+	case "$answer" in
+		s)
+		chosendir="$(find /home/"$USER"/ | fzf --prompt "Pick the directory with the files names that you want to remove white space from: ")"
+		for file in $chosendir/*
+		do
+			mv "$file" "$(echo "$file" | sed -e 's/\ /_/g')"
+		done
+		x=0
+		;;
+		q)
+		x=1
+		;;
+	esac
+done
+}
+
 # function for yt-dlp
 yt () {
 
@@ -923,6 +947,10 @@ printf "\n%s" ""
 		fzfdelete
 		x=0
 		;;
+		wh)
+		fzfwhitespace
+		x=0
+		;;
 		w)
 		weather
 		x=0
@@ -1161,3 +1189,4 @@ while [ "$x" = 0 ]; do
 		;;
 	esac
 done
+
