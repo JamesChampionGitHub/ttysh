@@ -267,7 +267,7 @@ while [ "$x" = 0 ]; do
 
 	case "$answer" in
 		s)
-		devour mpv "$(find /home/"$USER"/ | fzf)"
+		devour mpv "$(find /home/"$USER"/ -type f | fzf)"
 		x=0
 		;;
 		q)
@@ -287,7 +287,7 @@ while [ "$x" = 0 ]; do
 
 	case "$answer" in
 		s)
-		mpv "$(find /home/"$USER"/ | fzf)"
+		mpv "$(find /home/"$USER"/ -type f | fzf)"
 		x=0
 		;;
 		q)
@@ -307,7 +307,7 @@ while [ "$x" = 0 ]; do
 
 	case "$answer" in
 		s)
-		vim "$(find /home/"$USER"/ | fzf)"
+		vim "$(find /home/"$USER"/ -type f | fzf)"
 		x=0
 		;;
 		q)
@@ -327,7 +327,7 @@ while [ "$x" = 0 ]; do
 
 	case "$answer" in
 		s)
-		sudo jfbview "$(find /home/"$USER"/ | fzf)"
+		sudo jfbview "$(find /home/"$USER"/ -type f | fzf)"
 		x=0
 		;;
 		q)
@@ -347,7 +347,7 @@ while [ "$x" = 0 ]; do
 
 	case "$answer" in
 		s)
-		rm -iv "$(find /home/"$USER"/ | fzf --prompt "Pick the file for delection. ESC to exit: ")"
+		rm -iv $(find /home/"$USER"/ -type f | fzf --multi --prompt "Pick the file for delection. ESC to exit: " )
 		x=0
 		;;
 		q)
