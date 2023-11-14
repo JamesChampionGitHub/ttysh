@@ -1036,6 +1036,7 @@ printf "\n%s" ""
 		x=0
 		;;
 		fr)
+		printf "\n%s\n" ""
 		df -h
 		x=0
 		;;
