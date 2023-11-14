@@ -337,6 +337,26 @@ while [ "$x" = 0 ]; do
 done
 }
 
+# function for fzf file search and deletion
+fzfdelete () {
+while [ "$x" = 0 ]; do
+
+	printf "\n%s\n" "Press s to start. Press q to quit."
+
+	read -p "Enter your selection: " answer
+
+	case "$answer" in
+		s)
+		rm -iv "$(find /home/"$USER"/ | fzf --prompt "Pick the file for delection. ESC to exit: ")"
+		x=0
+		;;
+		q)
+		x=1
+		;;
+	esac
+done
+}
+
 # function for yt-dlp
 yt () {
 
@@ -897,6 +917,10 @@ printf "\n%s" ""
 		;;
 		fz)
 		fzfvim	
+		x=0
+		;;
+		del)
+		fzfdelete
 		x=0
 		;;
 		w)
