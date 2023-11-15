@@ -267,7 +267,7 @@ while [ "$x" = 0 ]; do
 
 	case "$answer" in
 		s)
-		devour mpv "$(find /home/"$USER"/ -type f | fzf)"
+		devour mpv "$(find /home/"$USER"/ -type f | fzf --prompt "Pick the video you want to watch in the GUI: ")"
 		x=0
 		;;
 		q)
@@ -287,7 +287,7 @@ while [ "$x" = 0 ]; do
 
 	case "$answer" in
 		s)
-		mpv "$(find /home/"$USER"/ -type f | fzf)"
+		mpv "$(find /home/"$USER"/ -type f | fzf --prompt "Pick the video you want to watch in the TTY: ")"
 		x=0
 		;;
 		q)
@@ -307,7 +307,7 @@ while [ "$x" = 0 ]; do
 
 	case "$answer" in
 		s)
-		vim "$(find /home/"$USER"/ -type f | fzf)"
+		vim "$(find /home/"$USER"/ -type f | fzf --prompt "Pick the file you want to open in vim: ")"
 		x=0
 		;;
 		q)
@@ -327,7 +327,7 @@ while [ "$x" = 0 ]; do
 
 	case "$answer" in
 		s)
-		sudo jfbview "$(find /home/"$USER"/ -type f | fzf)"
+		sudo jfbview "$(find /home/"$USER"/ -type f | fzf --prompt "Pick the pdf you want to view. ESC to exit: ")"
 		x=0
 		;;
 		q)
@@ -1190,4 +1190,3 @@ while [ "$x" = 0 ]; do
 		;;
 	esac
 done
-
