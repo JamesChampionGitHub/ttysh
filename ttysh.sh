@@ -122,7 +122,7 @@ sudo pacman -S --noconfirm screen
 printf "%b" '--image-display-duration=1000' >> /home/"$USER"/.config/mpv/mpv.conf
 
 #try %b with \ to try and escape characters
-printf "%b\n\n%b\n\n%b\n\n%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n%b" '#!/bin/bash' 'x=0' 'while [ "$x" = 0 ]; do' 'printf "\\n%b\\n" "Press c to start your search. Press q to exit"' 'read -p "Enter your selection: " answer' 'case "$answer" in' 'c)' 'mpv "$(find /home/"$USER"/Downloads | fzf)"' 'x=0' ';;' 'q)' 'x=1' ';;' 'esac' 'done' > /home/"$USER"/.mpv_fzf_screen.sh
+printf "%b\n\n%b\n\n%b\n\n%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n%b" '#!/bin/bash' 'x=0' 'while [ "$x" = 0 ]; do' 'printf "\\n%b\\n" "Press c to start your search. Press q to exit"' 'read -p "Enter your selection: " answer' 'case "$answer" in' 'c)' 'mpv "$(find /home/"$USER"/Downloads | fzf -i)"' 'x=0' ';;' 'q)' 'x=1' ';;' 'esac' 'done' > /home/"$USER"/.mpv_fzf_screen.sh
 
 chmod +x /home/"$USER"/.mpv_fzf_screen.sh
 
@@ -197,7 +197,7 @@ printf "%b\n%b\n%b\n%b\n%b\n\n%b\n%b\n%b\n%b\n%b\n%b\n%b" 'XTerm.vt100.foregroun
 
 # make screen list videos config
 
-printf "%b\n\n%b" '#!/bin/bash' 'mpv "$(find /home/"$USER"/Videos | fzf)"' > /home/"$USER"/.mpv_fzf_screen_videos.sh
+printf "%b\n\n%b" '#!/bin/bash' 'mpv "$(find /home/"$USER"/Videos | fzf -i)"' > /home/"$USER"/.mpv_fzf_screen_videos.sh
 
 chmod +x /home/"$USER"/.mpv_fzf_screen_videos.sh
 
@@ -267,7 +267,7 @@ while [ "$x" = 0 ]; do
 
 	case "$answer" in
 		s)
-		devour mpv "$(find /home/"$USER"/ -type f | fzf --prompt "Pick the video you want to watch in the GUI: ")"
+		devour mpv "$(find /home/"$USER"/ -type f | fzf -i --prompt "Pick the video you want to watch in the GUI: ")"
 		x=0
 		;;
 		q)
@@ -287,7 +287,7 @@ while [ "$x" = 0 ]; do
 
 	case "$answer" in
 		s)
-		mpv "$(find /home/"$USER"/ -type f | fzf --prompt "Pick the video you want to watch in the TTY: ")"
+		mpv "$(find /home/"$USER"/ -type f | fzf -i --prompt "Pick the video you want to watch in the TTY: ")"
 		x=0
 		;;
 		q)
@@ -307,7 +307,7 @@ while [ "$x" = 0 ]; do
 
 	case "$answer" in
 		s)
-		vim "$(find /home/"$USER"/ -type f | fzf --prompt "Pick the file you want to open in vim: ")"
+		vim "$(find /home/"$USER"/ -type f | fzf -i --prompt "Pick the file you want to open in vim: ")"
 		x=0
 		;;
 		q)
@@ -327,7 +327,7 @@ while [ "$x" = 0 ]; do
 
 	case "$answer" in
 		s)
-		sudo jfbview "$(find /home/"$USER"/ -type f | fzf --prompt "Pick the pdf you want to view. ESC to exit: ")"
+		sudo jfbview "$(find /home/"$USER"/ -type f | fzf -i --prompt "Pick the pdf you want to view. ESC to exit: ")"
 		x=0
 		;;
 		q)
@@ -347,7 +347,7 @@ while [ "$x" = 0 ]; do
 
 	case "$answer" in
 		s)
-		rm -iv $(find /home/"$USER"/ -type f | fzf --multi --prompt "Pick the file for deletion. ESC to exit: ")
+		rm -iv $(find /home/"$USER"/ -type f | fzf -i --multi --prompt "Pick the file for deletion. ESC to exit: ")
 		x=0
 		;;
 		q)
@@ -367,7 +367,7 @@ while [ "$x" = 0 ]; do
 
 	case "$answer" in
 		s)
-		chosendir="$(find /home/"$USER"/ | fzf --prompt "Pick the directory with the files names that you want to remove white space from: ")"
+		chosendir="$(find /home/"$USER"/ | fzf -i --prompt "Pick the directory with the files names that you want to remove white space from: ")"
 		for file in $chosendir/*
 		do
 			mv "$file" "$(echo "$file" | sed -e 's/\ /_/g')"
@@ -902,6 +902,7 @@ printf "\n%s" ""
 		;;
 		c)
 		watch -td -n 1 date
+		#screen -c /home/"$USER"/.screenrc.clock
 		x=0
 		;;
 		r)
