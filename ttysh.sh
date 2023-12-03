@@ -1017,7 +1017,7 @@ printf "\n%s" ""
 		x=0
 		;;
 		re)
-		sudo ffmpeg -f fbdev -framerate 10 -i /dev/fb0 ttyrecord.webm
+		sudo ffmpeg -f fbdev -framerate 60 -i /dev/fb0 ttyrecord.mp4
 		x=0
 		;;
 		wr)
