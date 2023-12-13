@@ -768,6 +768,8 @@ while [ "$buuid" = $bdrive ]; do
 		umount /mnt
 		cryptsetup close drive 
 		printf "\n%s\n" "Complete. Closing..."
+		lsblk
+		printf "\n%s\n" "Your storage should be correct. Finished."
 		exit
 		buuid=1
 		;;
@@ -815,6 +817,7 @@ printf "\n%s" ""
 		;;
 		ne)
 		cmus-remote -n
+		cmus-remote -Q
 		x=0
 		;;
 		pr)
