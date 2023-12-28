@@ -956,6 +956,11 @@ printf "\n%s" ""
 		x=0
 		;;
 		w)
+		until curl wttr.in 1>/dev/null; do
+			sleep 1
+			echo "Awaiting wttr.in to respond. The server might be down. You could try again later."
+			break
+		done
 		weather
 		x=0
 		;;
