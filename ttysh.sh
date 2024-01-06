@@ -368,11 +368,19 @@ while [ "$x" = 0 ]; do
 	case "$answer" in
 		s)
 		chosendir="$(find /home/"$USER"/ | fzf -i --prompt "Pick the directory with the files names that you want to remove white space from: ")"
-		for file in $chosendir/*
+		for file in "$chosendir"/*
 		do
-			mv "$file" "$(echo "$file" | sed -e 's/\ /_/g')"
+			read -p "Did you pick something, or do you want to quit? Press c to continue, or e to exit: " pick
+			case "$pick" in
+				c)
+				mv "$file" "$(echo "$file" | sed -e 's/\ /_/g')"
+				break
+				;;
+				e)
+				break
+				;;
+			esac
 		done
-		x=0
 		;;
 		q)
 		x=1
