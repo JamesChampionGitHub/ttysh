@@ -2,7 +2,7 @@
 
 ## Running/Installation:
 
-Works on Arch Linux based systems with the Pacman package manager. 
+Works on Arch Linux based systems with the Pacman package manager. It is recommded to run on a fresh install and a base install. Backup any important files to avoid data loss.
 
 Download the zip and extract the files. Run the following in the extracted folder:
 
