@@ -25,7 +25,7 @@ url=$(xclip -o)
 # find uuid
 bdrive=$(cat /home/"$SUDO_USER"/.uuidfiles)
 buuid=$(echo "$bdrive")
-bdevname=$(ls /dev/disk/by-uuid/ -l | grep "$buuid" | awk '{print $11}' | tr -d /.)
+bdevname=$(ls /dev/disk/by-uuid/ -l | grep "$buuid" | awk '{print $11}' | colrm 1 6)
 
 # timeshift
 # find uuid
