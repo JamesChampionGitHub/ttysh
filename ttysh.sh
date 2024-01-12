@@ -26,6 +26,7 @@ url=$(xclip -o)
 bdrive=$(cat /home/"$SUDO_USER"/.uuidfiles)
 buuid=$(echo "$bdrive")
 bdevname=$(ls /dev/disk/by-uuid/ -l | grep "$buuid" | awk '{print $11}' | colrm 1 6)
+lsbdevname=$(ls /dev/disk/by-uuid -l | grep "$buuid")
 
 # timeshift
 # find uuid
@@ -36,6 +37,7 @@ tdevname=$(ls /dev/disk/by-uuid/ -l | grep "$tuuid" | awk '{print$11}' | tr -d /
 tencryptedname="timeshiftbackup"
 tunmounting=$(lsblk | grep "$tencryptedname" | awk '{print $7}')
 #echo -e "\nAwaiting $tuuid\n"
+lstdevname=$(ls /dev/disk/by-uuid -l | grep "$tuuid")
 
 
 #
@@ -727,33 +729,28 @@ done
 # function main for timeshift
 maintimeshift () {
 
-if [ "$tuuid" = $tdrive ]; then
-	printf "\n%s\n" "Starting..."
-else
-	printf "\n%s\n" "Drive is not found."
+until [ "$lstdevname" ]; do 
+	printf "\n%s\n" "Looking for "$tdrive""
+	sleep 1
+	"Cannot find "$tuuid". Check you are run as sudo su. Check that you have connected your drive. Exiting..."
 	exit
-fi
+done
 
-while [ "$tuuid" = $tdrive ]; do
-	
 starttimeshift
 closetimeshift
-
-done
 }
 
 # function for filebackup
 filebackup () {
-printf "\n%s\n" "Awaiting "$buuid""
 
-if [ "$buuid" = $bdrive ]; then
-	printf "\n%s\n" "Starting...";
-else
-	printf "\n%s\n" "Drive is not found.";
+until [ "$lsbdevname" ]; do
+	printf "\n%s\n" "Looking for "$bdrive""
+	sleep 1
+	"Cannot find "$buuid". Check you are run as sudo su. Check that you have connected your drive. Exiting..."
 	exit
-fi
+done
 
-while [ "$buuid" = $bdrive ]; do
+printf "\n%s\n" "Starting...";
 
 	printf "\n%s\n" ""
 
@@ -786,7 +783,6 @@ while [ "$buuid" = $bdrive ]; do
 		buuid=1
 		;;
 	esac
-done
 }
 
 # date
