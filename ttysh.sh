@@ -703,9 +703,13 @@ done
 maintdelete () {
 
 until [ "$lstdevname" ]; do
+
 	printf "\n%s\n" "Looking for "$tdrive""
+
 	sleep 1
+
 	printf "\n%s\n" "Cannot find "$tuuid". Check you are run as sudo su. Check that you have connected your drive. Exiting..."
+
 	exit
 done
 
@@ -718,9 +722,13 @@ timedelete
 maintimeshift () {
 
 until [ "$lstdevname" ]; do 
+
 	printf "\n%s\n" "Looking for "$tdrive""
+
 	sleep 1
+
 	printf "\n%s\n" "Cannot find "$tuuid". Check you are run as sudo su. Check that you have connected your drive. Exiting..."
+
 	exit
 done
 
@@ -732,9 +740,13 @@ closetimeshift
 filebackup () {
 
 until [ "$lsbdevname" ]; do
+
 	printf "\n%s\n" "Looking for "$bdrive""
+
 	sleep 1
+
 	printf "\n%s\n" "Cannot find "$buuid". Check you are run as sudo su. Check that you have connected your drive. Exiting..."
+
 	exit
 done
 
@@ -948,11 +960,11 @@ printf "\n%s" ""
 		x=0
 		;;
 		w)
-		until curl wttr.in 1>/dev/null; do
-			sleep 1
-			echo "Awaiting wttr.in to respond. The server might be down. You could try again later."
-			break
-		done
+		#until curl wttr.in 1>/dev/null; do
+			#sleep 1
+			#echo "Awaiting wttr.in to respond. The server might be down. You could try again later."
+			#break
+		#done
 		weather
 		x=0
 		;;
