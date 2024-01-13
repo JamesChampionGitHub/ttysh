@@ -678,7 +678,7 @@ esac
 # function for deleting timehsift backups
 timedelete () {
 
-while [ "$tuuid" = $tdrive ]; do
+while [ "$lstdevname" ]; do
 
 	printf "\n%s\n" "Do you want to delete a backup? press d to continue or q to exit"
 
@@ -692,15 +692,7 @@ while [ "$tuuid" = $tdrive ]; do
 		x=0
 		;;
 		q)
-		if [ "$tdevname" = $tencryptedname ]; then 
-			sync
-			cryptsetup close "$tencryptedname"
-			lsblk
-			printf "\n%s\n" "Your storage should be correct. Finished."
-			exit;
-		else
-			closetimeshift	
-		fi
+		closetimeshift	
 		tuuid=1
 		;;
 	esac
@@ -710,20 +702,16 @@ done
 # function for starting main timeshift backup deletions
 maintdelete () {
 
-if [ "$tuuid" = $tdrive ]; then
-	printf "\n%s\n" "Starting...";
-else
-	printf "\n%s\n" "Drive is not found.";
+until [ "$lstdevname" ]; do
+	printf "\n%s\n" "Looking for "$tdrive""
+	sleep 1
+	printf "\n%s\n" "Cannot find "$tuuid". Check you are run as sudo su. Check that you have connected your drive. Exiting..."
 	exit
-fi
-
-while [ "$tuuid" = $tdrive ]; do
+done
 
 tdrivecheck
 timeshift --list
 timedelete
-
-done
 }
 
 # function main for timeshift
@@ -732,7 +720,7 @@ maintimeshift () {
 until [ "$lstdevname" ]; do 
 	printf "\n%s\n" "Looking for "$tdrive""
 	sleep 1
-	"Cannot find "$tuuid". Check you are run as sudo su. Check that you have connected your drive. Exiting..."
+	printf "\n%s\n" "Cannot find "$tuuid". Check you are run as sudo su. Check that you have connected your drive. Exiting..."
 	exit
 done
 
@@ -746,7 +734,7 @@ filebackup () {
 until [ "$lsbdevname" ]; do
 	printf "\n%s\n" "Looking for "$bdrive""
 	sleep 1
-	"Cannot find "$buuid". Check you are run as sudo su. Check that you have connected your drive. Exiting..."
+	printf "\n%s\n" "Cannot find "$buuid". Check you are run as sudo su. Check that you have connected your drive. Exiting..."
 	exit
 done
 
