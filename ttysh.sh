@@ -58,7 +58,7 @@ fi
 # function for shortcuts selection 
 ttyshhelp () {
 
-cat /home/"$USER"/.ttysh.selection | less
+less /home/"$USER"/.ttysh.selection 
 }
 
 # function for TTYSH configuration
@@ -798,7 +798,7 @@ printf "\n%s\n" "press q when ready..." | less
 
 # cat out notes/todo
 printf "\n%s\n" ""
-cat /home/"$USER"/info/notes.txt | less
+less /home/"$USER"/info/notes.txt 
 printf "\n%s\n" ""
 
 clear
