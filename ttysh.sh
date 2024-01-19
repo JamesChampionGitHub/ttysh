@@ -25,7 +25,7 @@ url=$(xclip -o)
 # find uuid
 bdrive=$(cat /home/"$SUDO_USER"/.uuidfiles)
 buuid=$(echo "$bdrive")
-bdevname=$(ls /dev/disk/by-uuid/ -l | grep "$buuid" | awk '{print $11}' | colrm 1 6)
+bdevname=$(ls /dev/disk/by-uuid/ -l | grep "$buuid" | colrm 1 85)
 lsbdevname=$(ls /dev/disk/by-uuid -l | grep "$buuid")
 
 # timeshift
@@ -1200,6 +1200,10 @@ while [ "$x" = 0 ]; do
 		q)
 		printf "\n%s" ""
 		x=1
+		;;
+		*)
+		printf "\n%s\n" "Not a valid selection."
+		x=0
 		;;
 	esac
 done
