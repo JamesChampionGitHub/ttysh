@@ -47,13 +47,14 @@ lstdevname=$(ls /dev/disk/by-uuid -l | grep "$tuuid")
 # function for tty or pts splash screen
 splashscreen () {
 
+#[ "$splash" = /dev/pts/ ] && devour mpv --really-quiet /home/"$USER"/.splash_ttysh.png ; clear || mpv --really-quiet /home/"$USER"/.splash_ttysh.png ; clear
+
 if [ "$splash" = /dev/pts/ ]; then
 	devour mpv --really-quiet /home/"$USER"/.splash_ttysh.png; clear
 else	
 	mpv --really-quiet /home/"$USER"/.splash_ttysh.png; clear
 fi
 
-#[ "$splash" = /dev/pts/ ] && devour mpv --really-quiet /home/"$USER"/.splash_ttysh.png ; clear || mpv --really-quiet /home/"$USER"/.splash_ttysh.png ; clear
 }
 
 # function for shortcuts selection 
@@ -738,26 +739,26 @@ printf "\n%s\n" "Looking for "$tdrive"..."
 
 sleep 1
 
-#[ "$lstdevname" ] && printf "\n%s\n" ""$tdrive" has been found. Starting..."; starttimeshift; closetimeshift || printf "\n%s\n" "Cannot find "$tuuid". Check you are run as sudo su. Check that you have connected your drive. Exiting..."; lsblk; printf "\n%s" ""; exit
+[ "$lstdevname" ] && printf "\n%s\n" ""$tdrive" has been found. Starting..." && starttimeshift && closetimeshift || printf "\n%s\n\n" "Cannot find "$tuuid". Check you are run as sudo su. Check that you have connected your drive. Exiting..." && lsblk && printf "\n%s" "" && exit
 
-if [ "$lstdevname" ]; then
-
-	printf "\n%s\n" ""$tdrive" has been found. Starting..."
-
-	starttimeshift
-	closetimeshift
-
-else
-
-	printf "\n%s\n\n" "Cannot find "$tuuid". Check you are run as sudo su. Check that you have connected your drive. Exiting..."
-
-	lsblk
-
-	printf "\n%s" ""
-
-	exit
-
-fi
+#if [ "$lstdevname" ]; then
+#
+#	printf "\n%s\n" ""$tdrive" has been found. Starting..."
+#
+#	starttimeshift
+#	closetimeshift
+#
+#else
+#
+#	printf "\n%s\n\n" "Cannot find "$tuuid". Check you are run as sudo su. Check that you have connected your drive. Exiting..."
+#
+#	lsblk
+#
+#	printf "\n%s" ""
+#
+#	exit
+#
+#fi
 }
 
 # function for filebackup
