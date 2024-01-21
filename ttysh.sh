@@ -720,7 +720,7 @@ if [ "$lstdevname" ]; then
 
 else
 
-	printf "\n%s\n" "Cannot find "$tuuid". Check you are run as sudo su. Check that you have connected your drive. Exiting..."
+	printf "\n%s\n\n" "Cannot find "$tuuid". Check you are run as sudo su. Check that you have connected your drive. Exiting..."
 
 	lsblk
 
@@ -737,7 +737,9 @@ maintimeshift () {
 printf "\n%s\n" "Looking for "$tdrive"..."
 
 sleep 1
-	
+
+#[ "$lstdevname" ] && printf "\n%s\n" ""$tdrive" has been found. Starting..."; starttimeshift; closetimeshift || printf "\n%s\n" "Cannot find "$tuuid". Check you are run as sudo su. Check that you have connected your drive. Exiting..."; lsblk; printf "\n%s" ""; exit
+
 if [ "$lstdevname" ]; then
 
 	printf "\n%s\n" ""$tdrive" has been found. Starting..."
@@ -747,7 +749,7 @@ if [ "$lstdevname" ]; then
 
 else
 
-	printf "\n%s\n" "Cannot find "$tuuid". Check you are run as sudo su. Check that you have connected your drive. Exiting..."
+	printf "\n%s\n\n" "Cannot find "$tuuid". Check you are run as sudo su. Check that you have connected your drive. Exiting..."
 
 	lsblk
 
