@@ -46,6 +46,7 @@ lstdevname=$(ls /dev/disk/by-uuid -l | grep "$tuuid")
 
 # function for tty or pts splash screen
 splashscreen () {
+
 if [ "$splash" = /dev/pts/ ]; then
 	devour mpv --really-quiet /home/"$USER"/.splash_ttysh.png; clear
 else	
@@ -261,6 +262,7 @@ printf "\n%s\n" "TTYSH Wizard has finished. Please exit out of TTYSH and reboot 
 
 # function for fzf video search in the xorg/GUI
 fzfxorgvid () {
+
 while [ "$x" = 0 ]; do
 
 	printf "\n%s\n" "Press s to start Press q to quit."
@@ -281,6 +283,7 @@ done
 
 # function for fzf video in TTY
 fzfttyvid () {
+
 while [ "$x" = 0 ]; do
 
 	printf "\n%s\n" "Press s to start. Press q to quit."
@@ -301,6 +304,7 @@ done
 
 # function for fzf file search for vim
 fzfvim () {
+
 while [ "$x" = 0 ]; do
 
 	printf "\n%s\n" "Press s to start. Press q to quit."
@@ -321,6 +325,7 @@ done
 
 # function for fzf pdf search
 fzfpdf () {
+
 while [ "$x" = 0 ]; do
 
 	printf "\n%s\n" "Press s to start. Press q to quit."
@@ -341,6 +346,7 @@ done
 
 # function for fzf file search and deletion
 fzfdelete () {
+
 while [ "$x" = 0 ]; do
 
 	printf "\n%s\n" "Press s to start. Press q to quit."
@@ -361,6 +367,7 @@ done
 
 # function for fzf directory and file search to remove white space
 fzfwhitespace () {
+
 while [ "$x" = 0 ]; do
 
 	printf "\n%s\n" "Press s to start. Press q to quit."
@@ -459,8 +466,8 @@ done
 }
 
 # function for searching weather in wttr.in
-
 weather () {
+
 printf "\n%s\n" "Enter your city or town to see the weather forecast: "
 
 read answer
@@ -491,17 +498,17 @@ diskformat () {
 
 printf "\n%s\n" "Stop! Have you run sudo su? y/n"
 
-	read -p "Enter your selection: " answer
+read -p "Enter your selection: " answer
 
-	case "$answer" in
-		y)
-		x=1
-		;;
-		n)
-		exit
-		x=1
-		;;
-	esac
+case "$answer" in
+	y)
+	x=1
+	;;
+	n)
+	exit
+	x=1
+	;;
+esac
 
 printf "\n%s\n" "This is your current device storage. Do not insert your disk you wish to format yet..."
 
@@ -515,16 +522,16 @@ lsblk
 
 printf "\n%s\n" "Please look for your inserted device above. Is it correct? y/n"
 
-	read -p "Enter your selection: " answer
+read -p "Enter your selection: " answer
 
-	case "$answer" in
-		y)
-		x=1
-		;;
-		n)
-		exit
-		x=1
-		;;
+case "$answer" in
+	y)
+	x=1
+	;;
+	n)
+	exit
+	x=1
+	;;
 	esac
 
 printf "\n%s\n%s\n" "\nPlease enter the name of your disk. e.g. sdb. Do not enter any number, as these will be partitions, and we will be formatting the whole disk." "Be careful not to format the wrong drive!"
@@ -561,32 +568,32 @@ ls -l /dev/disk/by-uuid/
 ls -l /dev/disk/by-uuid/ | grep "$setuuid" | awk '{print $9}' | tr -d /.
 
 printf "\n%s\n%s\n" "You need to now add the UUID number of the disk you have setup for either file backups or system backups." "See above, is this correct? y/n"
-	read -p "Enter your selection: " answer
+read -p "Enter your selection: " answer
 
-	case "$answer" in
-		y)
-		x=1
-		;;
-		n)
-		printf "\n%s\n" "Exiting script. Run again, or consult the developer for further instruction or support"
-		x=1
-		;;
-	esac
+case "$answer" in
+	y)
+	x=1
+	;;
+	n)
+	printf "\n%s\n" "Exiting script. Run again, or consult the developer for further instruction or support"
+	x=1
+	;;
+esac
 
 printf "\n%s\n" "Choose what this disk will be used for. Press t for timeshift system backups or press f for file system backups"
 
-	read -p "Enter your selection: " answer
+read -p "Enter your selection: " answer
 	
-	case "$answer" in
-		t)
-		ls -l /dev/disk/by-uuid/ | grep "$setuuid" | awk '{print $9}' | tr -d /. > /home/"$SUDO_USER"/.uuidtimeshift
-		x=1
-		;;
-		f)
-		ls -l /dev/disk/by-uuid/ | grep "$setuuid" | awk '{print $9}' | tr -d /. > /home/"$SUDO_USER"/.uuidfiles
-		x=1
-		;;	
-	esac
+case "$answer" in
+	t)
+	ls -l /dev/disk/by-uuid/ | grep "$setuuid" | awk '{print $9}' | tr -d /. > /home/"$SUDO_USER"/.uuidtimeshift
+	x=1
+	;;
+	f)
+	ls -l /dev/disk/by-uuid/ | grep "$setuuid" | awk '{print $9}' | tr -d /. > /home/"$SUDO_USER"/.uuidfiles
+	x=1
+	;;	
+esac
 
 printf "\n%s\n%s\n%s\n%s\n%s\n" "This drive is now ready to be used either file backup, or system backup, depending on your previous selection." "IMPORTANT NOTE: IF YOU ARE USING A NEWLY SETUP DISK FOR SYSTEM BACKUPS FOR THE FIRST TIME - " "YOU MUST RUN timeshift-gtk IN A TERMINAL IN XORG AND RUN THE SETUP WIZARD, SELECTING THIS DISK TO AVOID ERRORS." "THEN PRESS THE create BUTTON." "Complete. Closing."
 }
@@ -678,86 +685,90 @@ esac
 # function for deleting timehsift backups
 timedelete () {
 
-while [ "$lstdevname" ]; do
+printf "\n%s\n" "Do you want to delete a backup? press d to continue or q to exit"
 
-	printf "\n%s\n" "Do you want to delete a backup? press d to continue or q to exit"
+read -p "Enter your selection: " answer
 
-	read -p "Enter your selection: " answer
-
-	case "$answer" in 
-		d)
-		printf "\n%s\n" "Enter the full matching name of the backup."	
-		read delete
-		timeshift --delete --snapshot "$delete"
-		x=0
-		;;
-		q)
-		closetimeshift	
-		tuuid=1
-		;;
-	esac
-done
+case "$answer" in 
+	d)
+	printf "\n%s\n" "Enter the full matching name of the backup."	
+	read delete
+	timeshift --delete --snapshot "$delete"
+	x=0
+	;;
+	q)
+	closetimeshift	
+	tuuid=1
+	;;
+esac
 }
 
 # function for starting main timeshift backup deletions
 maintdelete () {
 
-until [ "$lstdevname" ]; do
+printf "\n%s\n" "Looking for "$tdrive"..."
 
-	printf "\n%s\n" "Looking for "$tdrive""
+sleep 1
 
-	sleep 1
+if [ "$lstdevname" ]; then
+
+	printf "\n%s\n" ""$tdrive" has been found. Starting..."
+
+	tdrivecheck
+	timeshift --list
+	timedelete
+
+else
 
 	printf "\n%s\n" "Cannot find "$tuuid". Check you are run as sudo su. Check that you have connected your drive. Exiting..."
 
-	exit
-done
+	lsblk
 
-tdrivecheck
-timeshift --list
-timedelete
+	printf "\n%s" ""
+
+	exit
+
+fi
 }
 
 # function main for timeshift
 maintimeshift () {
 
-until [ "$lstdevname" ]; do 
+printf "\n%s\n" "Looking for "$tdrive"..."
 
-	printf "\n%s\n" "Looking for "$tdrive""
+sleep 1
+	
+if [ "$lstdevname" ]; then
 
-	sleep 1
+	printf "\n%s\n" ""$tdrive" has been found. Starting..."
+
+	starttimeshift
+	closetimeshift
+
+else
 
 	printf "\n%s\n" "Cannot find "$tuuid". Check you are run as sudo su. Check that you have connected your drive. Exiting..."
 
-	exit
-done
+	lsblk
 
-starttimeshift
-closetimeshift
+	printf "\n%s" ""
+
+	exit
+
+fi
 }
 
 # function for filebackup
 filebackup () {
 
-until [ "$lsbdevname" ]; do
+printf "\n%s\n" "Looking for "$bdrive"..."
 
-	printf "\n%s\n" "Looking for "$bdrive""
+if [ "$lsbdevname" ]; then
 
-	sleep 1
-
-	printf "\n%s\n" "Cannot find "$buuid". Check you are run as sudo su. Check that you have connected your drive. Exiting..."
-
-	exit
-done
-
-printf "\n%s\n" "Starting...";
-
-	printf "\n%s\n" ""
+	printf "\n%s\n\n" ""$bdrive" has been found. Starting..."
 
 	lsblk
 
-	#sed -n 31p $SUDO_USER/backup.sh
-	
 	printf "\n%s\n" "Stop! Have you run sudo su first? Have you saved your latest bookmarks? Is /dev/"$bdevname" correct? y/n" 
 
 	read -p "Enter your selection: " answer
@@ -783,6 +794,20 @@ printf "\n%s\n" "Starting...";
 		buuid=1
 		;;
 	esac
+
+else
+
+	printf "\n%s\n\n" "Cannot find "$buuid". Check you are run as sudo su. Check that you have connected your drive. Exiting..."
+
+	lsblk
+
+	printf "\n%s" ""
+
+	#sed -n 31p $SUDO_USER/backup.sh
+	
+	exit
+
+fi
 }
 
 # date
@@ -808,6 +833,7 @@ selection
 
 # function for selecting everything
 selection () {
+
 while [ "$x" = 0 ]; do
 
 printf "\n%s" ""
