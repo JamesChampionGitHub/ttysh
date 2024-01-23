@@ -47,14 +47,14 @@ lstdevname=$(ls /dev/disk/by-uuid -l | grep "$tuuid")
 # function for tty or pts splash screen
 splashscreen () {
 
-#[ "$splash" = /dev/pts/ ] && devour mpv --really-quiet /home/"$USER"/.splash_ttysh.png ; clear || mpv --really-quiet /home/"$USER"/.splash_ttysh.png ; clear
+[ "$splash" = /dev/pts/ ] && devour mpv --really-quiet /home/"$USER"/.splash_ttysh.png && clear || mpv --really-quiet /home/"$USER"/.splash_ttysh.png && clear
 
-if [ "$splash" = /dev/pts/ ]; then
-	devour mpv --really-quiet /home/"$USER"/.splash_ttysh.png; clear
-else	
-	mpv --really-quiet /home/"$USER"/.splash_ttysh.png; clear
-fi
-
+#if [ "$splash" = /dev/pts/ ]; then
+#	devour mpv --really-quiet /home/"$USER"/.splash_ttysh.png; clear
+#else	
+#	mpv --really-quiet /home/"$USER"/.splash_ttysh.png; clear
+#fi
+#
 }
 
 # function for shortcuts selection 
@@ -477,6 +477,8 @@ curl wttr.in/"$answer"
 #wget -qO- wttr.in/"$answer"
 }
 
+[ "$splash" = /dev/pts/ ] && devour mpv /home/"$USER"/Videos/* || mpv /home/"$USER"/Videos/*
+
 # function for devour vid in xorg
 devourvid () {
 #if [ "$splash" = /dev/pts/ ]; then
@@ -485,7 +487,6 @@ devourvid () {
 #	mpv /home/"$USER"/Videos/*
 #fi
 
-[ "$splash" = /dev/pts/ ] && devour mpv /home/"$USER"/Videos/* || mpv /home/"$USER"/Videos/*
 }
 
 # function for formating and setting up disks for rsync and timeshift
@@ -711,25 +712,27 @@ printf "\n%s\n" "Looking for "$tdrive"..."
 
 sleep 1
 
-if [ "$lstdevname" ]; then
+[ "$lstdevname" ] && printf "\n%s\n" ""$tdrive" has been found. Starting..." && tdrivecheck && timeshift --list && timedelete || printf "\n%s\n\n" "Cannot find "$tuuid". Check you are run as sudo su. Check that you have connected your drive. Exiting..." && lsblk && printf "\n%s" "" && exit
 
-	printf "\n%s\n" ""$tdrive" has been found. Starting..."
-
-	tdrivecheck
-	timeshift --list
-	timedelete
-
-else
-
-	printf "\n%s\n\n" "Cannot find "$tuuid". Check you are run as sudo su. Check that you have connected your drive. Exiting..."
-
-	lsblk
-
-	printf "\n%s" ""
-
-	exit
-
-fi
+#if [ "$lstdevname" ]; then
+#
+#	printf "\n%s\n" ""$tdrive" has been found. Starting..."
+#
+#	tdrivecheck
+#	timeshift --list
+#	timedelete
+#
+#else
+#
+#	printf "\n%s\n\n" "Cannot find "$tuuid". Check you are run as sudo su. Check that you have connected your drive. Exiting..."
+#
+#	lsblk
+#
+#	printf "\n%s" ""
+#
+#	exit
+#
+#fi
 }
 
 # function main for timeshift
