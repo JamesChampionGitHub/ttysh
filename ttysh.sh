@@ -54,7 +54,7 @@ splashscreen () {
 #else	
 #	mpv --really-quiet /home/"$USER"/.splash_ttysh.png; clear
 #fi
-#
+
 }
 
 # function for shortcuts selection 
@@ -734,6 +734,7 @@ sleep 1
 #	exit
 #
 #fi
+
 }
 
 # function main for timeshift
@@ -763,6 +764,7 @@ sleep 1
 #	exit
 #
 #fi
+
 }
 
 # function for filebackup
