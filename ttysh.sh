@@ -477,10 +477,11 @@ curl wttr.in/"$answer"
 #wget -qO- wttr.in/"$answer"
 }
 
-[ "$splash" = /dev/pts/ ] && devour mpv /home/"$USER"/Videos/* || mpv /home/"$USER"/Videos/*
-
 # function for devour vid in xorg
 devourvid () {
+
+[ "$splash" = /dev/pts/ ] && devour mpv /home/"$USER"/Videos/* || mpv /home/"$USER"/Videos/*
+
 #if [ "$splash" = /dev/pts/ ]; then
 #	devour mpv /home/"$USER"/Videos/*
 #else	
