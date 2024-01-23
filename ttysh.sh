@@ -822,11 +822,11 @@ fi
 # date
 planner () {
 
-printf "\n%s\n" "The time and date is:"
+printf "\n%s\n\n" "The time and date is:"
 date
 
 # calender
-printf "\n%s\n" "This month's calender:"
+printf "\n%s\n\n" "This month's calender:"
 cal
 printf "\n%s\n" "press q when ready..." | less
 
