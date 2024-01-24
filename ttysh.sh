@@ -278,6 +278,10 @@ while [ "$x" = 0 ]; do
 		q)
 		x=1
 		;;
+		*)
+		printf "\n%s\n" "Not a valid selection."
+		x=0
+		;;
 	esac
 done
 }
@@ -298,6 +302,10 @@ while [ "$x" = 0 ]; do
 		;;
 		q)
 		x=1
+		;;
+		*)
+		printf "\n%s\n" "Not a valid selection."
+		x=0
 		;;
 	esac
 done
@@ -320,6 +328,10 @@ while [ "$x" = 0 ]; do
 		q)
 		x=1
 		;;
+		*)
+		printf "\n%s\n" "Not a valid selection."
+		x=0
+		;;
 	esac
 done
 }
@@ -341,6 +353,10 @@ while [ "$x" = 0 ]; do
 		q)
 		x=1		
 		;;
+		*)
+		printf "\n%s\n" "Not a valid selection."
+		x=0
+		;;
 	esac
 done
 }
@@ -361,6 +377,10 @@ while [ "$x" = 0 ]; do
 		;;
 		q)
 		x=1
+		;;
+		*)
+		printf "\n%s\n" "Not a valid selection."
+		x=0
 		;;
 	esac
 done
@@ -389,11 +409,18 @@ while [ "$x" = 0 ]; do
 				e)
 				break
 				;;
+				*)
+				printf "\n%s\n" "Not a valid selection."
+				;;
 			esac
 		done
 		;;
 		q)
 		x=1
+		;;
+		*)
+		printf "\n%s\n" "Not a valid selection."
+		x=0
 		;;
 	esac
 done
@@ -429,6 +456,10 @@ while [ "$x" = 0 ]; do
 		q)
 		x=1
 		;;
+		*)
+		printf "\n%s\n" "Not a valid selection."
+		x=0
+		;;
 	esac
 done
 }
@@ -461,6 +492,10 @@ while [ "$x" = 0 ]; do
 		;;
 		q)
 		x=1
+		;;
+		*)
+		printf "\n%s\n" "Not a valid selection."
+		x=0
 		;;
 	esac
 done
@@ -511,6 +546,10 @@ case "$answer" in
 	exit
 	x=1
 	;;
+	*)
+	printf "\n%s\n" "Not a valid selection."
+	x=0
+	;;
 esac
 
 printf "\n%s\n" "This is your current device storage. Do not insert your disk you wish to format yet..."
@@ -535,7 +574,11 @@ case "$answer" in
 	exit
 	x=1
 	;;
-	esac
+	*)
+	printf "\n%s\n" "Not a valid selection."
+	x=0
+	;;
+esac
 
 printf "\n%s\n%s\n" "\nPlease enter the name of your disk. e.g. sdb. Do not enter any number, as these will be partitions, and we will be formatting the whole disk." "Be careful not to format the wrong drive!"
 	read answer
@@ -581,6 +624,10 @@ case "$answer" in
 	printf "\n%s\n" "Exiting script. Run again, or consult the developer for further instruction or support"
 	x=1
 	;;
+	*)
+	printf "\n%s\n" "Not a valid selection."
+	x=0
+	;;
 esac
 
 printf "\n%s\n" "Choose what this disk will be used for. Press t for timeshift system backups or press f for file system backups"
@@ -596,6 +643,10 @@ case "$answer" in
 	ls -l /dev/disk/by-uuid/ | grep "$setuuid" | awk '{print $9}' | tr -d /. > /home/"$SUDO_USER"/.uuidfiles
 	x=1
 	;;	
+	*)
+	printf "\n%s\n" "Not a valid selection."
+	x=0
+	;;
 esac
 
 printf "\n%s\n%s\n%s\n%s\n%s\n" "This drive is now ready to be used either file backup, or system backup, depending on your previous selection." "IMPORTANT NOTE: IF YOU ARE USING A NEWLY SETUP DISK FOR SYSTEM BACKUPS FOR THE FIRST TIME - " "YOU MUST RUN timeshift-gtk IN A TERMINAL IN XORG AND RUN THE SETUP WIZARD, SELECTING THIS DISK TO AVOID ERRORS." "THEN PRESS THE create BUTTON." "Complete. Closing."
@@ -623,6 +674,9 @@ case "$answer" in
 	;;
 	n)
 	exit
+	;;
+	*)
+	printf "\n%s\n" "Not a valid selection."
 	;;
 esac
 }
@@ -658,6 +712,10 @@ case "$answer" in
 	exit
 	tuuid=1
 	;;
+	*)
+	printf "\n%s\n" "Not a valid selection."
+	x=0
+	;;
 esac
 }
 
@@ -682,6 +740,10 @@ case "$answer" in
 	exit
 	tuuid=1
 	;;
+	*)
+	printf "\n%s\n" "Not a valid selection."
+	x=0
+	;;
 esac
 }
 
@@ -702,6 +764,10 @@ case "$answer" in
 	q)
 	closetimeshift	
 	tuuid=1
+	;;
+	*)
+	printf "\n%s\n" "Not a valid selection."
+	x=0
 	;;
 esac
 }
@@ -801,6 +867,10 @@ if [ "$lsbdevname" ]; then
 		n)
 		exit
 		buuid=1
+		;;
+		*)
+		printf "\n%s\n" "Not a valid selection."
+		x=0
 		;;
 	esac
 
@@ -1157,6 +1227,10 @@ printf "\n%s" ""
 		printf "\n%s" ""
 		x=1
 		;;	
+		*)
+		printf "\n%s\n" "Not a valid selection."
+		x=0
+		;;
 	esac
 done
 }
@@ -1197,6 +1271,10 @@ else
 		;;
 		n)
 		printf "\n%s\n" "exiting"; exit 
+		;;
+		*)
+		printf "\n%s\n" "Not a valid selection."
+		x=0
 		;;
 	esac
 fi
