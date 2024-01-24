@@ -581,6 +581,7 @@ case "$answer" in
 esac
 
 printf "\n%s\n%s\n" "\nPlease enter the name of your disk. e.g. sdb. Do not enter any number, as these will be partitions, and we will be formatting the whole disk." "Be careful not to format the wrong drive!"
+
 	read answer
 
 fdisk /dev/"$answer"
@@ -614,6 +615,7 @@ ls -l /dev/disk/by-uuid/
 ls -l /dev/disk/by-uuid/ | grep "$setuuid" | awk '{print $9}' | tr -d /.
 
 printf "\n%s\n%s\n" "You need to now add the UUID number of the disk you have setup for either file backups or system backups." "See above, is this correct? y/n"
+
 read -p "Enter your selection: " answer
 
 case "$answer" in
