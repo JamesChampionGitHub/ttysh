@@ -264,7 +264,7 @@ printf "\n%s\n" "TTYSH Wizard has finished. Please exit out of TTYSH and reboot 
 # function for fzf video search in the xorg/GUI
 fzfxorgvid () {
 
-while [ "$x" = 0 ]; do
+while [ 1 ]; do
 
 	printf "\n%s\n" "Press s to start Press q to quit."
 
@@ -273,14 +273,12 @@ while [ "$x" = 0 ]; do
 	case "$answer" in
 		s)
 		devour mpv "$(find /home/"$USER"/ -type f | fzf -i --prompt "Pick the video you want to watch in the GUI: ")"
-		x=0
 		;;
 		q)
-		x=1
+		break
 		;;
 		*)
 		printf "\n%s\n" "Not a valid selection."
-		x=0
 		;;
 	esac
 done
@@ -289,7 +287,7 @@ done
 # function for fzf video in TTY
 fzfttyvid () {
 
-while [ "$x" = 0 ]; do
+while [ 1 ]; do
 
 	printf "\n%s\n" "Press s to start. Press q to quit."
 
@@ -298,23 +296,43 @@ while [ "$x" = 0 ]; do
 	case "$answer" in
 		s)
 		mpv "$(find /home/"$USER"/ -type f | fzf -i --prompt "Pick the video you want to watch in the TTY: ")"
-		x=0
 		;;
 		q)
-		x=1
+		break
 		;;
 		*)
 		printf "\n%s\n" "Not a valid selection."
-		x=0
 		;;
 	esac
 done
+
+#while [ "$x" = 0 ]; do
+#
+#	printf "\n%s\n" "Press s to start. Press q to quit."
+#
+#	read -p "Enter your selection: " answer
+#
+#	case "$answer" in
+#		s)
+#		mpv "$(find /home/"$USER"/ -type f | fzf -i --prompt "Pick the video you want to watch in the TTY: ")"
+#		x=0
+#		;;
+#		q)
+#		x=1
+#		;;
+#		*)
+#		printf "\n%s\n" "Not a valid selection."
+#		x=0
+#		;;
+#	esac
+#done
+
 }
 
 # function for fzf file search for vim
 fzfvim () {
 
-while [ "$x" = 0 ]; do
+while [ 1 ]; do
 
 	printf "\n%s\n" "Press s to start. Press q to quit."
 
@@ -323,14 +341,12 @@ while [ "$x" = 0 ]; do
 	case "$answer" in
 		s)
 		vim "$(find /home/"$USER"/ -type f | fzf -i --prompt "Pick the file you want to open in vim: ")"
-		x=0
 		;;
 		q)
-		x=1
+		break	
 		;;
 		*)
 		printf "\n%s\n" "Not a valid selection."
-		x=0
 		;;
 	esac
 done
@@ -339,7 +355,7 @@ done
 # function for fzf pdf search
 fzfpdf () {
 
-while [ "$x" = 0 ]; do
+while [ 1 ]; do
 
 	printf "\n%s\n" "Press s to start. Press q to quit."
 
@@ -348,14 +364,12 @@ while [ "$x" = 0 ]; do
 	case "$answer" in
 		s)
 		sudo jfbview "$(find /home/"$USER"/ -type f | fzf -i --prompt "Pick the pdf you want to view. ESC to exit: ")"
-		x=0
 		;;
 		q)
-		x=1		
+		break		
 		;;
 		*)
 		printf "\n%s\n" "Not a valid selection."
-		x=0
 		;;
 	esac
 done
@@ -364,7 +378,7 @@ done
 # function for fzf file search and deletion
 fzfdelete () {
 
-while [ "$x" = 0 ]; do
+while [ 1 ]; do
 
 	printf "\n%s\n" "Press s to start. Press q to quit."
 
@@ -373,14 +387,12 @@ while [ "$x" = 0 ]; do
 	case "$answer" in
 		s)
 		rm -iv $(find /home/"$USER"/ -type f | fzf -i --multi --prompt "Pick the file for deletion. ESC to exit: ")
-		x=0
 		;;
 		q)
-		x=1
+		break	
 		;;
 		*)
 		printf "\n%s\n" "Not a valid selection."
-		x=0
 		;;
 	esac
 done
@@ -389,7 +401,7 @@ done
 # function for fzf directory and file search to remove white space
 fzfwhitespace () {
 
-while [ "$x" = 0 ]; do
+while [ 1 ]; do
 
 	printf "\n%s\n" "Press s to start. Press q to quit."
 
@@ -416,11 +428,10 @@ while [ "$x" = 0 ]; do
 		done
 		;;
 		q)
-		x=1
+		break	
 		;;
 		*)
 		printf "\n%s\n" "Not a valid selection."
-		x=0
 		;;
 	esac
 done
@@ -429,7 +440,7 @@ done
 # function for yt-dlp
 yt () {
 
-while [ "$x" = 0 ]; do
+while [ 1 ]; do
 
 	printf "\n%s\n" "y to enter video creator and video discription. x to download url from xclip. yt to run again. q to quit"
 
@@ -443,22 +454,19 @@ while [ "$x" = 0 ]; do
 		read video
 		printf "\n%s\n"	""
 		yt-dlp -f 'bv*[height=480]+ba' "ytsearch1:""$video"""
-		x=0
 		;;
 		x)
 		yt-dlp -f 'bv*[height=480]+ba' "$url"
-		x=0
 		;;
 		yt)
 		yt
-		x=1
+		break
 		;;
 		q)
-		x=1
+		break
 		;;
 		*)
 		printf "\n%s\n" "Not a valid selection."
-		x=0
 		;;
 	esac
 done
@@ -467,7 +475,7 @@ done
 # function for music in yt-dlp
 ytmusic () {
 
-while [ "$x" = 0 ]; do
+while [ 1 ]; do
 
 	printf "\n%s\n"	"sm to enter creator and title. m to download music url from xclip. ytm to run again. q to quit."
 
@@ -480,22 +488,19 @@ while [ "$x" = 0 ]; do
 		printf "\n%s\n" "Enter music creator and title: "
 		read music
 		yt-dlp -f 'ba' -x --audio-format mp3 "ytsearch1:""$music"""
-		x=0
 		;;
 		m)
 		yt-dlp -f 'ba' -x --audio-format mp3 "$url"
-		x=0
 		;;
 		ytm)
 		ytmusic
-		x=1
+		break
 		;;
 		q)
-		x=1
+		break
 		;;
 		*)
 		printf "\n%s\n" "Not a valid selection."
-		x=0
 		;;
 	esac
 done
@@ -1283,7 +1288,7 @@ fi
 
 printf "\n\t%s\n" "TTYSH"
 
-while [ "$x" = 0 ]; do
+while [ 1 ]; do
 
 	printf "\n\t%s\n\n" "(c)ontinue, (s)election, (h)elp, edit (hel)p, (config) wizard, or (q)uit?"
 		
@@ -1294,31 +1299,27 @@ while [ "$x" = 0 ]; do
 		clear
 		planner
 		selection
-		x=1
+		break
 		;;	
 		s)
 		selection
-		x=1
+		break
 		;;
 		h)
 		ttyshhelp
-		x=0
 		;;
 		config)
 		wizardttysh
-		x=0
 		;;
 		hel)
 		vim /home/"$USER"/.ttysh.selection
-		x=0
 		;;
 		q)
 		printf "\n%s" ""
-		x=1
+		exit
 		;;
 		*)
 		printf "\n%s\n" "Not a valid selection."
-		x=0
 		;;
 	esac
 done
