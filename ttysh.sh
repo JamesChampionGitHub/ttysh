@@ -920,7 +920,7 @@ selection
 # function for selecting everything
 selection () {
 
-while [ "$x" = 0 ]; do
+while [ 1 ]; do
 
 printf "\n%s" ""
 
@@ -929,42 +929,33 @@ printf "\n%s" ""
 	case "$answer" in
 		cm)
 		cmus
-		x=0
 		;;
 		ne)
 		cmus-remote -n
 		cmus-remote -Q
-		x=0
 		;;
 		pr)
 		cmus-remote -r
-		x=0
 		;;
 		u)
 		cmus-remote -u
-		x=0
 		;;
 		f)
 		cmus-remote -k +5
-		x=0
 		;;
 		st)
 		cmus-remote -Q | less
-		x=0
 		;;
 		al)
 		alsamixer
-		x=0
 		;;
 		yt)
 		cd /home/"$USER"/Videos/
 		yt
-		x=0
 		;;
 		mus)
 		cd /home/"$USER"/Music/
 		ytmusic
-		x=0
 		;;
 		ly)
 		printf "\n%s\n%s\n%s\n" "Stop! It is recommended to run lynx browser offline for your saved webpages." "Use Browsh/Librewolf for web online browsing and saving webpages for later." "Are you offline? Do you want to continue? y/n"
@@ -974,13 +965,12 @@ printf "\n%s" ""
 		case "$answer" in
 			y)
 			screen -c /home/"$USER"/.screenrc.lynx
-			x=0
 			;;
 			n)
-			x=1
+			selection
+			break	
 			;;	
 		esac
-		x=0
 		;;
 		bro)
 		printf "\n%s\n" "Tips: prefix 'searx.be/search?q=' or 'wiby.me/?q=' in the URL to search."
@@ -989,87 +979,67 @@ printf "\n%s" ""
 		# searching: wiby.me/?q=
 		# browsh --firefox.path /usr/bin/librewolf
 		browsh
-		x=0
 		;;
 		brow)
 		browsh --firefox.with-gui
-		x=0
 		;;
 		lib)
 		devour librewolf
-		x=0
 		;;
 		p)
 		ping jameschampion.xyz
-		x=0
 		;;
 		b)
 		screen -c /home/"$USER"/.screenrc.birthdays_split	
-		x=0
 		;;
 		n)
 		screen -c /home/"$USER"/.screenrc.notes_split
-		x=0
 		;;
 		mu)
 		screen -c /home/"$USER"/.screenrc.mutt_conf
-		x=0
 		;;
 		d)
 		cal; date; printf "\n%s\n" "q to return to planner" | less
-		x=0
 		;;
 		c)
 		watch -td -n 1 date
 		#screen -c /home/"$USER"/.screenrc.clock
-		x=0
 		;;
 		r)
 		screen -c /home/"$USER"/.screenrc.rss
-		x=0
 		;;
 		e)
 		mutt
-		x=0
 		;;
 		a)
 		screen -c /home/"$USER"/.screenrc.articles 
 		;;
 		sta)
 		startx
-		x=0
 		;;
 		l)
 		screen -c /home/"$USER"/.screenrc.videos 
-		x=0
 		;;
 		vid)
 		devourvid
-		x=0
 		;;
 		fi)
 		vim /home/"$USER"/
-		x=0
 		;;
 		se)
 		fzfxorgvid
-		x=0
 		;;
 		t)
 		fzfttyvid	
-		x=0
 		;;
 		fz)
 		fzfvim	
-		x=0
 		;;
 		del)
 		fzfdelete
-		x=0
 		;;
 		wh)
 		fzfwhitespace
-		x=0
 		;;
 		w)
 		#until curl wttr.in 1>/dev/null; do
@@ -1078,132 +1048,101 @@ printf "\n%s" ""
 			#break
 		#done
 		weather
-		x=0
 		;;
 		pdf)
 		fzfpdf
-		x=0
 		;;
 		v)
 		vim 0 -c "set laststatus=0" -o /home/"$USER"/proj/working_on/*YEN/drafts/*1  
-		x=0
 		;;
 		v1)
 		vim /home/"$USER"/proj/working_on/*YEN/characters/* -o /home/"$USER"/proj/working_on/*YEN/notes/*screenplay_notes -o /home/"$USER"/proj/working_on/*YEN/notes/*prompt_notes -o /home/"$USER"/proj/working_on/*YEN/notes/*archive_notes
-		x=0
 		;;
 		di)
 		diskformat
-		x=0
 		;;
 		ba)
 		filebackup
-		x=0
 		;;
 		ti)
 		maintimeshift
-		x=0
 		;;
 		de)
 		maintdelete	
-		x=0
 		;;
 		x)
 		pkill "Xorg"
-		x=1
 		;;
 		lo)
 		vlock -a
-		x=0
 		;;
 		sc1)
 		sudo fbgrab -c 1 screenshot1.png
-		x=0
 		;;
 		sc2)
 		sudo fbgrab -c 2 screenshot2.png
-		x=0
 		;;
 		sc3)
 		sudo fbgrab -c 3 screenshot3.png
-		x=0
 		;;
 		sc4)
 		sudo fbgrab -c 4 screenshot4.png
-		x=0
 		;;
 		sc5)
 		sudo fbgrab -c 5 screenshot5.png
-		x=0
 		;;
 		sc6)
 		sudo fbgrab -c 6 screenshot6.png
-		x=0
 		;;
 		re)
 		sudo ffmpeg -f fbdev -framerate 60 -i /dev/fb0 ttyrecord.mp4
-		x=0
 		;;
 		wr)
 		vim
-		x=0
 		;;
 		ca)
 		python
-		x=0
 		;;
 		sp)
 		sc-im
-		x=0
 		;;
 		ht)
 		htop
-		x=0
 		;;
 		fr)
 		printf "\n%s\n" ""
 		df -h
-		x=0
 		;;
 		scr)
 		screen -c /home/"$USER"/.screenrc.four_split
-		x=0
 		;;
 		scre)
 		screen -c /home/"$USER"/.screenrc.hsplit
-		x=0
 		;;
 		scree) 
 		screen -c /home/"$USER"/.screenrc.vsplit
-		x=0
 		;;
 		ch1)
 		chvt 1
-		x=0
 		;;
 		ch2)
 		chvt 2
-		x=0
 		;;
 		ch3)
 		chvt 3
-		x=0
 		;;
 		ch4)
 		chvt 4
-		x=0
 		;;
 		ch5)
 		chvt 5
-		x=0
 		;;
 		ch6)
 		chvt 6
-		x=0
 		;;
 		tty)
 		ttysh
-		x=1
+		exit
 		;;
 		up)
 		printf "\n%s" ""
@@ -1211,32 +1150,28 @@ printf "\n%s" ""
 		printf "\n%s" ""
 		yay -Syu
 		printf "\n%s\n" "You should now exit TTYSH and reboot your system to complete any new updates."
-		x=0
 		;;	
 		fo)
 		sudo screen -c /home/"$USER"/.screenrc.font_conf
 		printf "\n%b\n" "You should reboot your system to see any changes that you have made."
-		x=0
 		;;
 		res)
 		sudo reboot
-		x=1
+		exit
 		;;
 		sh)
 		sudo poweroff
-		x=1
+		exit
 		;;
 		h)
 		ttyshhelp
-		x=0
 		;;
 		q)
 		printf "\n%s" ""
-		x=1
+		exit
 		;;	
 		*)
 		printf "\n%s\n" "Not a valid selection."
-		x=0
 		;;
 	esac
 done
@@ -1299,7 +1234,6 @@ while [ 1 ]; do
 		clear
 		planner
 		selection
-		break
 		;;	
 		s)
 		selection
