@@ -257,9 +257,45 @@ sudo mv splash_ttysh.png /home/"$USER"/.splash_ttysh.png
 printf "\n%s\n" "TTYSH Wizard has finished. Please exit out of TTYSH and reboot to complete."
 }
 
+
 #
 # functions for fzf
 #
+
+
+# pick a bookmark to open in TTY or X11 using the appropriate web browser
+fzfbookmark () {
+
+bookmark=$(cat /home/"$USER"/.bookmarks_ttysh.html | fzf -i --prompt "Pick a bookmark: ") 
+
+[ /dev/pts/ ] && devour librewolf "$bookmark" || browsh --startup-url "$bookmark" 
+}
+
+# check for bookmark file
+bookmarkcheck () {
+
+[ -e /home/"$USER"/.bookmarks_ttysh.html ] && printf "\n%s\n" "Bookmarks file found." && fzfbookmark && return || printf "\n%s\n" "Bookmarks file not found." && touch /home/"$USER"/.bookmarks_ttysh.html && printf "\n%s\n" "Created." && sleep 1 && printf "\n%s\n" "Remember to add your bookmarks manually, or export them from librewolf. If exported or updated, run the 'bb' command. See help for more info. Starting in 10 seconds." && sleep 10 && return
+}
+
+# format bookmarks for fzfbookmark
+bookmarkformat () {
+
+formathtml=$(find /home/"$USER"/ -name '*.html' | fzf -i --prompt "Note: if you already have a /home/"$USER"/.bookmarks_ttysh.html file, it will be overwritten. Pick the html file you want to format: ")
+
+sed 's/\ /\n/g' "$formathtml" | grep "https\?" | cut -d '"' -f 2 | grep "https\?" | grep -v "^fake-favicon-uri" > /home/"$USER"/.bookmarks_ttysh.html
+
+printf "\n%s\n" "Your /home/"$USER"/.bookmarks_ttysh.html is now formatted for the 'bs' command"
+}
+
+# search the internet
+websearch () {
+
+printf "\n" ""
+
+read -p "Search: " webpick
+
+[ /dev/pts/ ] && devour librewolf searx.be/search?q="$webpick" || browsh --startup-url searx.be/search?q="$webpick"
+}
 
 # function for fzf video search in the xorg/GUI
 fzfxorgvid () {
@@ -956,6 +992,15 @@ printf "\n%s" ""
 		mus)
 		cd /home/"$USER"/Music/
 		ytmusic
+		;;
+		ws)
+		websearch
+		;;
+		bb)
+		bookmarkformat
+		;;
+		bs)
+		bookmarkcheck
 		;;
 		ly)
 		printf "\n%s\n%s\n%s\n" "Stop! It is recommended to run lynx browser offline for your saved webpages." "Use Browsh/Librewolf for web online browsing and saving webpages for later." "Are you offline? Do you want to continue? y/n"
