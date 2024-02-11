@@ -282,7 +282,7 @@ bookmark=$(cat /home/"$USER"/.bookmarks_ttysh.html | fzf -i --prompt "Pick a boo
 # check for bookmark file
 bookmarkcheck () {
 
-[ -e /home/"$USER"/.bookmarks_ttysh.html ] && printf "\n%s\n" "Bookmarks file found." && fzfbookmark && return || printf "\n%s\n" "Bookmarks file not found." && touch /home/"$USER"/.bookmarks_ttysh.html && printf "\n%s\n" "Created." && sleep 1 && printf "\n%s\n" "Remember to add your bookmarks manually, or export them from librewolf. If exported or updated, run the 'bb' command. See help for more info. Starting in 10 seconds." && sleep 10 && return
+[ -e /home/"$USER"/.bookmarks_ttysh.html ] && printf "\n%s\n" "Bookmarks file found." && fzfbookmark && return || printf "\n%s\n" "Bookmarks file not found." && touch /home/"$USER"/.bookmarks_ttysh.html && printf "\n%s\n" "Created." && sleep 1 && printf "\n%s\n" "Remember to add your bookmarks manually, or export them from librewolf. If exported or updated, run the 'boo' command. See help for more info. Starting in 10 seconds." && sleep 10 && return
 }
 
 # format bookmarks for fzfbookmark
@@ -292,7 +292,7 @@ formathtml=$(find /home/"$USER"/ -name '*.html' | fzf -i --prompt "Note: if you 
 
 sed 's/\ /\n/g' "$formathtml" | grep "https\?" | cut -d '"' -f 2 | grep "https\?" | grep -v "^fake-favicon-uri" > /home/"$USER"/.bookmarks_ttysh.html
 
-printf "\n%s\n" "Your /home/"$USER"/.bookmarks_ttysh.html is now formatted for the 'bs' command"
+printf "\n%s\n" "Your /home/"$USER"/.bookmarks_ttysh.html is now formatted for the 'bo' command"
 }
 
 # search the internet
