@@ -1001,16 +1001,16 @@ printf "\n%s" ""
 		cd /home/"$USER"/Music/
 		ytmusic
 		;;
-		cmp)
+		pi)
 		fzfcmus
 		;;
-		ws)
+		we)
 		websearch
 		;;
-		bb)
+		boo)
 		bookmarkformat
 		;;
-		bs)
+		bo)
 		bookmarkcheck
 		;;
 		ly)
