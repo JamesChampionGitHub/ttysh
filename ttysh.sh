@@ -263,6 +263,14 @@ printf "\n%s\n" "TTYSH Wizard has finished. Please exit out of TTYSH and reboot 
 #
 
 
+# pick music track to play in cmus remotely
+fzfcmus () {
+
+pscmus=$(ps aux | grep -i "[c]mus" | cut -d " " -f22)
+
+[ ! "$pscmus" = cmus ] && screen -c /home/"$USER"/.screenrc.cmusplay && return || cmuspicker=$(find /home/"$USER"/Music/starred/ -type f | fzf -i --prompt "Pick the music track you want to play in cmus: ") && cmus-remote -f "$cmuspicker" && cmus-remote -Q && printf "\n" ""
+}
+
 # pick a bookmark to open in TTY or X11 using the appropriate web browser
 fzfbookmark () {
 
@@ -993,6 +1001,9 @@ printf "\n%s" ""
 		cd /home/"$USER"/Music/
 		ytmusic
 		;;
+		cmp)
+		fzfcmus
+		;;
 		ws)
 		websearch
 		;;
@@ -1302,3 +1313,5 @@ while [ 1 ]; do
 		;;
 	esac
 done
+
+
