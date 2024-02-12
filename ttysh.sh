@@ -21,24 +21,6 @@ splash=$(tty | tr -d '0123456789')
 # url from xclip for yt-dlp
 url=$(xclip -o)
 
-# filebackup
-# find uuid
-bdrive=$(cat /home/"$SUDO_USER"/.uuidfiles)
-buuid=$(echo "$bdrive")
-bdevname=$(ls /dev/disk/by-uuid/ -l | grep "$buuid" | colrm 1 85)
-lsbdevname=$(ls /dev/disk/by-uuid -l | grep "$buuid")
-
-# timeshift
-# find uuid
-tdrive=$(cat /home/"$SUDO_USER"/.uuidtimeshift)
-tuuid=$(echo "$tdrive")
-#devname=$(lsblk | awk '{print $1}' | sed -n 8p | sed s/└─//g)
-tdevname=$(ls /dev/disk/by-uuid/ -l | grep "$tuuid" | awk '{print$11}' | tr -d /.)
-tencryptedname="timeshiftbackup"
-tunmounting=$(lsblk | grep "$tencryptedname" | awk '{print $7}')
-#echo -e "\nAwaiting $tuuid\n"
-lstdevname=$(ls /dev/disk/by-uuid -l | grep "$tuuid")
-
 
 #
 # FUNCTIONS
@@ -707,6 +689,17 @@ printf "\n%s\n%s\n%s\n%s\n%s\n" "This drive is now ready to be used either file 
 # function for starting the timeshift process
 starttimeshift () {
 
+# timeshift
+# find uuid
+tdrive=$(cat /home/"$SUDO_USER"/.uuidtimeshift)
+tuuid=$(echo "$tdrive")
+#devname=$(lsblk | awk '{print $1}' | sed -n 8p | sed s/└─//g)
+tdevname=$(ls /dev/disk/by-uuid/ -l | grep "$tuuid" | awk '{print $11}' | tr -d /.)
+tencryptedname="timeshiftbackup"
+tunmounting=$(lsblk | grep "$tencryptedname" | awk '{print $7}')
+#echo -e "\nAwaiting $tuuid\n"
+lstdevname=$(ls /dev/disk/by-uuid -l | grep "$tuuid")
+
 printf "\n%s\n" ""
 
 lsblk
@@ -826,6 +819,17 @@ esac
 # function for starting main timeshift backup deletions
 maintdelete () {
 
+# timeshift
+# find uuid
+tdrive=$(cat /home/"$SUDO_USER"/.uuidtimeshift)
+tuuid=$(echo "$tdrive")
+#devname=$(lsblk | awk '{print $1}' | sed -n 8p | sed s/└─//g)
+tdevname=$(ls /dev/disk/by-uuid/ -l | grep "$tuuid" | awk '{print $11}' | tr -d /.)
+tencryptedname="timeshiftbackup"
+tunmounting=$(lsblk | grep "$tencryptedname" | awk '{print $7}')
+#echo -e "\nAwaiting $tuuid\n"
+lstdevname=$(ls /dev/disk/by-uuid -l | grep "$tuuid")
+
 printf "\n%s\n" "Looking for "$tdrive"..."
 
 sleep 1
@@ -857,6 +861,17 @@ sleep 1
 # function main for timeshift
 maintimeshift () {
 
+# timeshift
+# find uuid
+tdrive=$(cat /home/"$SUDO_USER"/.uuidtimeshift)
+tuuid=$(echo "$tdrive")
+#devname=$(lsblk | awk '{print $1}' | sed -n 8p | sed s/└─//g)
+tdevname=$(ls /dev/disk/by-uuid/ -l | grep "$tuuid" | awk '{print $11}' | tr -d /.)
+tencryptedname="timeshiftbackup"
+tunmounting=$(lsblk | grep "$tencryptedname" | awk '{print $7}')
+#echo -e "\nAwaiting $tuuid\n"
+lstdevname=$(ls /dev/disk/by-uuid -l | grep "$tuuid")
+
 printf "\n%s\n" "Looking for "$tdrive"..."
 
 sleep 1
@@ -886,6 +901,15 @@ sleep 1
 
 # function for filebackup
 filebackup () {
+
+
+# find uuid variables
+bdrive=$(cat /home/"$SUDO_USER"/.uuidfiles)
+buuid=$(echo "$bdrive")
+bdevname=$(ls /dev/disk/by-uuid/ -l | grep "$buuid" | cut -d '/' -f3)
+#bdevname=$(ls /dev/disk/by-uuid/ -l | grep "$buuid" | colrm 1 85)
+lsbdevname=$(ls /dev/disk/by-uuid -l | grep "$buuid")
+
 
 printf "\n%s\n" "Looking for "$bdrive"..."
 
