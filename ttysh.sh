@@ -1025,6 +1025,9 @@ printf "\n%s" ""
 		st)
 		cmus-remote -Q | less
 		;;
+		au)
+		amixer -c 0 -- sset Master unmute; amixer -c 0 -- sset Master playback -10dB
+		;;
 		al)
 		alsamixer
 		;;
