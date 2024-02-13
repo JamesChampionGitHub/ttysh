@@ -26,6 +26,13 @@ url=$(xclip -o)
 # FUNCTIONS
 # 
 
+
+# sudo user check
+sudocheck () {
+
+[ ! "$SUDO_USER" ] && printf "\n%s\n\n" "Run as sudo su first! Exiting..." && exit || printf "\n%s\n\n%s\n\n" "Checking you are running as sudo user..." "Continuing..."
+}
+
 # function for tty or pts splash screen
 splashscreen () {
 
@@ -272,7 +279,7 @@ bookmarkformat () {
 
 formathtml=$(find /home/"$USER"/ -name '*.html' | fzf -i --prompt "Note: if you already have a /home/"$USER"/.bookmarks_ttysh.html file, it will be overwritten. Pick the html file you want to format: ")
 
-sed 's/\ /\n/g' "$formathtml" | grep "https\?" | cut -d '"' -f 2 | grep "https\?" | grep -v "^fake-favicon-uri" > /home/"$USER"/.bookmarks_ttysh.html
+sed 's/\ /\n/g' "$formathtml" | grep "https\?" | cut -d '"' -f2 | grep "https\?" | grep -v "^fake-favicon-uri" > /home/"$USER"/.bookmarks_ttysh.html
 
 printf "\n%s\n" "Your /home/"$USER"/.bookmarks_ttysh.html is now formatted for the 'bo' command"
 }
@@ -559,11 +566,7 @@ devourvid () {
 # function for formating and setting up disks for rsync and timeshift
 diskformat () {
 
-# format using fdisk
-
-#variables
-
-#functions
+sudocheck
 
 printf "\n%s\n" "Stop! Have you run sudo su? y/n"
 
@@ -689,6 +692,8 @@ printf "\n%s\n%s\n%s\n%s\n%s\n" "This drive is now ready to be used either file 
 # function for starting the timeshift process
 starttimeshift () {
 
+sudocheck
+
 # timeshift
 # find uuid
 tdrive=$(cat /home/"$SUDO_USER"/.uuidtimeshift)
@@ -766,6 +771,8 @@ esac
 # function for checking drive is correct
 tdrivecheck () {
 
+sudocheck
+
 printf "\n%s\n" ""
 
 lsblk
@@ -819,6 +826,8 @@ esac
 # function for starting main timeshift backup deletions
 maintdelete () {
 
+sudocheck
+
 # timeshift
 # find uuid
 tdrive=$(cat /home/"$SUDO_USER"/.uuidtimeshift)
@@ -861,6 +870,8 @@ sleep 1
 # function main for timeshift
 maintimeshift () {
 
+sudocheck
+
 # timeshift
 # find uuid
 tdrive=$(cat /home/"$SUDO_USER"/.uuidtimeshift)
@@ -902,14 +913,14 @@ sleep 1
 # function for filebackup
 filebackup () {
 
+sudocheck
 
 # find uuid variables
 bdrive=$(cat /home/"$SUDO_USER"/.uuidfiles)
 buuid=$(echo "$bdrive")
-bdevname=$(ls /dev/disk/by-uuid/ -l | grep "$buuid" | cut -d '/' -f3)
+bdevname=$(ls /dev/disk/by-uuid/ -l | grep "$buuid" | cut -d "/" -f3)
 #bdevname=$(ls /dev/disk/by-uuid/ -l | grep "$buuid" | colrm 1 85)
 lsbdevname=$(ls /dev/disk/by-uuid -l | grep "$buuid")
-
 
 printf "\n%s\n" "Looking for "$bdrive"..."
 
