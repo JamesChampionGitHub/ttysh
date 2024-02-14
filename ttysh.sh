@@ -33,6 +33,9 @@ sudocheck () {
 [ ! "$SUDO_USER" ] && printf "\n%s\n\n" "Run as sudo su first! Exiting..." && exit || printf "\n%s\n\n%s\n\n" "Checking you are running as sudo user..." "Continuing..."
 }
 
+# /dev/mapper/drive check for timeshift
+
+
 # function for tty or pts splash screen
 splashscreen () {
 
@@ -939,6 +942,7 @@ if [ "$lsbdevname" ]; then
 		printf "\n%s\n" "Continuing..."
 		cryptsetup open /dev/"$bdevname" drive
 		# enter password
+		[ ! -h /dev/mapper/drive ] && printf "\n\n%s\n\n" "cryptsetup has failed to open /dev/mapper/drive from /dev/"$bdevname" . Make sure you are entering the correct password, or check your devices and mountpoints. Running lsblk and exiting..." && lsblk && exit || printf "\n\n%s\n\n" "dev/mapper/drive found. Continuing..." 
 		mount /dev/mapper/drive /mnt
 		rsync -av /home/"$SUDO_USER"/ /mnt --delete
 		sync
@@ -1351,5 +1355,3 @@ while [ 1 ]; do
 		;;
 	esac
 done
-
-
