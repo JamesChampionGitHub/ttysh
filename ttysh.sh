@@ -26,7 +26,6 @@ url=$(xclip -o)
 # FUNCTIONS
 # 
 
-
 # sudo user check
 sudocheck () {
 
@@ -34,7 +33,10 @@ sudocheck () {
 }
 
 # /dev/mapper/drive check for timeshift
+mappercheck () {
 
+[ ! -h /dev/mapper/timeshiftbackup ] && printf "\n\n%s\n\n" "cryptsetup has failed to open /dev/mapper/timeshiftbackup from /dev/"$tdevname" . Make sure you are entering the correct password, or check your devices and mountpoints. Running lsblk and exiting..." && lsblk && exit || printf "\n\n%s\n\n" "dev/mapper/timeshiftbackup found. Continuing..." 
+}
 
 # function for tty or pts splash screen
 splashscreen () {
@@ -645,10 +647,13 @@ lsblk
 printf "\n%s\n" "The encrypted drive will now be closed..."
 
 sync
+
 cryptestup close drive
 
 lsblk
+
 ls -l /dev/disk/by-uuid/
+
 ls -l /dev/disk/by-uuid/ | grep "$setuuid" | awk '{print $9}' | tr -d /.
 
 printf "\n%s\n%s\n" "You need to now add the UUID number of the disk you have setup for either file backups or system backups." "See above, is this correct? y/n"
@@ -695,8 +700,6 @@ printf "\n%s\n%s\n%s\n%s\n%s\n" "This drive is now ready to be used either file 
 # function for starting the timeshift process
 starttimeshift () {
 
-sudocheck
-
 # timeshift
 # find uuid
 tdrive=$(cat /home/"$SUDO_USER"/.uuidtimeshift)
@@ -722,6 +725,7 @@ case "$answer" in
 	y)
 	printf "\n%s\n" "Continuing..."
 	cryptsetup open /dev/"$tdevname" "$tencryptedname"
+	mappercheck
 	timeshift --create --snapshot-device /dev/mapper/"$tencryptedname"
 	;;
 	n)
@@ -788,6 +792,7 @@ case "$answer" in
 	y)
 	printf "\n%s\n" "Continuing..."
 	cryptsetup open /dev/"$tdevname" "$tencryptedname"
+	mappercheck
 	tuuid=1
 	;;
 	n)
@@ -1030,7 +1035,7 @@ printf "\n%s" ""
 		cmus-remote -Q | less
 		;;
 		au)
-		amixer -c 0 -- sset Master unmute; amixer -c 0 -- sset Master playback -10dB
+		printf "\n%s" ""; amixer -c 0 -- sset Master unmute; amixer -c 0 -- sset Master playback -10dB
 		;;
 		al)
 		alsamixer
