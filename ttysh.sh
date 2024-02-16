@@ -1324,7 +1324,9 @@ else
 	esac
 fi
 
-printf "\n\t%s\n" "TTYSH"
+#[ "$1" ] && options=$(printf "%s" "ttyshhelp fzfcmus websearch fzfxorgvid fzfttyvid fzfvim fzfpdf yt ytmusic weather planner" | tr ' ' '\n' | grep "$1") && "$1" || printf "\n\t%s\n" "TTYSH"
+
+[ "$1" ] && "$1" || printf "\n\t%s\n" "TTYSH"
 
 while [ 1 ]; do
 
