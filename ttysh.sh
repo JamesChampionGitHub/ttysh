@@ -26,6 +26,16 @@ url=$(xclip -o)
 # FUNCTIONS
 # 
 
+# $1 arguments selection list
+flags () {
+
+options=$(printf "\n%s\n" "ttyshhelp fzfcmus websearch bookmarkcheck fzfxorgvid fzfttyvid fzfvim fzfpdf yt ytmusic weather planner" | tr ' ' '\n' | fzf)
+
+clear
+
+"$options"
+}
+
 # sudo user check
 sudocheck () {
 
@@ -1326,7 +1336,9 @@ fi
 
 #[ "$1" ] && "$1" || printf "\n\t%s\n" "TTYSH"
 
-[ "$1" ] && options=$(printf "%s" "ttyshhelp fzfcmus websearch bookmarkcheck fzfxorgvid fzfttyvid fzfvim fzfpdf yt ytmusic weather planner" | tr ' ' '\n' | grep "$1") && "$options" || printf "\n\t%s\n" "TTYSH"
+#options="${1:-$(printf "Use the following options after typing ttysh, e.g. ttsyh planner Note: ttysh flags create a menu picker ttyshhelp fzfcmus websearch bookmarkcheck fzfxorgvid fzfttyvid fzfvim fzfpdf yt ytmusic weather planner"}"
+
+[ "$1" ] && options=$(printf "%s" "ttyshhelp fzfcmus websearch bookmarkcheck fzfxorgvid fzfttyvid fzfvim fzfpdf yt ytmusic weather planner flags" | tr ' ' '\n' | grep "$1") && "$options" || printf "\n\t%s\n" "TTYSH"
 
 while [ 1 ]; do
 
