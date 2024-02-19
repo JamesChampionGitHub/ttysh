@@ -27,7 +27,7 @@ url=$(xclip -o)
 # 
 
 # $1 arguments selection list
-flags () {
+helpflags () {
 
 options=$(printf "\n%s\n" "ttyshhelp fzfcmus websearch bookmarkcheck fzfxorgvid fzfttyvid fzfvim fzfpdf yt ytmusic weather planner" | tr ' ' '\n' | fzf -i --prompt "Pick the option that you would like: ")
 
@@ -1338,7 +1338,7 @@ fi
 
 #options="${1:-$(printf "Use the following options after typing ttysh, e.g. ttsyh planner Note: ttysh flags create a menu picker ttyshhelp fzfcmus websearch bookmarkcheck fzfxorgvid fzfttyvid fzfvim fzfpdf yt ytmusic weather planner"}"
 
-[ "$1" ] && options=$(printf "%s" "fzfcmus websearch bookmarkcheck fzfxorgvid fzfttyvid fzfvim fzfpdf yt ytmusic weather planner flags" | tr ' ' '\n' | grep "$1") && "$options" || printf "\n\t%s\n" "TTYSH"
+[ "$1" ] && options=$(printf "%s" "fzfcmus websearch bookmarkcheck fzfxorgvid fzfttyvid fzfvim fzfpdf yt ytmusic weather planner helpflags" | tr ' ' '\n' | grep "$1") && "$options" || printf "\n\t%s\n" "TTYSH"
 
 while [ 1 ]; do
 
