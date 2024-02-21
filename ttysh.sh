@@ -825,10 +825,10 @@ read -p "Enter your selection: " answer
 
 case "$answer" in 
 	d)
-	printf "\n%s\n" "Enter the full matching name of the backup."	
-	read delete
-	timeshift --delete --snapshot "$delete"
-	x=0
+	read -p "Enter the line number matching the backup you want to delete: " delete
+	tdelete=$(timeshift --list | grep -i -m 1 "^"$delete"" | awk '{print $3}')
+	timeshift --delete --snapshot "$tdelete"
+	closetimeshift
 	;;
 	q)
 	closetimeshift	
@@ -836,7 +836,6 @@ case "$answer" in
 	;;
 	*)
 	printf "\n%s\n" "Not a valid selection."
-	x=0
 	;;
 esac
 }
@@ -859,9 +858,7 @@ lstdevname=$(ls /dev/disk/by-uuid -l | grep "$tuuid")
 
 printf "\n%s\n" "Looking for "$tdrive"..."
 
-sleep 1
-
-[ "$lstdevname" ] && printf "\n%s\n" ""$tdrive" has been found. Starting..." && tdrivecheck && timeshift --list && timedelete || printf "\n%s\n\n" "Cannot find "$tuuid". Check you are run as sudo su. Check that you have connected your drive. Exiting..." && lsblk && printf "\n%s" "" && exit
+[ "$lstdevname" ] && printf "\n%s\n" ""$tdrive" has been found. Starting..." && tdrivecheck && timeshift --list | less && timedelete || printf "\n%s\n\n" "Cannot find "$tuuid". Check you are run as sudo su. Check that you have connected your drive. Exiting..." && lsblk && printf "\n%s" "" && exit
 
 #if [ "$lstdevname" ]; then
 #
@@ -902,8 +899,6 @@ tunmounting=$(lsblk | grep "$tencryptedname" | awk '{print $7}')
 lstdevname=$(ls /dev/disk/by-uuid -l | grep "$tuuid")
 
 printf "\n%s\n" "Looking for "$tdrive"..."
-
-sleep 1
 
 [ "$lstdevname" ] && printf "\n%s\n" ""$tdrive" has been found. Starting..." && starttimeshift && closetimeshift || printf "\n%s\n\n" "Cannot find "$tuuid". Check you are run as sudo su. Check that you have connected your drive. Exiting..." && lsblk && printf "\n%s" "" && exit
 
