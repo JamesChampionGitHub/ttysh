@@ -98,9 +98,9 @@ yay -S --noconfirm xdo-git
 
 sudo pacman -S --noconfirm curl
 
-# install python
+# install bc
 
-sudo pacman -S --noconfirm python
+sudo pacman -S --noconfirm bc
 
 # install Cmus music player
 
@@ -1209,7 +1209,7 @@ printf "\n%s" ""
 		vim
 		;;
 		ca)
-		python
+		bc
 		;;
 		sp)
 		sc-im
