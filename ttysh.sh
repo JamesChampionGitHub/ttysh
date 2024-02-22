@@ -962,15 +962,12 @@ if [ "$lsbdevname" ]; then
 		lsblk
 		printf "\n%s\n" "Your storage should be correct. Finished."
 		exit
-		buuid=1
 		;;
 		n)
 		exit
-		buuid=1
 		;;
 		*)
 		printf "\n%s\n" "Not a valid selection."
-		x=0
 		;;
 	esac
 
