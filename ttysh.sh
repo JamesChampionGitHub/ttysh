@@ -764,10 +764,9 @@ case "$answer" in
 	umount "$tunmounting"
 	sync
 	cryptsetup close "$tencryptedname"
-	exit
 	lsblk
 	printf "\n%s\n" "Your storage should be correct. Finished."
-	tuuid=1
+	exit
 	;;
 	n)
 	printf "\n%s\n" "Complete. Closing..."
@@ -776,11 +775,10 @@ case "$answer" in
 	lsblk
 	printf "\n%s\n" "Your storage should be correct. Finished."
 	exit
-	tuuid=1
 	;;
 	*)
 	printf "\n%s\n" "Not a valid selection."
-	x=0
+	exit
 	;;
 esac
 }
@@ -803,15 +801,12 @@ case "$answer" in
 	printf "\n%s\n" "Continuing..."
 	cryptsetup open /dev/"$tdevname" "$tencryptedname"
 	mappercheck
-	tuuid=1
 	;;
 	n)
 	exit
-	tuuid=1
 	;;
 	*)
 	printf "\n%s\n" "Not a valid selection."
-	x=0
 	;;
 esac
 }
@@ -832,7 +827,6 @@ case "$answer" in
 	;;
 	q)
 	closetimeshift	
-	tuuid=1
 	;;
 	*)
 	printf "\n%s\n" "Not a valid selection."
