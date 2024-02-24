@@ -583,23 +583,25 @@ diskformat () {
 
 sudocheck
 
+while [ 1 ]; do
+
 printf "\n%s\n" "Stop! Have you run sudo su? y/n"
 
 read -p "Enter your selection: " answer
 
-case "$answer" in
-	y)
-	x=1
-	;;
-	n)
-	exit
-	x=1
-	;;
-	*)
-	printf "\n%s\n" "Not a valid selection."
-	x=0
-	;;
-esac
+
+	case "$answer" in
+		y)
+		break
+		;;
+		n)
+		exit
+		;;
+		*)
+		printf "\n%s\n" "Not a valid selection."
+		;;
+	esac
+done
 
 printf "\n%s\n" "This is your current device storage. Do not insert your disk you wish to format yet..."
 
@@ -611,23 +613,24 @@ sleep 10
 
 lsblk
 
-printf "\n%s\n" "Please look for your inserted device above. Is it correct? y/n"
+while [ 1 ]; do
 
-read -p "Enter your selection: " answer
+	printf "\n%s\n" "Please look for your inserted device above. Is it correct? y/n"
 
-case "$answer" in
-	y)
-	x=1
-	;;
-	n)
-	exit
-	x=1
-	;;
-	*)
-	printf "\n%s\n" "Not a valid selection."
-	x=0
-	;;
-esac
+	read -p "Enter your selection: " answer
+
+	case "$answer" in
+		y)
+		break
+		;;
+		n)
+		exit
+		;;
+		*)
+		printf "\n%s\n" "Not a valid selection."
+		;;
+	esac
+done
 
 printf "\n%s\n%s\n" "\nPlease enter the name of your disk. e.g. sdb. Do not enter any number, as these will be partitions, and we will be formatting the whole disk." "Be careful not to format the wrong drive!"
 
@@ -666,42 +669,46 @@ ls -l /dev/disk/by-uuid/
 
 ls -l /dev/disk/by-uuid/ | grep "$setuuid" | awk '{print $9}' | tr -d /.
 
-printf "\n%s\n%s\n" "You need to now add the UUID number of the disk you have setup for either file backups or system backups." "See above, is this correct? y/n"
+while [ 1 ]; do
 
-read -p "Enter your selection: " answer
+	printf "\n%s\n%s\n" "You need to now add the UUID number of the disk you have setup for either file backups or system backups." "See above, is this correct? y/n"
 
-case "$answer" in
-	y)
-	x=1
-	;;
-	n)
-	printf "\n%s\n" "Exiting script. Run again, or consult the developer for further instruction or support"
-	x=1
-	;;
-	*)
-	printf "\n%s\n" "Not a valid selection."
-	x=0
-	;;
-esac
+	read -p "Enter your selection: " answer
 
-printf "\n%s\n" "Choose what this disk will be used for. Press t for timeshift system backups or press f for file system backups"
+	case "$answer" in
+		y)
+		break
+		;;
+		n)
+		printf "\n%s\n" "Exiting script. Run again, or consult the developer for further instruction or support"
+		exit
+		;;
+		*)
+		printf "\n%s\n" "Not a valid selection."
+		;;
+	esac
+done
 
-read -p "Enter your selection: " answer
+while [ 1 ]; do
+
+	printf "\n%s\n" "Choose what this disk will be used for. Press t for timeshift system backups or press f for file system backups"
+
+	read -p "Enter your selection: " answer
 	
-case "$answer" in
-	t)
-	ls -l /dev/disk/by-uuid/ | grep "$setuuid" | awk '{print $9}' | tr -d /. > /home/"$SUDO_USER"/.uuidtimeshift
-	x=1
-	;;
-	f)
-	ls -l /dev/disk/by-uuid/ | grep "$setuuid" | awk '{print $9}' | tr -d /. > /home/"$SUDO_USER"/.uuidfiles
-	x=1
-	;;	
-	*)
-	printf "\n%s\n" "Not a valid selection."
-	x=0
-	;;
-esac
+	case "$answer" in
+		t)
+		ls -l /dev/disk/by-uuid/ | grep "$setuuid" | awk '{print $9}' | tr -d /. > /home/"$SUDO_USER"/.uuidtimeshift
+		break
+		;;
+		f)
+		ls -l /dev/disk/by-uuid/ | grep "$setuuid" | awk '{print $9}' | tr -d /. > /home/"$SUDO_USER"/.uuidfiles
+		break
+		;;	
+		*)
+		printf "\n%s\n" "Not a valid selection."
+		;;
+	esac
+done
 
 printf "\n%s\n%s\n%s\n%s\n%s\n" "This drive is now ready to be used either file backup, or system backup, depending on your previous selection." "IMPORTANT NOTE: IF YOU ARE USING A NEWLY SETUP DISK FOR SYSTEM BACKUPS FOR THE FIRST TIME - " "YOU MUST RUN timeshift-gtk IN A TERMINAL IN XORG AND RUN THE SETUP WIZARD, SELECTING THIS DISK TO AVOID ERRORS." "THEN PRESS THE create BUTTON." "Complete. Closing."
 }
@@ -1318,7 +1325,6 @@ else
 		;;
 		*)
 		printf "\n%s\n" "Not a valid selection."
-		x=0
 		;;
 	esac
 fi
