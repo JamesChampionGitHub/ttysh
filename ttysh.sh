@@ -585,10 +585,9 @@ sudocheck
 
 while [ 1 ]; do
 
-printf "\n%s\n" "Stop! Have you run sudo su? y/n"
+	printf "\n%s\n" "Stop! Have you run sudo su? y/n"
 
-read -p "Enter your selection: " answer
-
+	read -p "Enter your selection: " answer
 
 	case "$answer" in
 		y)
@@ -761,33 +760,35 @@ printf "\n%s\n" ""
 
 lsblk
 
-printf "\n%s\n" "Does the /dev/mapper/"$tencryptedname" need unmounting? check MOUNTPOINT. press y for umount or n to exit"
+while [ 1 ]; do
 
-read -p "Enter your selection: " answer
+	printf "\n%s\n" "Does the /dev/mapper/"$tencryptedname" need unmounting? check MOUNTPOINT. press y for umount or n to exit"
 
-case "$answer" in
-	y)
-	printf "\n%s\n" "Complete. Closing..."
-	umount "$tunmounting"
-	sync
-	cryptsetup close "$tencryptedname"
-	lsblk
-	printf "\n%s\n" "Your storage should be correct. Finished."
-	exit
-	;;
-	n)
-	printf "\n%s\n" "Complete. Closing..."
-	sync
-	cryptsetup close "$tencryptedname"
-	lsblk
-	printf "\n%s\n" "Your storage should be correct. Finished."
-	exit
-	;;
-	*)
-	printf "\n%s\n" "Not a valid selection."
-	exit
-	;;
-esac
+	read -p "Enter your selection: " answer
+
+	case "$answer" in
+		y)
+		printf "\n%s\n" "Complete. Closing..."
+		umount "$tunmounting"
+		sync
+		cryptsetup close "$tencryptedname"
+		lsblk
+		printf "\n%s\n" "Your storage should be correct. Finished."
+		exit
+		;;
+		n)
+		printf "\n%s\n" "Complete. Closing..."
+		sync
+		cryptsetup close "$tencryptedname"
+		lsblk
+		printf "\n%s\n" "Your storage should be correct. Finished."
+		exit
+		;;
+		*)
+		printf "\n%s\n" "Not a valid selection."
+		;;
+	esac
+done
 }
 
 # function for checking drive is correct
@@ -799,46 +800,52 @@ printf "\n%s\n" ""
 
 lsblk
 
-printf "\n%s\n" "Stop! Have you run sudo su? Is /dev/"$tdevname" location correct? y/n"
+while [ 1 ]; do
 
-read -p "Enter your selection: " answer
+	printf "\n%s\n" "Stop! Have you run sudo su? Is /dev/"$tdevname" location correct? y/n"
 
-case "$answer" in
-	y)
-	printf "\n%s\n" "Continuing..."
-	cryptsetup open /dev/"$tdevname" "$tencryptedname"
-	mappercheck
-	;;
-	n)
-	exit
-	;;
-	*)
-	printf "\n%s\n" "Not a valid selection."
-	;;
-esac
+	read -p "Enter your selection: " answer
+
+	case "$answer" in
+		y)
+		printf "\n%s\n" "Continuing..."
+		cryptsetup open /dev/"$tdevname" "$tencryptedname"
+		mappercheck
+		break
+		;;
+		n)
+		exit
+		;;
+		*)
+		printf "\n%s\n" "Not a valid selection."
+		;;
+	esac
+done
 }
 
 # function for deleting timehsift backups
 timedelete () {
 
-printf "\n%s\n" "Do you want to delete a backup? press d to continue or q to exit"
+while [ 1 ]; do
 
-read -p "Enter your selection: " answer
+	printf "\n%s\n" "Do you want to delete a backup? press d to continue or q to exit"
 
-case "$answer" in 
-	d)
-	read -p "Enter the line number matching the backup you want to delete: " delete
-	tdelete=$(timeshift --list | grep -i -m 1 "^"$delete"" | awk '{print $3}')
-	timeshift --delete --snapshot "$tdelete"
-	closetimeshift
-	;;
-	q)
-	closetimeshift	
-	;;
-	*)
-	printf "\n%s\n" "Not a valid selection."
-	;;
-esac
+	read -p "Enter your selection: " answer
+
+	case "$answer" in 
+		d)
+		read -p "Enter the line number matching the backup you want to delete: " delete
+		tdelete=$(timeshift --list | grep -i -m 1 "^"$delete"" | awk '{print $3}')
+		timeshift --delete --snapshot "$tdelete"
+		;;
+		q)
+		closetimeshift	
+		;;
+		*)
+		printf "\n%s\n" "Not a valid selection."
+		;;
+	esac
+done
 }
 
 # function for starting main timeshift backup deletions
@@ -944,6 +951,8 @@ if [ "$lsbdevname" ]; then
 
 	lsblk
 
+while [ 1 ]; do
+
 	printf "\n%s\n" "Stop! Have you run sudo su first? Have you saved your latest bookmarks? Is /dev/"$bdevname" correct? y/n" 
 
 	read -p "Enter your selection: " answer
@@ -971,6 +980,7 @@ if [ "$lsbdevname" ]; then
 		printf "\n%s\n" "Not a valid selection."
 		;;
 	esac
+done
 
 else
 
