@@ -18,9 +18,6 @@ splash=$(tty | tr -d '0123456789')
 # ps aux kill xorg
 #xorg=$(ps aux | grep -i xorg | awk '{print }' | sed -n '1p')
 
-# url from xclip for yt-dlp
-url=$(xclip -o)
-
 
 #
 # FUNCTIONS
@@ -51,7 +48,9 @@ mappercheck () {
 # function for tty or pts splash screen
 splashscreen () {
 
-[ "$splash" = /dev/pts/ ] && devour mpv --really-quiet /home/"$USER"/.splash_ttysh.png && clear || mpv --really-quiet /home/"$USER"/.splash_ttysh.png && clear
+#[ "$splash" = /dev/pts/ ] && devour mpv --really-quiet /home/"$USER"/.splash_ttysh.png && clear || mpv --really-quiet /home/"$USER"/.splash_ttysh.png && clear
+
+[ "$splash" = /dev/pts/ ] && devour mpv --really-quiet /home/"$USER"/.splash_ttysh.png || mpv --really-quiet /home/"$USER"/.splash_ttysh.png
 
 #if [ "$splash" = /dev/pts/ ]; then
 #	devour mpv --really-quiet /home/"$USER"/.splash_ttysh.png; clear
@@ -504,6 +503,7 @@ while [ 1 ]; do
 		yt-dlp -f 'bv*[height=480]+ba' "ytsearch1:""$video"""
 		;;
 		x)
+		url=$(xclip -o)
 		yt-dlp -f 'bv*[height=480]+ba' "$url"
 		;;
 		yt)
@@ -538,6 +538,7 @@ while [ 1 ]; do
 		yt-dlp -f 'ba' -x --audio-format mp3 "ytsearch1:""$music"""
 		;;
 		m)
+		url=$(xclip -o)
 		yt-dlp -f 'ba' -x --audio-format mp3 "$url"
 		;;
 		ytm)
@@ -1013,8 +1014,12 @@ printf "\n%s\n" ""
 less /home/"$USER"/info/notes.txt 
 printf "\n%s\n" ""
 
+# i3 configured to open bookmark selector for web browser and email in seperate windows
+startx
+
 clear
 printf "\n%s\n" ""
+
 selection
 }
 
@@ -1301,7 +1306,7 @@ done
 # PROGRAMME START
 # 
 
-clear
+#clear
 
 #clear replaces /dev/null and variations as they crash mpv
 #[[ ]] needs work, and is forcing an enter key press to continue after mpv and clear
@@ -1317,8 +1322,8 @@ clear
 #	esac
 
 # --no-terminal breaks in the TTY, --really-quiet is used as best alternative
-if [ -f /usr/bin/jfbview ]; then
-	#printf "%b" ""
+if [ -e /usr/bin/jfbview ]; then
+	#printf "%s" ""
 	splashscreen
 	#mpv --really-quiet /home/"$USER"/.splash_ttysh.png; clear
 else
