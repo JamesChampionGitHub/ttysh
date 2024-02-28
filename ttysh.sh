@@ -167,7 +167,7 @@ printf "%b\n\n%b\n\n%b\n\n%b\n\n%b\n\n%b\n\n%b" 'split' 'focus up' 'screen -t vi
 
 sudo pacman -S --noconfirm newsboat
 
-printf "%b\n\n%b\n\n%b\n\n%b\n\n%b\n\n\t%b\n\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\n%b" '#!/bin/bash' '# A script for yt-dlp with search arguments.' 'x=0' 'url=$(xclip -o)' 'while [ "$x" = 0 ]; do' 'echo "y to enter video creator and video discription. x to download url from xclip. m to download music url from xclip. q to quit. yt to run again."' 'read -p "Enter your selection: " answer' 'case "$answer" in' 'y)' 'echo "Enter the creator and discription."' 'read video' "yt-dlp -f 'bv*[height=480]+ba' \"ytsearch1:\"\"\$video\"\"\"" 'x=0' ';;' 'x)' "yt-dlp -f 'bv*[height=480]+ba' \"\$url\"" 'x=0' ';;' 'm)' "yt-dlp -f 'ba' -x --audio-format mp3 \"\$url\"" 'x=0' ';;' 'yt)' '/home/"$USER"/./.yt.sh' 'x=1' ';;' 'q)' 'x=1' ';;' 'esac' 'done' > /home/"$USER"/.yt.sh
+printf "%b\n\n%b\n\n%b\n\n%b\n\n%b\n\n\t%b\n\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\n%b" '#!/bin/bash' '# A script for yt-dlp with search arguments.' 'x=0' 'url=$(xclip -o 2> /dev/null)' 'while [ "$x" = 0 ]; do' 'echo "y to enter video creator and video discription. x to download url from xclip. m to download music url from xclip. q to quit. yt to run again."' 'read -p "Enter your selection: " answer' 'case "$answer" in' 'y)' 'echo "Enter the creator and discription."' 'read video' "yt-dlp -f 'bv*[height=480]+ba' \"ytsearch1:\"\"\$video\"\"\"" 'x=0' ';;' 'x)' "yt-dlp -f 'bv*[height=480]+ba' \"\$url\"" 'x=0' ';;' 'm)' "yt-dlp -f 'ba' -x --audio-format mp3 \"\$url\"" 'x=0' ';;' 'yt)' '/home/"$USER"/./.yt.sh' 'x=1' ';;' 'q)' 'x=1' ';;' 'esac' 'done' > /home/"$USER"/.yt.sh
 
 chmod +x /home/"$USER"/.yt.sh
 
@@ -277,9 +277,23 @@ pscmus=$(ps aux | grep -i "[c]mus" | cut -d " " -f22)
 # pick a bookmark to open in TTY or X11 using the appropriate web browser
 fzfbookmark () {
 
+printf "\n" ""
+
 bookmark=$(cat /home/"$USER"/.bookmarks_ttysh.html | fzf -i --prompt "Pick a bookmark: ") 
 
-[ /dev/pts/ ] && devour librewolf "$bookmark" || browsh --startup-url "$bookmark" 
+
+[ "$splash" = /dev/pts/ ] && read -p "Pick f for firefox or l for librewolf: " xbrowser && case "$xbrowser" in 
+
+										        f) 
+											[ "$splash" = /dev/pts/ ] && devour librewolf "$bookmark" || browsh --startup-url "$bookmark" 
+											;;
+											l)
+											[ "$splash" = /dev/pts/ ] && devour librewolf "$bookmark" || browsh --startup-url "$bookmark" 
+											;;
+									       esac
+
+
+#[ "$splash" = /dev/pts/ ] && devour librewolf "$bookmark" || browsh --startup-url "$bookmark" 
 }
 
 # check for bookmark file
@@ -298,14 +312,44 @@ sed 's/\ /\n/g' "$formathtml" | grep "https\?" | cut -d '"' -f2 | grep "https\?"
 printf "\n%s\n" "Your /home/"$USER"/.bookmarks_ttysh.html is now formatted for the 'bo' command"
 }
 
+# websearch case statement
+casewebsearch () {
+
+while [ 1 ]; do
+
+	printf "\n%s\n\n" "Pick f for firefox or l for librewolf:"
+
+	read -p "Enter your selection: " xbrowser
+
+	case "$xbrowser" in 
+
+		f) 
+		printf "\n" ""
+		read -p "Search: " webpick
+		devour firefox searx.be/search?q="$webpick"
+		break
+		;;
+		l)
+		printf "\n" ""
+		read -p "Search: " webpick
+		devour librewolf searx.be/search?q="$webpick"
+		break
+		;;
+		*)
+		printf "\n%s\n" "Not a valid selection."
+		;;
+	esac 
+done
+}
+
 # search the internet
 websearch () {
 
 printf "\n" ""
 
-read -p "Search: " webpick
-
-[ /dev/pts/ ] && devour librewolf searx.be/search?q="$webpick" || browsh --startup-url searx.be/search?q="$webpick"
+[ "$splash" = /dev/pts/ ] && casewebsearch && return || read -p "Search: " webpick && browsh --startup-url searx.be/search?q="$webpick"
+	
+#[ $splash" = /dev/pts/ ] && devour librewolf searx.be/search?q="$webpick" || browsh --startup-url searx.be/search?q="$webpick"
 }
 
 # function for fzf video search in the xorg/GUI
