@@ -274,6 +274,41 @@ pscmus=$(ps aux | grep -i "[c]mus" | cut -d " " -f22)
 [ ! "$pscmus" = cmus ] && screen -c /home/"$USER"/.screenrc.cmusplay && return || cmuspicker=$(find /home/"$USER"/Music/starred/ -type f | fzf -i --prompt "Pick the music track you want to play in cmus: ") && cmus-remote -f "$cmuspicker" && cmus-remote -Q && printf "\n" ""
 }
 
+# fzfbookmark case statement
+casefzfbookmark () {
+
+while [ 1 ]; do
+
+	printf "\n%s\n\n" "Pick f for firefox or l for librewolf:"
+
+	read -p "Enter your selection: " xbrowser
+
+	case "$xbrowser" in 
+
+		f) 
+		devour firefox "$bookmark"
+		break
+		;;
+		l)
+		devour librewolf "$bookmark"
+		break
+		;;
+		*)
+		printf "\n%s\n" "Not a valid selection."
+		;;
+	esac 
+done
+
+
+#[ "$splash" = /dev/pts/ ] && read -p "Pick f for firefox or l for librewolf: " xbrowser && case "$xbrowser" in 
+#
+#										        f) 
+#											[ "$splash" = /dev/pts/ ] && devour firefox "$bookmark" || browsh --startup-url "$bookmark" 
+#											;;
+#											l)
+#											[ "$splash" = /dev/pts/ ] && devour librewolf "$bookmark" || browsh --startup-url "$bookmark" 
+}
+
 # pick a bookmark to open in TTY or X11 using the appropriate web browser
 fzfbookmark () {
 
@@ -281,17 +316,22 @@ printf "\n" ""
 
 bookmark=$(cat /home/"$USER"/.bookmarks_ttysh.html | fzf -i --prompt "Pick a bookmark: ") 
 
-
-[ "$splash" = /dev/pts/ ] && read -p "Pick f for firefox or l for librewolf: " xbrowser && case "$xbrowser" in 
-
-										        f) 
-											[ "$splash" = /dev/pts/ ] && devour librewolf "$bookmark" || browsh --startup-url "$bookmark" 
-											;;
-											l)
-											[ "$splash" = /dev/pts/ ] && devour librewolf "$bookmark" || browsh --startup-url "$bookmark" 
-											;;
-									       esac
-
+[ "$splash" = /dev/pts/ ] && casefzfbookmark && return || browsh --startup-url "$bookmark"
+	
+#printf "\n" ""
+#
+#
+#
+#[ "$splash" = /dev/pts/ ] && read -p "Pick f for firefox or l for librewolf: " xbrowser && case "$xbrowser" in 
+#
+#										        f) 
+#											[ "$splash" = /dev/pts/ ] && devour librewolf "$bookmark" || browsh --startup-url "$bookmark" 
+#											;;
+#											l)
+#											[ "$splash" = /dev/pts/ ] && devour librewolf "$bookmark" || browsh --startup-url "$bookmark" 
+#											;;
+#									       esac
+#
 
 #[ "$splash" = /dev/pts/ ] && devour librewolf "$bookmark" || browsh --startup-url "$bookmark" 
 }
