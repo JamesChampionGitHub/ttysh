@@ -28,7 +28,7 @@ helpflags () {
 
 options=$(printf "\n%s\n" "ttyshhelp fzfcmus websearch bookmarkcheck fzfxorgvid fzfttyvid fzfvim fzfpdf yt ytmusic weather planner" | tr ' ' '\n' | fzf -i --prompt "Pick the option that you would like: ")
 
-clear
+#clear
 
 "$options"
 }
@@ -1102,7 +1102,8 @@ printf "\n%s\n" ""
 # i3 configured to open bookmark selector for web browser and email in seperate windows
 startx
 
-clear
+#clear
+
 printf "\n%s\n" ""
 
 selection
