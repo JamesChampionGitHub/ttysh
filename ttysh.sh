@@ -299,7 +299,6 @@ while [ 1 ]; do
 	esac 
 done
 
-
 #[ "$splash" = /dev/pts/ ] && read -p "Pick f for firefox or l for librewolf: " xbrowser && case "$xbrowser" in 
 #
 #										        f) 
@@ -307,6 +306,7 @@ done
 #											;;
 #											l)
 #											[ "$splash" = /dev/pts/ ] && devour librewolf "$bookmark" || browsh --startup-url "$bookmark" 
+
 }
 
 # pick a bookmark to open in TTY or X11 using the appropriate web browser
@@ -334,6 +334,7 @@ bookmark=$(cat /home/"$USER"/.bookmarks_ttysh.html | fzf -i --prompt "Pick a boo
 #
 
 #[ "$splash" = /dev/pts/ ] && devour librewolf "$bookmark" || browsh --startup-url "$bookmark" 
+
 }
 
 # check for bookmark file
