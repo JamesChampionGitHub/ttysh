@@ -36,7 +36,11 @@ options=$(printf "\n%s\n" "ttyshhelp fzfcmus websearch bookmarkcheck fzfxorgvid 
 # sudo user check
 sudocheck () {
 
-[ ! "$SUDO_USER" ] && printf "\n%s\n\n" "Run as sudo su first! Exiting..." && exit || printf "\n%s\n\n%s\n\n" "Checking you are running as sudo user..." "Continuing..."
+warncolour='\033[31;1m'
+
+warncolourend='\033[0m'
+
+[ ! "$SUDO_USER" ] && printf "\n"$warncolour"%s"$warncolourend"\n\n" "Run as sudo su first! Exiting..." && exit || printf "\n%s\n\n%s\n\n" "Checking you are running as sudo user..." "Continuing..."
 }
 
 # /dev/mapper/drive check for timeshift
@@ -284,7 +288,6 @@ while [ 1 ]; do
 	read -p "Enter your selection: " xbrowser
 
 	case "$xbrowser" in 
-
 		f) 
 		devour firefox "$bookmark"
 		break
@@ -363,7 +366,6 @@ while [ 1 ]; do
 	read -p "Enter your selection: " xbrowser
 
 	case "$xbrowser" in 
-
 		f) 
 		printf "\n" ""
 		read -p "Search: " webpick
@@ -671,7 +673,7 @@ sudocheck
 
 while [ 1 ]; do
 
-	printf "\n%s\n" "Stop! Have you run sudo su? y/n"
+	printf "\n"$warncolour"%s"$warncolourend"\n" "Stop! Have you run sudo su? y/n"
 
 	read -p "Enter your selection: " answer
 
@@ -819,7 +821,7 @@ lsblk
 
 #sed -n 32p $SUDO_USER/timebackup.sh
 	
-printf "\n%s\n" "Stop! Have you run sudo su? Is /dev/"$tdevname" location correct? y/n"
+printf "\n"$warncolour"%s"$warncolourend"\n" "Stop! Have you run sudo su? Is /dev/"$tdevname" location correct? y/n"
 
 read -p "Enter your selection: " answer
 
@@ -888,7 +890,7 @@ lsblk
 
 while [ 1 ]; do
 
-	printf "\n%s\n" "Stop! Have you run sudo su? Is /dev/"$tdevname" location correct? y/n"
+	printf "\n"$warncolour"%s"$warncolourend"\n" "Stop! Have you run sudo su? Is /dev/"$tdevname" location correct? y/n"
 
 	read -p "Enter your selection: " answer
 
@@ -1039,7 +1041,7 @@ if [ "$lsbdevname" ]; then
 
 while [ 1 ]; do
 
-	printf "\n%s\n" "Stop! Have you run sudo su first? Have you saved your latest bookmarks? Is /dev/"$bdevname" correct? y/n" 
+	printf "\n"$warncolour"%s"$warncolourend"\n" "Stop! Have you run sudo su first? Have you saved your latest bookmarks? Is /dev/"$bdevname" correct? y/n" 
 
 	read -p "Enter your selection: " answer
 
