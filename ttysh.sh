@@ -1096,7 +1096,25 @@ fi
 # date
 planner () {
 
-cmus
+printf "\n%s\n\n" "Start/Choose some music?"
+
+while [ 1 ]; do
+	
+	read -p "Choose y/n: " cmuspick
+
+	case "$cmuspick" in
+		y)
+		screen -r cmus
+		break
+		;;
+		n)
+		break
+		;;
+		*)
+		printf "\n%s\n\n" "Not a valid selection"
+		;;
+	esac
+done
 
 printf "\n%s\n\n" "The time and date is:"
 date
@@ -1132,7 +1150,7 @@ printf "\n%s" ""
 
 	case "$answer" in
 		cm)
-		cmus
+		screen -r cmus
 		;;
 		ne)
 		cmus-remote -n
