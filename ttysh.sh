@@ -281,6 +281,8 @@ cmus-remote -f "$cmuspicker"
 
 cmus-remote -Q && printf "\n" ""
 
+# if cmus is not running as pseudo daemon in screen, use below:
+
 #[ ! "$pscmus" = cmus ] && screen -c /home/"$USER"/.screenrc.cmusplay && return || cmuspicker=$(find /home/"$USER"/Music/starred/ -type f | fzf -i --prompt "Pick the music track you want to play in cmus: ") && cmus-remote -f "$cmuspicker" && cmus-remote -Q && printf "\n" ""
 }
 
@@ -1093,6 +1095,8 @@ fi
 
 # date
 planner () {
+
+cmus
 
 printf "\n%s\n\n" "The time and date is:"
 date
