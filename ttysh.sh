@@ -1435,6 +1435,7 @@ printf "\n%s" ""
 		chvt 6
 		;;
 		tty)
+		clear
 		ttysh
 		exit
 		;;
