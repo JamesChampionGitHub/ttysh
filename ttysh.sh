@@ -26,7 +26,7 @@ splash=$(tty | tr -d '[0-9]')
 # $1 arguments selection list
 helpflags () {
 
-options=$(printf "\n%s\n" "ttyshhelp fzfcmus websearch bookmarkcheck fzfxorgvid fzfttyvid fzfvim fzfpdf yt ytmusic weather planner" | tr ' ' '\n' | fzf -i --prompt "Pick the option that you would like: ")
+options=$(printf "\n%s\n" "ttyshhelp fzfcmus websearch bookmarkcheck fzfxorgvid fzfttyvid fzfvim fzfpdf yt ytmusic weather planner" | tr ' ' '\n' | /home/"$USER"/.fzf/bin/fzf -i --prompt "Pick the option that you would like: ")
 
 #clear
 
@@ -309,7 +309,7 @@ fzfcmus () {
 
 cmuscheck
 
-cmuspicker=$(find /home/"$USER"/Music/starred/ -type f | fzf -i --prompt "Pick the music track you want to play in cmus: ") 
+cmuspicker=$(find /home/"$USER"/Music/starred/ -type f | /home/"$USER"/.fzf/bin/fzf -i --prompt "Pick the music track you want to play in cmus: ") 
 
 cmus-remote -f "$cmuspicker"
 
@@ -361,7 +361,7 @@ fzfbookmark () {
 
 printf "\n" ""
 
-bookmark=$(cat /home/"$USER"/.bookmarks_ttysh.html | fzf -i --prompt "Pick a bookmark: ") 
+bookmark=$(cat /home/"$USER"/.bookmarks_ttysh.html | /home/"$USER"/bin/fzf -i --prompt "Pick a bookmark: ") 
 
 [ "$splash" = /dev/pts/ ] && casefzfbookmark && return || browsh --startup-url "$bookmark"
 	
@@ -393,7 +393,7 @@ bookmarkcheck () {
 # format bookmarks for fzfbookmark
 bookmarkformat () {
 
-formathtml=$(find /home/"$USER"/ -name '*.html' | fzf -i --prompt "Note: if you already have a /home/"$USER"/.bookmarks_ttysh.html file, it will be overwritten. Pick the html file you want to format: ")
+formathtml=$(find /home/"$USER"/ -name '*.html' | /home/"$USER"/.fzf/bin/fzf -i --prompt "Note: if you already have a /home/"$USER"/.bookmarks_ttysh.html file, it will be overwritten. Pick the html file you want to format: ")
 
 sed 's/\ /\n/g' "$formathtml" | grep "https\?" | cut -d '"' -f2 | grep "https\?" | grep -v "^fake-favicon-uri" > /home/"$USER"/.bookmarks_ttysh.html
 
@@ -450,7 +450,7 @@ while [ 1 ]; do
 
 	case "$answer" in
 		s)
-		devour mpv "$(find /home/"$USER"/ -type f | fzf -i --prompt "Pick the video you want to watch in the GUI: ")"
+		devour mpv "$(find /home/"$USER"/ -type f | /home/"$USER"/.fzf/bin/fzf -i --prompt "Pick the video you want to watch in the GUI: ")"
 		;;
 		q)
 		break
@@ -473,7 +473,7 @@ while [ 1 ]; do
 
 	case "$answer" in
 		s)
-		mpv "$(find /home/"$USER"/ -type f | fzf -i --prompt "Pick the video you want to watch in the TTY: ")"
+		mpv "$(find /home/"$USER"/ -type f | /home/"$USER"/.fzf/bin/fzf -i --prompt "Pick the video you want to watch in the TTY: ")"
 		;;
 		q)
 		break
@@ -518,7 +518,7 @@ while [ 1 ]; do
 
 	case "$answer" in
 		s)
-		vim "$(find /home/"$USER"/ -type f | fzf -i --prompt "Pick the file you want to open in vim: ")"
+		vim "$(find /home/"$USER"/ -type f | /home/"$USER"/.fzf/bin/fzf -i --prompt "Pick the file you want to open in vim: ")"
 		;;
 		q)
 		break	
@@ -541,7 +541,7 @@ while [ 1 ]; do
 
 	case "$answer" in
 		s)
-		sudo jfbview "$(find /home/"$USER"/ -type f | fzf -i --prompt "Pick the pdf you want to view. ESC to exit: ")"
+		sudo jfbview "$(find /home/"$USER"/ -type f | /home/"$USER"/.fzf/bin/fzf -i --prompt "Pick the pdf you want to view. ESC to exit: ")"
 		;;
 		q)
 		break		
@@ -564,7 +564,7 @@ while [ 1 ]; do
 
 	case "$answer" in
 		s)
-		rm -iv $(find /home/"$USER"/ -type f | fzf -i --multi --prompt "Pick the file for deletion. ESC to exit: ")
+		rm -iv $(find /home/"$USER"/ -type f | /home/"$USER"/.fzf/bin/fzf -i --multi --prompt "Pick the file for deletion. ESC to exit: ")
 		;;
 		q)
 		break	
@@ -587,7 +587,7 @@ while [ 1 ]; do
 
 	case "$answer" in
 		s)
-		chosendir="$(find /home/"$USER"/ | fzf -i --prompt "Pick the directory with the files names that you want to remove white space from: ")"
+		chosendir="$(find /home/"$USER"/ | /home/"$USER"/.fzf/bin/fzf -i --prompt "Pick the directory with the files names that you want to remove white space from: ")"
 		for file in "$chosendir"/*
 		do
 			read -p "Did you pick something, or do you want to quit? Press c to continue, or e to exit: " pick
