@@ -167,7 +167,7 @@ sudo pacman -S --noconfirm screen
 printf "%b" '--image-display-duration=1000' >> /home/"$USER"/.config/mpv/mpv.conf
 
 #try %b with \ to try and escape characters
-printf "%b\n\n%b\n\n%b\n\n%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n%b" '#!/bin/bash' 'x=0' 'while [ "$x" = 0 ]; do' 'printf "\\n%b\\n" "Press c to start your search. Press q to exit"' 'read -p "Enter your selection: " answer' 'case "$answer" in' 'c)' 'mpv "$(find /home/"$USER"/Downloads | fzf -i)"' 'x=0' ';;' 'q)' 'x=1' ';;' 'esac' 'done' > /home/"$USER"/.mpv_fzf_screen.sh
+printf "%b\n\n%b\n\n%b\n\n%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n\t%b\n%b" '#!/bin/bash' 'x=0' 'while [ "$x" = 0 ]; do' 'printf "\\n%b\\n" "Press c to start your search. Press q to exit"' 'read -p "Enter your selection: " answer' 'case "$answer" in' 'c)' 'mpv "$(find /home/"$USER"/Downloads | /home/"$USER"/.fzf/bin/fzf -i)"' 'x=0' ';;' 'q)' 'x=1' ';;' 'esac' 'done' > /home/"$USER"/.mpv_fzf_screen.sh
 
 chmod +x /home/"$USER"/.mpv_fzf_screen.sh
 
@@ -242,7 +242,7 @@ printf "%b\n%b\n%b\n%b\n%b\n\n%b\n%b\n%b\n%b\n%b\n%b\n%b" 'XTerm.vt100.foregroun
 
 # make screen list videos config
 
-printf "%b\n\n%b" '#!/bin/bash' 'mpv "$(find /home/"$USER"/Videos | fzf -i)"' > /home/"$USER"/.mpv_fzf_screen_videos.sh
+printf "%b\n\n%b" '#!/bin/bash' 'mpv "$(find /home/"$USER"/Videos | /home/"$USER"/.fzf/bin/fzf -i)"' > /home/"$USER"/.mpv_fzf_screen_videos.sh
 
 chmod +x /home/"$USER"/.mpv_fzf_screen_videos.sh
 
@@ -361,7 +361,7 @@ fzfbookmark () {
 
 printf "\n" ""
 
-bookmark=$(cat /home/"$USER"/.bookmarks_ttysh.html | /home/"$USER"/bin/fzf -i --prompt "Pick a bookmark: ") 
+bookmark=$(cat /home/"$USER"/.bookmarks_ttysh.html | /home/"$USER"/.fzf/bin/fzf -i --prompt "Pick a bookmark: ") 
 
 [ "$splash" = /dev/pts/ ] && casefzfbookmark && return || browsh --startup-url "$bookmark"
 	
