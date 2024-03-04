@@ -307,8 +307,6 @@ fzfcmus () {
 
 cmuscheck
 
-pscmus=$(ps aux | grep -i "[c]mus" | cut -d " " -f22)
-
 cmuspicker=$(find /home/"$USER"/Music/starred/ -type f | fzf -i --prompt "Pick the music track you want to play in cmus: ") 
 
 cmus-remote -f "$cmuspicker"
@@ -316,6 +314,8 @@ cmus-remote -f "$cmuspicker"
 cmus-remote -Q && printf "\n" ""
 
 # if cmus is not running as pseudo daemon in screen, use below:
+
+#pscmus=$(ps aux | grep -i "[c]mus" | cut -d " " -f22)
 
 #[ ! "$pscmus" = cmus ] && screen -c /home/"$USER"/.screenrc.cmusplay && return || cmuspicker=$(find /home/"$USER"/Music/starred/ -type f | fzf -i --prompt "Pick the music track you want to play in cmus: ") && cmus-remote -f "$cmuspicker" && cmus-remote -Q && printf "\n" ""
 }
