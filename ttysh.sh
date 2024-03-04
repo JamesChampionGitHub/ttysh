@@ -13,7 +13,7 @@ x=0
 
 # splash screen variable for tty/pts
 
-splash=$(tty | tr -d '0123456789')
+splash=$(tty | tr -d '[0-9]')
 
 # ps aux kill xorg
 #xorg=$(ps aux | grep -i xorg | awk '{print }' | sed -n '1p')
@@ -47,6 +47,38 @@ warncolourend='\033[0m'
 mappercheck () {
 
 [ ! -h /dev/mapper/timeshiftbackup ] && printf "\n\n%s\n\n" "cryptsetup has failed to open /dev/mapper/timeshiftbackup from /dev/"$tdevname" . Make sure you are entering the correct password, or check your devices and mountpoints. Running lsblk and exiting..." && lsblk && exit || printf "\n\n%s\n\n" "dev/mapper/timeshiftbackup found. Continuing..." 
+}
+
+# cmus daemon question
+cmusquest () {
+
+while [ 1 ]; do
+
+	read -p "Do you want to start the music daemon? y/n: " cmusanswer
+
+	case "$cmusanswer" in
+		y)
+		printf "\n%s\n\n" "Run cmus from the command line to run the daemon before starting TTYSH again."
+		exit
+		#cmus
+		break
+		;;
+		n)
+		break
+		;;
+		*)
+		printf "\n%s\n\n" "Invalid selection"
+	esac
+
+done
+}
+
+# cmus checker for running daemon
+cmuscheck () {
+
+cmuslist=$(screen -list | grep -i "cmus" | cut -d '.' -f2 | awk '{print $1}')
+
+[ "$cmuslist" = cmus ] && printf "\n%s\n\n" "Cmus Status: The cmus daemon is running." && return || cmusquest 
 }
 
 # function for tty or pts splash screen
@@ -272,6 +304,8 @@ printf "\n%s\n" "TTYSH Wizard has finished. Please exit out of TTYSH and reboot 
 
 # pick music track to play in cmus remotely
 fzfcmus () {
+
+cmuscheck
 
 pscmus=$(ps aux | grep -i "[c]mus" | cut -d " " -f22)
 
@@ -1096,6 +1130,8 @@ fi
 # date
 planner () {
 
+cmuscheck
+
 printf "\n%s\n\n" "Start/Choose some music?"
 
 while [ 1 ]; do
@@ -1104,7 +1140,9 @@ while [ 1 ]; do
 
 	case "$cmuspick" in
 		y)
-		screen -r cmus
+		fzfcmus
+		#cmus
+		#screen -q -D -R cmus
 		break
 		;;
 		n)
@@ -1150,22 +1188,36 @@ printf "\n%s" ""
 
 	case "$answer" in
 		cm)
-		screen -r cmus
+		cmuscheck
+		#cmus
+		#screen -q -r cmus
+		#screen -D -R cmus
 		;;
 		ne)
+		cmuscheck
 		cmus-remote -n
 		cmus-remote -Q
+		printf "\n%s\n\n" "The next track is playing."
 		;;
 		pr)
+		cmuscheck
 		cmus-remote -r
+		cmus-remote -Q
+		printf "\n%s\n\n" "The previous track is playing."
 		;;
 		u)
+		cmuscheck
 		cmus-remote -u
+		cmus-remote -Q
+		printf "\n%s\n\n" "Paused/Playing."
 		;;
 		f)
+		cmuscheck
 		cmus-remote -k +5
+		printf "\n%s\n\n" "Forwarding..."
 		;;
 		st)
+		cmuscheck
 		cmus-remote -Q | less
 		;;
 		au)
