@@ -54,14 +54,16 @@ cmusquest () {
 
 while [ 1 ]; do
 
-	read -p "Do you want to start the music daemon? y/n: " cmusanswer
+	printf "\n\n%s\n%s\n\n" "Do you want to start the music daemon?" "Note: the music daemon runs with screen. Press Ctrl a + d to detach the running daemon."
+
+	read -p "Press y to run the cmus music daemon, or n for no: " cmusanswer
 
 	case "$cmusanswer" in
 		y)
 		printf "\n%s\n\n" "Run cmus from the command line to run the daemon before starting TTYSH again."
 		exit
 		#cmus
-		break
+		#break
 		;;
 		n)
 		break
@@ -1140,9 +1142,9 @@ while [ 1 ]; do
 
 	case "$cmuspick" in
 		y)
-		fzfcmus
+		screen -q -r cmus
 		#cmus
-		#screen -q -D -R cmus
+		#fzfcmus
 		break
 		;;
 		n)
@@ -1190,7 +1192,7 @@ printf "\n%s" ""
 		cm)
 		cmuscheck
 		#cmus
-		#screen -q -r cmus
+		screen -q -r cmus
 		#screen -D -R cmus
 		;;
 		ne)
