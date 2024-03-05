@@ -54,7 +54,7 @@ cmusquest () {
 
 while [ 1 ]; do
 
-	printf "\n\n%s\n%s\n\n" "Do you want to start the music daemon?" "Note: the music daemon runs with screen. Press Ctrl a + d to detach the running daemon."
+	printf "\n\n%s\n%s\n\n" "Do you want to start the music daemon?" "Note: the music daemon runs with screen. Press Ctrl a + d to detach the running daemon, unless you are running special binds for cmus. Starting up the daemon from a TTY is prefered behaviour, incase of errors with X11."
 
 	read -p "Press y to run the cmus music daemon, or n for no: " cmusanswer
 
