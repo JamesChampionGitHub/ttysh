@@ -54,7 +54,7 @@ cmusquest () {
 
 while [ 1 ]; do
 
-	printf "\n\n%s\n%s\n\n" "Do you want to start the music daemon?" "Note: the music daemon runs with screen. Press Ctrl a + d to detach the running daemon, unless you are running special binds for cmus. Starting up the daemon from a TTY is prefered behaviour, incase of errors with X11."
+	printf "\n%s\n%s\n%s\n" "Do you want to start the music daemon?" "Note: the music daemon runs with screen. Press Ctrl a + d to detach the running daemon, unless you are running special binds for cmus." "Starting up the daemon from a TTY is prefered behaviour, incase of errors with X11."
 
 	read -p "Press y to run the cmus music daemon, or n for no: " cmusanswer
 
@@ -1261,6 +1261,9 @@ printf "\n%s" ""
 			selection
 			break	
 			;;	
+			*)
+			printf "\n\n%s\n\n" "Not a valid selection."
+			;;
 		esac
 		;;
 		bro)
@@ -1281,10 +1284,38 @@ printf "\n%s" ""
 		ping jameschampion.xyz
 		;;
 		b)
-		screen -c /home/"$USER"/.screenrc.birthdays_split	
+		printf "\n%s\n\n" "Would you like your birthday file in a split-screen with a shell? y/n"
+
+		read -p "Enter your selection: " answer
+
+		case "$answer" in
+			y)
+			screen -c /home/"$USER"/.screenrc.birthdays_split	
+			;;
+			n)
+			vim /home/"$USER"/info/Events_2023_08_27_15_08_10.ics
+			;;
+			*)
+			printf "\n\n%s\n\n" "Not a valid selection."
+			;;
+		esac
 		;;
 		n)
-		screen -c /home/"$USER"/.screenrc.notes_split
+		printf "\n%s\n\n" "Would you like your notes in a split-screen with a shell? y/n"
+
+		read -p "Enter your selection: " answer
+
+		case "$answer" in
+			y)
+			screen -c /home/"$USER"/.screenrc.notes_split
+			;;
+			n)
+			vim /home/"$USER"/info/notes.txt
+			;;
+			*)
+			printf "\n\n%s\n\n" "Not a valid selection."
+			;;
+		esac
 		;;
 		mu)
 		screen -c /home/"$USER"/.screenrc.mutt_conf
