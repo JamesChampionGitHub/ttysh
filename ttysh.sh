@@ -1328,13 +1328,44 @@ printf "\n%s" ""
 		#screen -c /home/"$USER"/.screenrc.clock
 		;;
 		r)
-		screen -c /home/"$USER"/.screenrc.rss
+		printf "\n%s\n\n" "Would you like your rss feed in a split-screen with a shell? y/n"
+
+		read -p "Enter your selection: " answer
+
+		case "$answer" in
+			y)
+			screen -c /home/"$USER"/.screenrc.rss
+			;;
+			n)
+			cd /home/"$USER"/Videos/
+			newsboat
+			cd /home/"$USER"/
+			;;
+			*)
+			printf "\n\n%s\n\n" "Not a valid selection."
+			;;
+		esac
 		;;
 		e)
 		mutt
 		;;
 		a)
-		screen -c /home/"$USER"/.screenrc.articles 
+		printf "\n%s\n\n" "Would you like your article list in a split-screen with a shell? y/n"
+
+		read -p "Enter your selection: " answer
+
+		case "$answer" in
+			y)
+			screen -c /home/"$USER"/.screenrc.articles 
+			;;
+			n)
+			vim /home/"$USER"/Downloads
+			;;
+			*)
+			printf "\n\n%s\n\n" "Not a valid selection."
+			;;
+		esac
+
 		;;
 		sta)
 		startx
