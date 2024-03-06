@@ -26,7 +26,9 @@ splash=$(tty | tr -d '[0-9]')
 # $1 arguments selection list
 helpflags () {
 
-options=$(printf "\n%s\n" "ttyshhelp fzfcmus websearch bookmarkcheck fzfxorgvid fzfttyvid fzfvim fzfpdf yt ytmusic weather planner" | tr ' ' '\n' | /home/"$USER"/.fzf/bin/fzf -i --prompt "Pick the option that you would like: ")
+options=$(printf "\n%s\n" "ttyshhelp fzfcmus websearch bookmarkcheck fzfxorgvid fzfttyvid fzfvim fzfpdf yt ytmusic weather planner" |\
+       	tr ' ' '\n' |\
+       	/home/"$USER"/.fzf/bin/fzf -i --prompt "Pick the option that you would like: ")
 
 #clear
 
@@ -1525,7 +1527,9 @@ printf "\n%s" ""
 		;;
 		tty)
 		clear
-		ttysh
+		"$0"
+		#ttysh
+		#[ "$#" -lt 1 ] && "$0" || ttysh
 		exit
 		;;
 		up)
