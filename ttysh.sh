@@ -1249,22 +1249,26 @@ printf "\n%s" ""
 		bookmarkcheck
 		;;
 		ly)
-		printf "\n%s\n%s\n%s\n" "Stop! It is recommended to run lynx browser offline for your saved webpages." "Use Browsh/Librewolf for web online browsing and saving webpages for later." "Are you offline? Do you want to continue? y/n"
+		while [ 1 ]; do
 
-		read -p "Enter your selection: " answer
+			printf "\n%s\n%s\n%s\n" "Stop! It is recommended to run lynx browser offline for your saved webpages." "Use Browsh/Librewolf for web online browsing and saving webpages for later." "Are you offline? Do you want to continue? y/n"
 
-		case "$answer" in
-			y)
-			screen -c /home/"$USER"/.screenrc.lynx
-			;;
-			n)
-			selection
-			break	
-			;;	
-			*)
-			printf "\n\n%s\n\n" "Not a valid selection."
-			;;
-		esac
+			read -p "Enter your selection: " answer
+
+			case "$answer" in
+				y)
+				screen -c /home/"$USER"/.screenrc.lynx
+				break
+				;;
+				n)
+				break	
+				;;	
+				*)
+				printf "\n\n%s\n\n" "Not a valid selection."
+				;;
+			esac
+
+		done
 		;;
 		bro)
 		printf "\n%s\n" "Tips: prefix 'searx.be/search?q=' or 'wiby.me/?q=' in the URL to search."
@@ -1284,38 +1288,50 @@ printf "\n%s" ""
 		ping jameschampion.xyz
 		;;
 		b)
-		printf "\n%s\n\n" "Would you like your birthday file in a split-screen with a shell? y/n"
+		while [ 1 ]; do
 
-		read -p "Enter your selection: " answer
+			printf "\n%s\n\n" "Would you like your birthday file in a split-screen with a shell? y/n"
 
-		case "$answer" in
-			y)
-			screen -c /home/"$USER"/.screenrc.birthdays_split	
-			;;
-			n)
-			vim /home/"$USER"/info/Events_2023_08_27_15_08_10.ics
-			;;
-			*)
-			printf "\n\n%s\n\n" "Not a valid selection."
-			;;
-		esac
+			read -p "Enter your selection: " answer
+
+			case "$answer" in
+				y)
+				screen -c /home/"$USER"/.screenrc.birthdays_split	
+				break
+				;;
+				n)
+				vim /home/"$USER"/info/Events_2023_08_27_15_08_10.ics
+				break
+				;;
+				*)
+				printf "\n\n%s\n\n" "Not a valid selection."
+				;;
+			esac
+
+		done
 		;;
 		n)
-		printf "\n%s\n\n" "Would you like your notes in a split-screen with a shell? y/n"
+		while [ 1 ]; do
 
-		read -p "Enter your selection: " answer
+			printf "\n%s\n\n" "Would you like your notes in a split-screen with a shell? y/n"
 
-		case "$answer" in
-			y)
-			screen -c /home/"$USER"/.screenrc.notes_split
-			;;
-			n)
-			vim /home/"$USER"/info/notes.txt
-			;;
-			*)
-			printf "\n\n%s\n\n" "Not a valid selection."
-			;;
-		esac
+			read -p "Enter your selection: " answer
+
+			case "$answer" in
+				y)
+				screen -c /home/"$USER"/.screenrc.notes_split
+				break
+				;;
+				n)
+				vim /home/"$USER"/info/notes.txt
+				break
+				;;
+				*)
+				printf "\n\n%s\n\n" "Not a valid selection."
+				;;
+			esac
+
+		done
 		;;
 		mu)
 		screen -c /home/"$USER"/.screenrc.mutt_conf
@@ -1328,44 +1344,55 @@ printf "\n%s" ""
 		#screen -c /home/"$USER"/.screenrc.clock
 		;;
 		r)
-		printf "\n%s\n\n" "Would you like your rss feed in a split-screen with a shell? y/n"
+		while [ 1 ]; do
 
-		read -p "Enter your selection: " answer
+			printf "\n%s\n\n" "Would you like your rss feed in a split-screen with a shell? y/n"
 
-		case "$answer" in
-			y)
-			screen -c /home/"$USER"/.screenrc.rss
-			;;
-			n)
-			cd /home/"$USER"/Videos/
-			newsboat
-			cd /home/"$USER"/
-			;;
-			*)
-			printf "\n\n%s\n\n" "Not a valid selection."
-			;;
-		esac
+			read -p "Enter your selection: " answer
+
+			case "$answer" in
+				y)
+				screen -c /home/"$USER"/.screenrc.rss
+				break
+				;;
+				n)
+				cd /home/"$USER"/Videos/
+				newsboat
+				cd /home/"$USER"/
+				break
+				;;
+				*)
+				printf "\n\n%s\n\n" "Not a valid selection."
+				;;
+			esac
+
+		done
 		;;
 		e)
 		mutt
 		;;
 		a)
-		printf "\n%s\n\n" "Would you like your article list in a split-screen with a shell? y/n"
+		while [ 1 ]; do
 
-		read -p "Enter your selection: " answer
+			printf "\n%s\n\n" "Would you like your article list in a split-screen with a shell? y/n"
 
-		case "$answer" in
-			y)
-			screen -c /home/"$USER"/.screenrc.articles 
-			;;
-			n)
-			vim /home/"$USER"/Downloads
-			;;
-			*)
-			printf "\n\n%s\n\n" "Not a valid selection."
-			;;
-		esac
+			read -p "Enter your selection: " answer
 
+			case "$answer" in
+				y)
+				screen -c /home/"$USER"/.screenrc.articles 
+				break
+				;;
+				n)
+				vim /home/"$USER"/Downloads
+				break
+				;;
+				*)
+				printf "\n\n%s\n\n" "Not a valid selection."
+				;;
+			esac
+
+		done
 		;;
 		sta)
 		startx
