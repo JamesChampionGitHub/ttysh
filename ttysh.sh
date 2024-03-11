@@ -1409,6 +1409,11 @@ printf "\n%s" ""
 		vid)
 		devourvid
 		;;
+		m)
+		#chosendir=$(find /home/"$USER"/ -type d | fzf)
+		#screen -c /home/"$USER"/.screenrc.cd
+		printf "\n\n%s\n\n" "Currently testing this feature. Working better as an alias in your bashrc"
+		;;
 		fi)
 		vim /home/"$USER"/
 		;;
