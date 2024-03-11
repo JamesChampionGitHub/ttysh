@@ -1412,7 +1412,7 @@ printf "\n%s" ""
 		m)
 		#chosendir=$(find /home/"$USER"/ -type d | fzf)
 		#screen -c /home/"$USER"/.screenrc.cd
-		printf "\n\n%s\n\n" "Currently testing this feature. Working better as an alias in your bashrc"
+		printf "\n\n%b\n\n" 'alias the following in your bashrc for quick directory search and change: $(find /home/"$USER"/ -type d | fzf)'
 		;;
 		fi)
 		vim /home/"$USER"/
