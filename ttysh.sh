@@ -1557,7 +1557,8 @@ printf "\n%s" ""
 		;;
 		tty)
 		clear
-		"$0"
+		refresh="$0"
+		"$refresh"
 		#ttysh
 		#[ "$#" -lt 1 ] && "$0" || ttysh
 		exit
