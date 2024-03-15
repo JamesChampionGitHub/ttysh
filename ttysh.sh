@@ -456,7 +456,7 @@ while [ 1 ]; do
 
 	case "$answer" in
 		s)
-		devour mpv "$(find /home/"$USER"/ -type f | /home/"$USER"/.fzf/bin/fzf -i --prompt "Pick the video you want to watch in the GUI: ")"
+		mpv "$(find /home/"$USER"/ -type f | /home/"$USER"/.fzf/bin/fzf -i --prompt "Pick the video you want to watch in the GUI: ")"
 		;;
 		q)
 		break
@@ -468,7 +468,7 @@ while [ 1 ]; do
 done
 }
 
-# function for fzf video in TTY
+# function for fzf video in TTY & Xorg
 fzfttyvid () {
 
 while [ 1 ]; do
@@ -479,7 +479,7 @@ while [ 1 ]; do
 
 	case "$answer" in
 		s)
-		mpv "$(find /home/"$USER"/ -type f | /home/"$USER"/.fzf/bin/fzf -i --prompt "Pick the video you want to watch in the TTY: ")"
+		[ "$splash" = /dev/pts/ ] && devour mpv "$(find /home/"$USER"/ -type f | /home/"$USER"/.fzf/bin/fzf -i --prompt "Pick the video you want to watch in the terminal GUI: ")" || mpv "$(find /home/"$USER"/ -type f | /home/"$USER"/.fzf/bin/fzf -i --prompt "Pick the video you want to watch fullscreen in the TTY: ")"
 		;;
 		q)
 		break
