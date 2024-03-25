@@ -12,8 +12,9 @@
 x=0
 
 # splash screen variable for tty/pts
-
 splash=$(tty | tr -d '[0-9]')
+#splash=$(tty)
+#splash=$(echo ""${splash%y*}"y")
 
 # ps aux kill xorg
 #xorg=$(ps aux | grep -i xorg | awk '{print }' | sed -n '1p')
