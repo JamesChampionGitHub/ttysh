@@ -1568,7 +1568,7 @@ printf "\n%s" ""
 		printf "\n%s" ""
 		sudo pacman -Syu
 		printf "\n%s" ""
-		yay -Syu
+		yay -Sua
 		printf "\n%s\n" "You should now exit TTYSH and reboot your system to complete any new updates."
 		;;	
 		fo)
