@@ -27,7 +27,7 @@ splash=$(tty | tr -d '[0-9]')
 # function for help using eof
 eofhelp () {
 
-cat | less << EOF
+less << EOF
 
 HELP: j and k to go down and up. q to return to menu.
 
