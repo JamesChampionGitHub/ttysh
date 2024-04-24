@@ -24,6 +24,176 @@ splash=$(tty | tr -d '[0-9]')
 # FUNCTIONS
 # 
 
+# function for help using eof
+eofhelp () {
+
+cat | less << EOF
+
+HELP: j and k to go down and up. q to return to menu.
+
+Key: () denote shortcut keys, e.g. (b) means pressing the b key in the selector will load the (b)irthdays selection.
+
+
+		Pinned/
+
+			(b)irthdays/split/ (n)otes/todos/split/ (d)ate & calender/
+
+			(r)rs/ (e)mail/ (ly)nx with image viewer for saved/ (sta)rtx/ (l)ist videos/ (vid)eos/
+			
+			(v)im proj/ (vn)m proj notes/
+
+		Internet/
+
+			select a (bo)okmark for web browsing/
+
+			format (boo)kmarks/
+
+			(we)b search/
+
+			(ly)nx with image viewer for saved/
+
+			(bro)wsh web browser/
+
+			(brow)sh configuration in xorg/
+
+			(lib)rewolf in xorg/ 
+
+			p(i)ng jameschampion.xyz/
+
+		Email/
+
+			(e)mail/
+
+			(mu)tt email configuation/
+
+		Search/
+
+			(fi)le manager/
+
+			search & play video in (t)ty/or (se)earch & play in gui/
+
+			(fz)f search files to open in Vim/
+
+			search files and (del)ete/
+			
+			NOTE: the above command will only work effectively on properly named files. Try the command below:
+
+			remove (wh)ite spaces from file names/
+
+			search images and (pdf)s/
+
+			(a)rticles/
+
+		Music/
+
+			(cm)us/
+
+			cmus-control: (ne)xt/ (pr)evious/ (p)ause/ (f)orward/ (st)atus/ (pi)ck a song
+
+			alsa (au)to setting/
+
+			(al)samixer/
+
+			(mus)ic search on yt-dlp/
+
+		Video/
+
+			play your (vid)eos/
+
+			(l)ist videos/
+
+			video search on (yt)-dlp/
+
+		Record/
+
+			(sc)reenshot(1,2,3,4,5,6) TTY/
+
+			(re)cord your TTY/s/
+
+		Wordprocessing/
+
+			(wr)iter/
+
+		Calc/Spreadsheet/
+
+			(sp)readsheet/
+
+			(ca)lculator/
+
+		Accessories/
+
+			(b)irthdays/split/ 
+
+			(n)otes/todos/split/ 
+
+			(d)ate & calender/
+
+		Backup/
+
+			stop! first run as sudo su!: (di)sk formatting and setting up removable media/
+
+			*NOTE: RUN THE ABOVE ON REMOVABLE MEDIA BEFORE MAKING YOUR BACKUPS.
+
+	 		stop! first run as sudo su!: (ba)ckup /home/$SUDO_USER/ to removable drive/
+
+			stop! first run sudo su!: (ti)meshift backup to removable drive/
+
+			stop! first run sudo su!: (de)lete timeshift backups from removable drive/
+
+		TTY/
+				
+			(scro)llback information for TTY/
+
+			change (v)t (1,2,3,4,5,6) TTY/
+
+			choose ch(vt) TTY/
+
+			*NOTE: cannot use this selection in screen split. Use alt+number or alt+arrow key instead
+
+		Screen splits/
+
+			(scr)een four panel split/
+
+			(scre)en horizontal split/
+
+			(scree)n vertical split/
+
+		Close Xorg/
+
+			close (x)org and return to TTY/
+
+		System/Utilities/
+
+			(fo)nt and text change/
+
+			(u)pdate the system/
+
+			(ht)op/
+
+			(fr)ee disk space/
+
+			(c)lock/
+
+			(lo)ck console/
+
+			*NOTE: if you are in xorg/i3, press Ctrl + Alt + and an F key to return to the TTY
+			       before you lock the console.
+
+			(res)tart/
+
+			(sh)utdown/
+
+		Rerun/Help/Quit/
+
+			rerun (tty)sh/
+
+			(h)elp/
+
+			(q)uit/
+
+EOF
+}
+
 # $1 arguments selection list
 helpflags () {
 
@@ -33,7 +203,7 @@ helpflags () {
 
 #clear
 
-options=$(printf "\n%s\n" "ttyshhelp fzfcmus websearch bookmarkcheck fzfxorgvid fzfttyvid fzfvim fzfpdf yt ytmusic weather planner" |
+options=$(printf "\n%s\n" "eofhelp fzfcmus websearch bookmarkcheck fzfxorgvid fzfttyvid fzfvim fzfpdf yt ytmusic weather planner" |
        	tr ' ' '\n' |
        	/home/"$USER"/.fzf/bin/fzf -i --prompt "Pick the option that you would like: ")
 
@@ -1584,7 +1754,8 @@ printf "\n%s" ""
 		exit
 		;;
 		h)
-		ttyshhelp
+		eofhelp
+		#ttyshhelp
 		;;
 		q)
 		printf "\n%s" ""
@@ -1663,7 +1834,8 @@ while [ 1 ]; do
 		break
 		;;
 		h)
-		ttyshhelp
+		eofhelp
+		#ttyshhelp
 		;;
 		config)
 		wizardttysh
