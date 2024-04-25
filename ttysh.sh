@@ -166,6 +166,8 @@ Key: () denote shortcut keys, e.g. (b) means pressing the b key in the selector 
 
 			(fo)nt and text change/
 
+			set temporary (fon)t/
+
 			(u)pdate the system/
 
 			(ht)op/
@@ -1746,6 +1748,9 @@ printf "\n%s" ""
 		fo)
 		sudo screen -c /home/"$USER"/.screenrc.font_conf
 		printf "\n%b\n" "You should reboot your system to see any changes that you have made."
+		;;
+		fon)
+		setfont "$(ls /usr/share/kbd/consolefonts | /home/"$USER"/.fzf/bin/fzf -i --prompt "Pick a font, or select nothing to return to original terminal font: ")"
 		;;
 		res)
 		sudo reboot
