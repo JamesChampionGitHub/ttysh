@@ -8,11 +8,16 @@
 # VARIABLES
 #
 
+# red warning colour
+warncolour='\033[31;1m'
+warncolourend='\033[0m'
+
+
 # variable for while loop
 x=0
 
 # splash screen variable for tty/pts
-splash=$(tty | tr -d '[0-9]')
+splash=$(tty | tr -d '[0-9]') 
 #splash=$(tty)
 #splash=$(echo ""${splash%y*}"y")
 
@@ -36,9 +41,9 @@ Key: () denote shortcut keys, e.g. (b) means pressing the b key in the selector 
 
 		Pinned/
 
-			(b)irthdays/split/ (n)otes/todos/split/ (d)ate & calender/
+			calender (sch)edule/ (n)otes/todos/split/ (d)ate & calender/
 
-			(r)rs/ (e)mail/ (ly)nx with image viewer for saved/ (sta)rtx/ (l)ist videos/ (vid)eos/
+			(r)rs/ (e)mail/ (ly)nx with image viewer for saved/ (s)tartx/ (l)ist videos/ (vid)eos/
 			
 			(v)im proj/ (vn)m proj notes/
 
@@ -86,11 +91,19 @@ Key: () denote shortcut keys, e.g. (b) means pressing the b key in the selector 
 
 		Music/
 
-			(cm)us/
+			(cm)us without screen/
+
+			(cmu)s with screen/
+
+			reattach (cmus) screen session/
 
 			cmus-control: (ne)xt/ (pr)evious/ (p)ause/ (f)orward/ (st)atus/ (pi)ck a song
 
 			alsa (au)to setting/
+
+			(inc)rease volume/
+
+			(low)er volume/
 
 			(al)samixer/
 
@@ -122,7 +135,7 @@ Key: () denote shortcut keys, e.g. (b) means pressing the b key in the selector 
 
 		Accessories/
 
-			(b)irthdays/split/ 
+			calender (sch)edule/ 
 
 			(n)otes/todos/split/ 
 
@@ -158,7 +171,11 @@ Key: () denote shortcut keys, e.g. (b) means pressing the b key in the selector 
 
 			(scree)n vertical split/
 
-		Close Xorg/
+		Xorg/Wayland/
+
+			(s)tartx/
+
+			(sw)ay window manager/
 
 			close (x)org and return to TTY/
 
@@ -168,6 +185,12 @@ Key: () denote shortcut keys, e.g. (b) means pressing the b key in the selector 
 
 			set temporary (fon)t/
 
+			(net)work manager/
+
+			network manager (dev)ices/
+
+			(fan) control/
+
 			(u)pdate the system/
 
 			(ht)op/
@@ -175,6 +198,8 @@ Key: () denote shortcut keys, e.g. (b) means pressing the b key in the selector 
 			(fr)ee disk space/
 
 			(c)lock/
+
+			(sto)pwatch/
 
 			(lo)ck console/
 
@@ -215,17 +240,13 @@ options=$(printf "\n%s\n" "eofhelp fzfcmus websearch bookmarkcheck fzfxorgvid fz
 # sudo user check
 sudocheck () {
 
-warncolour='\033[31;1m'
-
-warncolourend='\033[0m'
-
-[ ! "$SUDO_USER" ] && printf "\n"$warncolour"%s"$warncolourend"\n\n" "Run as sudo su first! Exiting..." && exit || printf "\n%s\n\n%s\n\n" "Checking you are running as sudo user..." "Continuing..."
+[ ! "$SUDO_USER" ] && printf "\n"$warncolour"%s"$warncolourend"\n\n" "Run as sudo su first! Exiting..." && exit 1 || printf "\n%s\n\n%s\n\n" "Checking you are running as sudo user..." "Continuing..."
 }
 
 # /dev/mapper/drive check for timeshift
 mappercheck () {
 
-[ ! -h /dev/mapper/timeshiftbackup ] && printf "\n\n%s\n\n" "cryptsetup has failed to open /dev/mapper/timeshiftbackup from /dev/"$tdevname" . Make sure you are entering the correct password, or check your devices and mountpoints. Running lsblk and exiting..." && lsblk && exit || printf "\n\n%s\n\n" "dev/mapper/timeshiftbackup found. Continuing..." 
+[ ! -h /dev/mapper/timeshiftbackup ] && printf "\n\n%s\n\n" "cryptsetup has failed to open /dev/mapper/timeshiftbackup from /dev/"$tdevname" . Make sure you are entering the correct password, or check your devices and mountpoints. Running lsblk and exiting..." && lsblk && exit 1 || printf "\n\n%s\n\n" "dev/mapper/timeshiftbackup found. Continuing..." 
 }
 
 # cmus daemon question
@@ -240,7 +261,7 @@ while [ 1 ]; do
 	case "$cmusanswer" in
 		y)
 		printf "\n%s\n\n" "Run cmus from the command line to run the daemon before starting TTYSH again."
-		exit
+		exit 0
 		#cmus
 		#break
 		;;
@@ -486,7 +507,7 @@ printf "\n%s\n" "TTYSH Wizard has finished. Please exit out of TTYSH and reboot 
 # pick music track to play in cmus remotely
 fzfcmus () {
 
-cmuscheck
+#cmuscheck
 
 cmuspicker=$(find /home/"$USER"/Music/starred/ -type f | /home/"$USER"/.fzf/bin/fzf -i --prompt "Pick the music track you want to play in cmus: ") 
 
@@ -506,7 +527,7 @@ casefzfbookmark () {
 
 while [ 1 ]; do
 
-	printf "\n%s\n\n" "Pick f for firefox or l for librewolf:"
+	printf "\n%s\n\n" "Pick f for firefox, l for librewolf, or q to quit:"
 
 	read -p "Enter your selection: " xbrowser
 
@@ -517,6 +538,9 @@ while [ 1 ]; do
 		;;
 		l)
 		devour librewolf "$bookmark"
+		break
+		;;
+		q)
 		break
 		;;
 		*)
@@ -576,7 +600,7 @@ formathtml=$(find /home/"$USER"/ -name '*.html' | /home/"$USER"/.fzf/bin/fzf -i 
 
 #sed 's/\ /\n/g' "$formathtml" | sed -n '/https\|https/p' | sed 's/^HREF="//g;s/ICON_URI="//g;s/^LAST_MODIFIED="//g;s/[0-9]//g;s/">//g;s/^fake-icon-uri//g;s/"$//g'
 
-sed 's/\ /\n/g' "$formathtml" | grep "https\?" | cut -d '"' -f2 | grep "https\?" | grep -v "^fake-favicon-uri" > /home/"$USER"/.bookmarks_ttysh.html
+sed 's/\ /\n/g' "$formathtml" | grep "https\?" | cut -d '"' -f2 | grep "https\?" | grep -v "^fake-favicon-uri" | grep -v ".ico$" > /home/"$USER"/.bookmarks_ttysh.html
 
 printf "\n%s\n" "Your /home/"$USER"/.bookmarks_ttysh.html is now formatted for the 'bo' command"
 }
@@ -586,7 +610,7 @@ casewebsearch () {
 
 while [ 1 ]; do
 
-	printf "\n%s\n\n" "Pick f for firefox or l for librewolf:"
+	printf "\n%s\n\n" "Pick f for firefox, l for librewolf, or q to quit:"
 
 	read -p "Enter your selection: " xbrowser
 
@@ -601,6 +625,9 @@ while [ 1 ]; do
 		printf "\n" ""
 		read -p "Search: " webpick
 		devour librewolf searx.be/search?q="$webpick"
+		break
+		;;
+		q)
 		break
 		;;
 		*)
@@ -620,6 +647,41 @@ printf "\n" ""
 #[ $splash" = /dev/pts/ ] && devour librewolf searx.be/search?q="$webpick" || browsh --startup-url searx.be/search?q="$webpick"
 }
 
+# function for fan speed control
+fanspeed () {
+
+printf "\n%s\n%s\n%s\n%s\n%s\n" "The following options:" "Type auto for auto speed. Recommeneded" "Press 2 for low speed" "Press 4 for medium speed" "Press 7 for max speed"
+
+while [ 1 ]; do
+
+	read -p "Enter your selection: " fanselec	
+
+	case "$fanselec" in
+
+		auto)
+		echo level auto | sudo tee /proc/acpi/ibm/fan
+		cat /proc/acpi/ibm/fan
+		break
+		;;
+		2)
+		echo level 2 | sudo tee /proc/acpi/ibm/fan
+		cat /proc/acpi/ibm/fan
+		break
+		;;
+		4)
+		echo level 4 | sudo tee /proc/acpi/ibm/fan
+		cat /proc/acpi/ibm/fan
+		break
+		;;
+		7)
+		echo level 7 | sudo tee /proc/acpi/ibm/fan
+		cat /proc/acpi/ibm/fan
+		break
+		;;
+	esac
+done
+}
+
 # function for fzf video search in the xorg/GUI
 fzfxorgvid () {
 
@@ -631,7 +693,7 @@ while [ 1 ]; do
 
 	case "$answer" in
 		s)
-		mpv "$(find /home/"$USER"/ -type f | /home/"$USER"/.fzf/bin/fzf -i --prompt "Pick the video you want to watch in the GUI: ")"
+		[ "$splash" = /dev/pts/ ] && mpv "$(find /home/"$USER"/ -type f | /home/"$USER"/.fzf/bin/fzf -i --prompt "Pick the video you want to watch in the GUI: ")" || mpv -vo=drm "$(find /home/"$USER"/ -type f | /home/"$USER"/.fzf/bin/fzf -i --prompt "Pick the video you want to watch in the TTY: ")"
 		;;
 		q)
 		break
@@ -654,7 +716,7 @@ while [ 1 ]; do
 
 	case "$answer" in
 		s)
-		[ "$splash" = /dev/pts/ ] && devour mpv "$(find /home/"$USER"/ -type f | /home/"$USER"/.fzf/bin/fzf -i --prompt "Pick the video you want to watch in the terminal GUI: ")" || mpv "$(find /home/"$USER"/ -type f | /home/"$USER"/.fzf/bin/fzf -i --prompt "Pick the video you want to watch fullscreen in the TTY: ")"
+		[ "$splash" = /dev/pts/ ] && devour mpv "$(find /home/"$USER"/ -type f | /home/"$USER"/.fzf/bin/fzf -i --prompt "Pick the video you want to watch in the terminal GUI: ")" || mpv -vo=drm "$(find /home/"$USER"/ -type f | /home/"$USER"/.fzf/bin/fzf -i --prompt "Pick the video you want to watch fullscreen in the TTY: ")"
 		;;
 		q)
 		break
@@ -722,7 +784,7 @@ while [ 1 ]; do
 
 	case "$answer" in
 		s)
-		sudo jfbview "$(find /home/"$USER"/ -type f | /home/"$USER"/.fzf/bin/fzf -i --prompt "Pick the pdf you want to view. ESC to exit: ")"
+		[ "$splash" = /dev/pts/ ] && devour mupdf "$(find /home/"$USER"/ -type f | /home/"$USER"/.fzf/bin/fzf -i --prompt "Pick the pdf you want to view. ESC to exit: ")" || sudo jfbview "$(find /home/"$USER"/ -type f | /home/"$USER"/.fzf/bin/fzf -i --prompt "Pick the pdf you want to view. ESC to exit: ")"
 		;;
 		q)
 		break		
@@ -801,7 +863,7 @@ yt () {
 
 while [ 1 ]; do
 
-	printf "\n%s\n" "y to enter video creator and video discription. x to download url from xclip. yt to run again. q to quit"
+	printf "\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n" "y to enter video creator and video discription." "a for video that fails choosing y." "x to download url from xclip." "b for video that fails choosing x." "yt to run again." "q to quit"
 
 	read -p "Enter your selection: " answer
 
@@ -814,9 +876,19 @@ while [ 1 ]; do
 		printf "\n%s\n"	""
 		yt-dlp -f 'bv*[height=480]+ba' "ytsearch1:""$video"""
 		;;
+		a)
+		printf "\n%s\n" "Enter the creator and discription: "
+		read video
+		printf "\n%s\n"	""
+		yt-dlp -f 'bv+ba' "ytsearch1:""$video"""
+		;;
 		x)
 		url=$(xclip -o)
 		yt-dlp -f 'bv*[height=480]+ba' "$url"
+		;;
+		b)
+		url="$(xclip -o)"
+		yt-dlp -f 'bv+ba' "$url"
 		;;
 		yt)
 		yt
@@ -867,21 +939,143 @@ while [ 1 ]; do
 done
 }
 
+# rss function
+rssread () {
+
+printf "\n%s\n" "Do you want to run your rss reader? y/n"
+
+while [ 1 ]; do
+
+	read -p "Enter your selection: " rpick
+
+	case "$rpick" in
+		y)
+		rsssplit
+		printf "\n%s\n" "Do you want to run your rss reader again? y/n"
+		;;
+		n)
+		break
+		;;
+		*)
+		printf "\n%s\n\n" "Not a valid selection"
+	esac
+done
+}
+
+# rss split
+rsssplit () {
+
+while [ 1 ]; do
+
+	printf "\n%s\n\n" "Would you like your rss feed in a split-screen with a shell? y/n"
+
+	read -p "Enter your selection: " ranswer
+
+	case "$ranswer" in
+		y)
+		screen -c /home/"$USER"/.screenrc.rss
+		break
+		;;
+		n)
+		cd /home/"$USER"/Videos/
+		newsboat
+		cd /home/"$USER"/
+		break
+		;;
+		*)
+		printf "\n\n%s\n\n" "Not a valid selection."
+		;;
+	esac
+done
+}
+
+# function for creating calender data
+calenderdata () {
+
+printf "\n%s\n" "Set your start date, e.g. 2024-01-01"
+
+read -p "Enter your start date: " startd
+
+printf "\n%s\n" "Set your end date, e.g. 2024-12-31"
+
+read -p "Enter your end date: " endd
+
+printf "\n%s\n" "Running... Please wait..."
+
+d=
+n=0
+
+until [ "$d" = $endd ]; do
+
+	n=$((n+1))
+	d=$(date +%Y-%m-%d --date "$startd + $n day")
+	echo "$d" | tr '-' ' ' | awk '{print $3, $2, $1}' | tr ' ' '-' >> /home/"$USER"/."$(date +%Y)"calenderdata
+done
+}
+
+# function for calender schedule
+calenderschedule () {
+
+[ ! -f /home/jamesc/.*calenderdata ] && printf "\n%s\n" "Set up your calender data: " && calenderdata && echo "Calender made. Fill in your calender at /home/"$USER"/.*calenderdata and run this selection again" ||
+
+printf "\n%s\n\n" "Your Calender Schedule For Today: "
+
+grep -C 15 ""^$(date +%d-%m-%Y)"" /home/"$USER"/.*calenderdata | less
+
+printf "\n%s\n" "Do you want to edit your calender? y/n"
+
+while [ 1 ]; do
+
+	read -p "Enter your selection: " cpick
+
+	case "$cpick" in
+		y)
+		vim /home/"$USER"/.*calenderdata
+		grep -C 15 ""^$(date +%d-%m-%Y)"" /home/"$USER"/.*calenderdata | less
+		printf "\n%s\n" "Do you want to edit your calender again? y/n"
+		;;
+		n)
+		break
+		;;
+		*)
+		printf "\n%s\n\n" "Not a valid selection"
+	esac
+done
+}
+
 # function for searching weather in wttr.in
 weather () {
 
-printf "\n%s\n" "Enter your city or town to see the weather forecast: "
+while [ 1 ]; do
 
-read answer
+	printf "\n%s\n" "Do you want to update the weather data file? y/n"
 
-curl wttr.in/"$answer"
-#wget -qO- wttr.in/"$answer"
+	read -p "Enter your selection: " wanswer
+
+	case "$wanswer" in
+		y)	
+		printf "\n%s\n" "Enter your city or town to see the weather forecast: "
+		read wwanswer
+		curl wttr.in/"$wwanswer"?T --output /home/"$USER"/.weatherdata
+		cat /home/"$USER"/.weatherdata
+		#wget -qO- wttr.in/"$answer"
+		break
+		;;
+		n)
+		cat /home/"$USER"/.weatherdata
+		break
+		;;
+		*)
+		printf "\n%s\n" "Not a valid selection."
+		;;
+	esac
+done
 }
 
 # function for devour vid in xorg
 devourvid () {
 
-[ "$splash" = /dev/pts/ ] && devour mpv /home/"$USER"/Videos/* || mpv /home/"$USER"/Videos/*
+[ "$splash" = /dev/pts/ ] && devour mpv /home/"$USER"/Videos/* || mpv -vo=drm /home/"$USER"/Videos/*
 
 #if [ "$splash" = /dev/pts/ ]; then
 #	devour mpv /home/"$USER"/Videos/*
@@ -898,7 +1092,7 @@ sudocheck
 
 while [ 1 ]; do
 
-	printf "\n"$warncolour"%s"$warncolourend"\n" "Stop! Have you run sudo su? y/n"
+	printf "\n"$warncolour"%s"$warncolourend"\n" "Stop! Have you run sudo su? Are you running on A/C power? y/n"
 
 	read -p "Enter your selection: " answer
 
@@ -907,7 +1101,7 @@ while [ 1 ]; do
 		break
 		;;
 		n)
-		exit
+		exit 0
 		;;
 		*)
 		printf "\n%s\n" "Not a valid selection."
@@ -936,7 +1130,7 @@ while [ 1 ]; do
 		break
 		;;
 		n)
-		exit
+		exit 0
 		;;
 		*)
 		printf "\n%s\n" "Not a valid selection."
@@ -993,7 +1187,7 @@ while [ 1 ]; do
 		;;
 		n)
 		printf "\n%s\n" "Exiting script. Run again, or consult the developer for further instruction or support"
-		exit
+		exit 1
 		;;
 		*)
 		printf "\n%s\n" "Not a valid selection."
@@ -1046,7 +1240,7 @@ lsblk
 
 #sed -n 32p $SUDO_USER/timebackup.sh
 	
-printf "\n"$warncolour"%s"$warncolourend"\n" "Stop! Have you run sudo su? Is /dev/"$tdevname" location correct? y/n"
+printf "\n"$warncolour"%s"$warncolourend"\n" "Stop! Have you run sudo su? Is /dev/"$tdevname" location correct? Are you running on A/C power? y/n"
 
 read -p "Enter your selection: " answer
 
@@ -1058,7 +1252,7 @@ case "$answer" in
 	timeshift --create --snapshot-device /dev/mapper/"$tencryptedname"
 	;;
 	n)
-	exit
+	exit 1
 	;;
 	*)
 	printf "\n%s\n" "Not a valid selection."
@@ -1087,7 +1281,7 @@ while [ 1 ]; do
 		cryptsetup close "$tencryptedname"
 		lsblk
 		printf "\n%s\n" "Your storage should be correct. Finished."
-		exit
+		exit 0
 		;;
 		n)
 		printf "\n%s\n" "Complete. Closing..."
@@ -1095,7 +1289,7 @@ while [ 1 ]; do
 		cryptsetup close "$tencryptedname"
 		lsblk
 		printf "\n%s\n" "Your storage should be correct. Finished."
-		exit
+		exit 0
 		;;
 		*)
 		printf "\n%s\n" "Not a valid selection."
@@ -1115,7 +1309,7 @@ lsblk
 
 while [ 1 ]; do
 
-	printf "\n"$warncolour"%s"$warncolourend"\n" "Stop! Have you run sudo su? Is /dev/"$tdevname" location correct? y/n"
+	printf "\n"$warncolour"%s"$warncolourend"\n" "Stop! Have you run sudo su? Is /dev/"$tdevname" location correct? Are you running A/C power? y/n"
 
 	read -p "Enter your selection: " answer
 
@@ -1127,7 +1321,7 @@ while [ 1 ]; do
 		break
 		;;
 		n)
-		exit
+		exit 1
 		;;
 		*)
 		printf "\n%s\n" "Not a valid selection."
@@ -1179,7 +1373,7 @@ lstdevname=$(ls /dev/disk/by-uuid -l | grep "$tuuid")
 
 printf "\n%s\n" "Looking for "$tdrive"..."
 
-[ "$lstdevname" ] && printf "\n%s\n" ""$tdrive" has been found. Starting..." && tdrivecheck && timeshift --list | less && timedelete || printf "\n%s\n\n" "Cannot find "$tuuid". Check you are run as sudo su. Check that you have connected your drive. Exiting..." && lsblk && printf "\n%s" "" && exit
+[ "$lstdevname" ] && printf "\n%s\n" ""$tdrive" has been found. Starting..." && tdrivecheck && timeshift --list | less && timedelete || printf "\n%s\n\n" "Cannot find "$tuuid". Check you are run as sudo su. Check that you have connected your drive. Exiting..." && lsblk && printf "\n%s" "" && exit 1
 
 #if [ "$lstdevname" ]; then
 #
@@ -1221,7 +1415,7 @@ lstdevname=$(ls /dev/disk/by-uuid -l | grep "$tuuid")
 
 printf "\n%s\n" "Looking for "$tdrive"..."
 
-[ "$lstdevname" ] && printf "\n%s\n" ""$tdrive" has been found. Starting..." && starttimeshift && closetimeshift || printf "\n%s\n\n" "Cannot find "$tuuid". Check you are run as sudo su. Check that you have connected your drive. Exiting..." && lsblk && printf "\n%s" "" && exit
+[ "$lstdevname" ] && printf "\n%s\n" ""$tdrive" has been found. Starting..." && starttimeshift && closetimeshift || printf "\n%s\n\n" "Cannot find "$tuuid". Check you are run as sudo su. Check that you have connected your drive. Exiting..." && lsblk && printf "\n%s" "" && exit 1
 
 #if [ "$lstdevname" ]; then
 #
@@ -1266,7 +1460,7 @@ if [ "$lsbdevname" ]; then
 
 while [ 1 ]; do
 
-	printf "\n"$warncolour"%s"$warncolourend"\n" "Stop! Have you run sudo su first? Have you saved your latest bookmarks? Is /dev/"$bdevname" correct? y/n" 
+	printf "\n"$warncolour"%s"$warncolourend"\n" "Stop! Have you run sudo su first? Have you saved your latest bookmarks? Is /dev/"$bdevname" correct? Are you running on A/C power? y/n" 
 
 	read -p "Enter your selection: " answer
 
@@ -1275,7 +1469,7 @@ while [ 1 ]; do
 		printf "\n%s\n" "Continuing..."
 		cryptsetup open /dev/"$bdevname" drive
 		# enter password
-		[ ! -h /dev/mapper/drive ] && printf "\n\n%s\n\n" "cryptsetup has failed to open /dev/mapper/drive from /dev/"$bdevname" . Make sure you are entering the correct password, or check your devices and mountpoints. Running lsblk and exiting..." && lsblk && exit || printf "\n\n%s\n\n" "dev/mapper/drive found. Continuing..." 
+		[ ! -h /dev/mapper/drive ] && printf "\n\n%s\n\n" "cryptsetup has failed to open /dev/mapper/drive from /dev/"$bdevname" . Make sure you are entering the correct password, or check your devices and mountpoints. Running lsblk and exiting..." && lsblk && exit 1 || printf "\n\n%s\n\n" "dev/mapper/drive found. Continuing..." 
 		mount /dev/mapper/drive /mnt
 		rsync -av /home/"$SUDO_USER"/ /mnt --delete
 		sync
@@ -1284,10 +1478,10 @@ while [ 1 ]; do
 		printf "\n%s\n" "Complete. Closing..."
 		lsblk
 		printf "\n%s\n" "Your storage should be correct. Finished."
-		exit
+		exit 0
 		;;
 		n)
-		exit
+		exit 1
 		;;
 		*)
 		printf "\n%s\n" "Not a valid selection."
@@ -1305,7 +1499,7 @@ else
 
 	#sed -n 31p $SUDO_USER/backup.sh
 	
-	exit
+	exit 1
 
 fi
 }
@@ -1313,7 +1507,7 @@ fi
 # date
 planner () {
 
-cmuscheck
+#cmuscheck
 
 printf "\n%s\n\n" "Start/Choose some music?"
 
@@ -1323,7 +1517,8 @@ while [ 1 ]; do
 
 	case "$cmuspick" in
 		y)
-		screen -q -r cmus
+		#screen -q -r cmus
+		screen -r
 		#cmus
 		#fzfcmus
 		break
@@ -1338,25 +1533,73 @@ while [ 1 ]; do
 done
 
 printf "\n%s\n\n" "The time and date is:"
+
 date
 
 # calender
 printf "\n%s\n\n" "This month's calender:"
+
 cal
+
 printf "\n%s\n" "press q when ready..." | less
+
+calenderschedule
 
 # cat out notes/todo
 printf "\n%s\n" ""
+
 less /home/"$USER"/info/notes.txt 
+
+printf "\n%s\n" "Do you want to edit your notes? y/n"
+
+while [ 1 ]; do
+
+	read -p "Enter your selection: " npick
+
+	case "$npick" in
+		y)
+		vim /home/"$USER"/info/notes.txt
+		less /home/"$USER"/info/notes.txt 
+		printf "\n%s\n" "Do you want to edit your notes again? y/n"
+		;;
+		n)
+		break
+		;;
+		*)
+		printf "\n%s\n\n" "Not a valid selection"
+	esac
+done
+
+# weather function
+weather
+
+# rss
+rssread
+
+printf "\n%s\n" "Do you want to start i3 Window Manager with email and the web browser for additional email, additional notes, banking, news, etc...? y/n"
+
+while [ 1 ]; do
+
+	read -p "Enter your selection: " panswer
+	
+	case "$panswer" in
+		y)
+		# i3 configured to open bookmark selector for web browser and email in seperate windows
+		startx
+		break
+		;;
+		n)
+		break
+		;;
+		*)
+		printf "\n%s\n" "Not a valid selection."
+		;;
+	esac
+done
+
 printf "\n%s\n" ""
 
-# i3 configured to open bookmark selector for web browser and email in seperate windows
-startx
-
-#clear
-
-printf "\n%s\n" ""
-
+# go everything selection
 selection
 }
 
@@ -1371,40 +1614,53 @@ printf "\n%s" ""
 
 	case "$answer" in
 		cm)
-		cmuscheck
+		cmus
+		;;
+		cmu)
+		#cmuscheck
 		#cmus
-		screen -q -r cmus
+		#screen -q -r cmus
+		screen cmus 
 		#screen -D -R cmus
 		;;
+		cmus)
+		screen -r
+		;;
 		ne)
-		cmuscheck
+		#cmuscheck
 		cmus-remote -n
 		cmus-remote -Q
 		printf "\n%s\n\n" "The next track is playing."
 		;;
 		pr)
-		cmuscheck
+		#cmuscheck
 		cmus-remote -r
 		cmus-remote -Q
 		printf "\n%s\n\n" "The previous track is playing."
 		;;
 		p)
-		cmuscheck
+		#cmuscheck
 		cmus-remote -u
 		cmus-remote -Q
 		printf "\n%s\n\n" "Paused/Playing."
 		;;
 		f)
-		cmuscheck
+		#cmuscheck
 		cmus-remote -k +5
 		printf "\n%s\n\n" "Forwarding..."
 		;;
 		st)
-		cmuscheck
+		#cmuscheck
 		cmus-remote -Q | less
 		;;
 		au)
 		printf "\n%s" ""; amixer -c 0 -- sset Master unmute; amixer -c 0 -- sset Master playback -10dB
+		;;
+		inc)
+		printf "\n%s" ""; amixer sset Master playback 5%+
+		;;
+		low)
+		printf "\n%s" ""; amixer sset Master playback 5%-
 		;;
 		al)
 		alsamixer
@@ -1468,28 +1724,31 @@ printf "\n%s" ""
 		i)
 		ping jameschampion.xyz
 		;;
-		b)
-		while [ 1 ]; do
+		sch)
+		calenderschedule
+		vim /home/"$USER"/.*calenderdata
+		#
+		#while [ 1 ]; do
 
-			printf "\n%s\n\n" "Would you like your birthday file in a split-screen with a shell? y/n"
+		#	printf "\n%s\n\n" "Would you like your birthday file in a split-screen with a shell? y/n"
 
-			read -p "Enter your selection: " answer
+		#	read -p "Enter your selection: " answer
 
-			case "$answer" in
-				y)
-				screen -c /home/"$USER"/.screenrc.birthdays_split	
-				break
-				;;
-				n)
-				vim /home/"$USER"/info/Events_2023_08_27_15_08_10.ics
-				break
-				;;
-				*)
-				printf "\n\n%s\n\n" "Not a valid selection."
-				;;
-			esac
+		#	case "$answer" in
+		#		y)
+		#		screen -c /home/"$USER"/.screenrc.birthdays_split	
+		#		break
+		#		;;
+		#		n)
+		#		vim /home/"$USER"/info/Events_2023_08_27_15_08_10.ics
+		#		break
+		#		;;
+		#		*)
+		#		printf "\n\n%s\n\n" "Not a valid selection."
+		#		;;
+		#	esac
 
-		done
+		#done
 		;;
 		n)
 		while [ 1 ]; do
@@ -1518,7 +1777,7 @@ printf "\n%s" ""
 		screen -c /home/"$USER"/.screenrc.mutt_conf
 		;;
 		d)
-		cal; date; printf "\n%s\n" "q to return to planner" | less
+		cal; date; printf "\n%s\n" "q to return" | less
 		;;
 		c)
 		printf "\n%s\n\n" "Ctr and C to quit"
@@ -1533,30 +1792,23 @@ printf "\n%s" ""
 		#watch -td -n 1 date
 		#screen -c /home/"$USER"/.screenrc.clock
 		;;
-		r)
+		sto)
+		before=$(date +%s)
+
+		printf "\n\n"
+
 		while [ 1 ]; do
 
-			printf "\n%s\n\n" "Would you like your rss feed in a split-screen with a shell? y/n"
-
-			read -p "Enter your selection: " answer
-
-			case "$answer" in
-				y)
-				screen -c /home/"$USER"/.screenrc.rss
-				break
-				;;
-				n)
-				cd /home/"$USER"/Videos/
-				newsboat
-				cd /home/"$USER"/
-				break
-				;;
-				*)
-				printf "\n\n%s\n\n" "Not a valid selection."
-				;;
-			esac
-
+        		minutes=$(($(date +%s)-$before))
+        		printf "\033[A"
+        		echo "Seconds: $(($(date +%s)-$before)) - Minutes: $(($minutes/60)) - Hours: $(($minutes/3600))"
+        		#echo "$seconds"
+        		#date -u -d "1970-01-01 $end 10 - $start 0" +"%T"
+        		sleep 1
 		done
+		;;
+		r)
+		rsssplit
 		;;
 		e)
 		mutt
@@ -1586,6 +1838,9 @@ printf "\n%s" ""
 		;;
 		s)
 		startx
+		;;
+		sw)
+		sway
 		;;
 		l)
 		screen -c /home/"$USER"/.screenrc.videos 
@@ -1676,7 +1931,7 @@ printf "\n%s" ""
 		vim
 		;;
 		ca)
-		bc
+		bc -l
 		;;
 		sp)
 		sc-im
@@ -1736,7 +1991,6 @@ printf "\n%s" ""
 				printf "\n\n%s\n\n" "Not a valid selection."
 				;;
 			esac
-
 		done
 		;;
 		tty)
@@ -1745,14 +1999,96 @@ printf "\n%s" ""
 		"$refresh"
 		#ttysh
 		#[ "$#" -lt 1 ] && "$0" || ttysh
-		exit
+		exit 0
+		;;
+		net)
+		nmtui
+		;;
+		dev)
+		printf "\n%s\n%s\n%s\n%s\n%s\n%s\n\n" "Press s to show your NetworkManager devices." "Press d to shutdown a device." "Press u to start up a device."  "Press r to restart a running device." "Press re to restart wireless device and network manager" "Press q to quit."
+
+		while [ 1 ]; do
+
+			read -p "Enter your selection: " nmpick
+
+			case "$nmpick" in
+				s)
+				nmcli connection show
+				;;
+				d)
+				nmcli device disconnect "$(nmcli connection show | awk '{print $4}' | sed '/DEVICE/d; /--/d' | fzf --prompt "Pick a device to disconnect: ")"
+				;;
+				u)	
+				nmcli device connect "$(nmcli device show | grep "GENERAL.DEVICE" | awk '{print $2}' | fzf --prompt "Pick a device to start up: ")"
+				;;	
+				r)
+				resdev="$(nmcli connection show | awk '{print $4}' | sed '/DEVICE/d; /--/d' | fzf --prompt "Pick a running device to restart: ")"
+				nmcli device disconnect "$resdev"
+				nmcli device connect "$resdev"
+				;;
+				re)
+				nmcli radio wifi off
+				nmcli radio wifi on
+				rfkill block wifi
+				rfkill list
+				#killall nm-applet
+				rfkill unblock wifi
+				rfkill list
+				#nm-applet
+				;;
+				q)
+				break
+				;;
+			esac
+		done
+		;;
+		fan)
+		printf "\n%s\n" "Starting up thinkpad_acpi kernel module..."
+
+		sudo modprobe -r thinkpad_acpi && sudo modprobe thinkpad_acpi
+
+		printf "\n%s\n" "Completed"
+
+		printf "\n"$warncolour"%s"$warncolourend"\n" "Changing your fan speed can damage your computer. Would you like to continue? y/n"
+
+		read -p "Enter your selection: " fpick
+
+			case "$fpick" in 
+				y)
+				fanspeed
+				;;
+				n)
+				printf "\n%s\n" "Exiting..."	
+				;;
+				*)
+				;;
+			esac
 		;;
 		u)
-		printf "\n%s" ""
-		sudo pacman -Syu
-		printf "\n%s" ""
-		yay -Sua
-		printf "\n%s\n" "You should now exit TTYSH and reboot your system to complete any new updates."
+		printf "\n"$warncolour"%s"$warncolourend"\n" "Is your device running on A/C, incase of powerloss during updates? y/n or q to quit"
+
+		while [ 1 ]; do
+		
+			read -p "Enter your selection: " upick
+
+			case "$upick" in
+				y)
+				sudo pacman -Syu
+				printf "\n%s" ""
+				yay -Sua
+				printf "\n%s\n" "You should now exit TTYSH and reboot your system to complete any new updates."
+				break
+				;;
+				n)
+				printf "\n%s\n\n%s\n" "Run on A/C power and then run the update selection again" "Is your device running on A/C, incase of powerloss during updates? y/n or q to quit"
+				;;
+				q)
+				break
+				;;
+				*)
+				;;
+			esac
+		done
 		;;	
 		fo)
 		sudo screen -c /home/"$USER"/.screenrc.font_conf
@@ -1763,11 +2099,11 @@ printf "\n%s" ""
 		;;
 		res)
 		sudo reboot
-		exit
+		exit 0
 		;;
 		sh)
 		sudo poweroff
-		exit
+		exit 0
 		;;
 		h)
 		eofhelp
@@ -1775,7 +2111,7 @@ printf "\n%s" ""
 		;;
 		q)
 		printf "\n%s" ""
-		exit
+		exit 0
 		;;	
 		*)
 		printf "\n%s\n" "Not a valid selection."
@@ -1819,7 +2155,7 @@ else
 		wizardttysh
 		;;
 		n)
-		printf "\n%s\n" "exiting"; exit 
+		printf "\n%s\n" "exiting"; exit 0
 		;;
 		*)
 		printf "\n%s\n" "Not a valid selection."
@@ -1861,7 +2197,7 @@ while [ 1 ]; do
 		;;
 		q)
 		printf "\n%s" ""
-		exit
+		exit 0
 		;;
 		*)
 		printf "\n%s\n" "Not a valid selection."
