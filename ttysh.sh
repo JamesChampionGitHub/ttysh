@@ -123,6 +123,8 @@ Key: () denote shortcut keys, e.g. (b) means pressing the b key in the selector 
 
 			(re)cord your TTY/s/
 
+			(rec)ord your X server/
+
 		Wordprocessing/
 
 			(wr)iter/
@@ -1926,6 +1928,9 @@ printf "\n%s" ""
 		;;
 		re)
 		sudo ffmpeg -f fbdev -framerate 60 -i /dev/fb0 ttyrecord.mp4
+		;;
+		rec)
+		ffmpeg -video_size 1280x800 -framerate 60 -f x11grab -i :0 output.mp4
 		;;
 		wr)
 		vim
