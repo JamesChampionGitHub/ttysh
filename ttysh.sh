@@ -181,6 +181,8 @@ Key: () denote shortcut keys, e.g. (b) means pressing the b key in the selector 
 
 			close (x)org and return to TTY/
 
+			(cap)s lock as left mouse clock on X11/
+
 		System/Utilities/
 
 			(fo)nt and text change/
@@ -1904,6 +1906,9 @@ printf "\n%s" ""
 		;;
 		x)
 		pkill "Xorg"
+		;;
+		cap)
+		xkbset m; xmodmap -e "keycode 108 = Pointer_Button1"
 		;;
 		lo)
 		vlock -a
