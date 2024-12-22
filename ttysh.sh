@@ -654,7 +654,7 @@ printf "\n" ""
 # function for fan speed control
 fanspeed () {
 
-printf "\n%s\n%s\n%s\n%s\n%s\n" "The following options:" "Type auto for auto speed. Recommeneded" "Press 2 for low speed" "Press 4 for medium speed" "Press 7 for max speed"
+printf "\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n\n" "The following options:" "s for current fan speed" "Type auto for auto speed. Recommeneded" "1-7 for speeds" "e.g. Press 2 for low speed" "Press 4 for medium speed" "Press 7 for max speed" "q to quit"
 
 while [ 1 ]; do
 
@@ -662,24 +662,42 @@ while [ 1 ]; do
 
 	case "$fanselec" in
 
+		s)
+		cat /proc/acpi/ibm/fan
+		;;
 		auto)
 		echo level auto | sudo tee /proc/acpi/ibm/fan
 		cat /proc/acpi/ibm/fan
-		break
+		;;
+		1)
+		echo level 1 | sudo tee /proc/acpi/ibm/fan
+		cat /proc/acpi/ibm/fan
 		;;
 		2)
 		echo level 2 | sudo tee /proc/acpi/ibm/fan
 		cat /proc/acpi/ibm/fan
-		break
+		;;
+		3)
+		echo level 3 | sudo tee /proc/acpi/ibm/fan
+		cat /proc/acpi/ibm/fan
 		;;
 		4)
 		echo level 4 | sudo tee /proc/acpi/ibm/fan
 		cat /proc/acpi/ibm/fan
-		break
+		;;
+		5)
+		echo level 5 | sudo tee /proc/acpi/ibm/fan
+		cat /proc/acpi/ibm/fan
+		;;
+		6)
+		echo level 6 | sudo tee /proc/acpi/ibm/fan
+		cat /proc/acpi/ibm/fan
 		;;
 		7)
 		echo level 7 | sudo tee /proc/acpi/ibm/fan
 		cat /proc/acpi/ibm/fan
+		;;
+		q)
 		break
 		;;
 	esac
