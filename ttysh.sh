@@ -698,6 +698,14 @@ while [ 1 ]; do
 		cat /proc/acpi/ibm/fan
 		;;
 		q)
+		nmcli radio wifi off
+		nmcli radio wifi on
+		rfkill block wifi
+		rfkill list
+		#killall nm-applet
+		rfkill unblock wifi
+		rfkill list
+		#nm-applet
 		break
 		;;
 	esac
