@@ -1810,15 +1810,16 @@ printf "\n%s" ""
 		cal; date; printf "\n%s\n" "q to return" | less
 		;;
 		c)
-		printf "\n%s\n\n" "Ctr and C to quit"
+		screen -c /home/"$USER"/.screenrc.clockworking
+		#printf "\n%s\n\n" "Ctr and C to quit"
 
-		while [ 1 ]; do
+		#while [ 1 ]; do
 
-			date
-			printf "\033[A"
-			sleep 1
+		#	date
+		#	printf "\033[A"
+		#	sleep 1
 
-		done
+		#done
 		#watch -td -n 1 date
 		#screen -c /home/"$USER"/.screenrc.clock
 		;;
